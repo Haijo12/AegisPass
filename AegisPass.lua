@@ -10,15 +10,14 @@ local AegisPass = {}
 -- ═══════════════════════════════════════════════════════════════
 
 local WHITELIST = {
-    -- Replace 123456789 with YOUR Roblox UserId
-    [123456789] = {
-        Tier = "lifetime",      -- "freemium", "premium", "lifetime", "dev"
-        ExpiresAt = nil,        -- nil = never expires, or use unix timestamp
+    -- YOUR UserId: 11369517300
+    [11369517300] = {
+        Tier = "lifetime",
+        ExpiresAt = nil,
         Note = "Owner",
     },
 }
 
--- Allowed PlaceIds (empty = all games allowed)
 local ALLOWED_GAMES = {}
 
 -- ═══════════════════════════════════════════════════════════════
@@ -93,20 +92,59 @@ function AegisPass:ShowUI(results)
     local ok, Rayfield = pcall(function() return loadstring(game:HttpGet("https://sirius.menu/gen2"))() end)
     if not ok then warn("[AegisPass] Rayfield failed"); return end
     local tierInfo = self:GetTierInfo(results.Tier or "freemium")
-    local w = Rayfield:CreateWindow({Name=CONFIG.ScriptName, Subtitle="v"..CONFIG.Version, LoadingTitle=CONFIG.ScriptName, LoadingSubtitle="Validating...", Theme="Default", DisableMovement=false, DisableBuildWarnings=true})
-    local tab = w:CreateTab({Name="Access", Icon="shield"})
-    tab:CreateTag({Name="Status", Value=results.CanRun and "AUTHORIZED" or "DENIED", Color=results.CanRun and Color3.fromRGB(0,255,100) or Color3.fromRGB(255,50,50)})
-    tab:CreateDivider()
-    tab:CreateStat({Name="User", Value=results.Username.." ("..results.UserId..")"})
-    tab:CreateStat({Name="Game", Value=results.GameName.." ("..results.PlaceId..")"})
-    tab:CreateDivider()
-    tab:CreateTag({Name="License", Value=tierInfo.Label, Color=tierInfo.Color})
-    if results.TimeRemaining then tab:CreateTag({Name="Time Left", Value=results.TimeRemaining, Color=results.TimeColor}) end
-    tab:CreateDivider()
-    tab:CreateStat({Name="User Check", Value=results.IsWhitelisted and "PASS" or "FAIL"})
-    tab:CreateStat({Name="Game Check", Value=results.IsGameAllowed and "PASS" or "FAIL"})
-    if results.Entry and results.Entry.Note then tab:CreateStat({Name="Note", Value=results.Entry.Note}) end
-    if not results.CanRun then tab:CreateDivider(); tab:CreateButton({Name="Purchase Access", Callback=function() Rayfield:Notify({Title="AegisPass", Content="Contact the script owner.", Duration=5}) end}) end
+    
+    local w = Rayfield:CreateWindow({
+        Name = CONFIG.ScriptName,
+        Subtitle = "v"..CONFIG.Version,
+        LoadingTitle = CONFIG.ScriptName,
+        LoadingSubtitle = "Validating...",
+        Theme = "Default",
+        DisableMovement = false,
+        DisableBuildWarnings = true,
+    })
+
+    -- TAGS go on WINDOW, not tab
+    w:CreateTag({
+        text = results.CanRun and "AUTHORIZED" or "DENIED",
+        color = results.CanRun and Color3.fromRGB(0,255,100) or Color3.fromRGB(255,50,50),
+        order = 1,
+    })
+
+    w:CreateTag({
+        text = tierInfo.Label,
+        color = tierInfo.Color,
+        order = 2,
+    })
+
+    if results.TimeRemaining then
+        w:CreateTag({
+            text = results.TimeRemaining,
+            color = results.TimeColor,
+            order = 3,
+        })
+    end
+
+    -- TAB for details
+    local tab = w:CreateTab({Name = "Access", Icon = "shield"})
+
+    tab:CreateStat({Name = "User", Value = results.Username.." ("..results.UserId..")"})
+    tab:CreateStat({Name = "Game", Value = results.GameName.." ("..results.PlaceId..")"})
+    tab:CreateStat({Name = "User Check", Value = results.IsWhitelisted and "PASS" or "FAIL"})
+    tab:CreateStat({Name = "Game Check", Value = results.IsGameAllowed and "PASS" or "FAIL"})
+    
+    if results.Entry and results.Entry.Note then
+        tab:CreateStat({Name = "Note", Value = results.Entry.Note})
+    end
+
+    if not results.CanRun then
+        tab:CreateButton({
+            Name = "Purchase Access",
+            Callback = function()
+                Rayfield:Notify({Title = "AegisPass", Content = "Contact the script owner.", Duration = 5})
+            end,
+        })
+    end
+
     return w, Rayfield
 end
 
