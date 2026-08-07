@@ -1,168 +1,35 @@
---[[
-    AEGISPASS - Script Whitelist System
-    github.com/Haijo12/AegisPass
-]]
+--[[ AegisPass.lua - Modular Loader ]]
+local BASE_URL = "https://raw.githubusercontent.com/Haijo12/AegisPass/main/"
+local Config = loadstring(game:HttpGet(BASE_URL .. "Config.lua"))()
+local Icons = loadstring(game:HttpGet(BASE_URL .. "Icons.lua"))()
+local Core = loadstring(game:HttpGet(BASE_URL .. "Core.lua"))()
+local UI = loadstring(game:HttpGet(BASE_URL .. "UI.lua"))()
 
 local AegisPass = {}
 
--- ═══════════════════════════════════════════════════════════════
--- EDIT THIS: Add your UserIds here
--- ═══════════════════════════════════════════════════════════════
-
-local WHITELIST = {
-    -- YOUR UserId: 11369517300
-    [11369517300] = {
-        Tier = "lifetime",
-        ExpiresAt = nil,
-        Note = "Owner",
-    },
-}
-
-local ALLOWED_GAMES = {}
-
--- ═══════════════════════════════════════════════════════════════
--- CONFIG
--- ═══════════════════════════════════════════════════════════════
-
-local CONFIG = {
-    ScriptName = "AegisPass",
-    Version = "1.0.0",
-    EnableUserWhitelist = true,
-    EnableGameWhitelist = false,
-    DenyMessage = "[AegisPass] Access Denied.",
-    ShowUIOnLoad = true,
-}
-
--- ═══════════════════════════════════════════════════════════════
--- SERVICES
--- ═══════════════════════════════════════════════════════════════
-
-local Players = game:GetService("Players")
-local MarketplaceService = game:GetService("MarketplaceService")
-local lp = Players.LocalPlayer
-local PlaceId = game.PlaceId
-
--- ═══════════════════════════════════════════════════════════════
--- CORE
--- ═══════════════════════════════════════════════════════════════
-
-function AegisPass:IsWhitelisted(userId)
-    if not CONFIG.EnableUserWhitelist then return true, {Tier="freemium"} end
-    local entry = WHITELIST[userId]
-    if not entry then return false, nil end
-    if entry.ExpiresAt and os.time() > entry.ExpiresAt then return false, entry end
-    return true, entry
-end
-
-function AegisPass:IsGameAllowed(placeId)
-    if not CONFIG.EnableGameWhitelist then return true end
-    if #ALLOWED_GAMES == 0 then return true end
-    for _, id in ipairs(ALLOWED_GAMES) do if id == placeId then return true end end
-    return false
-end
-
-function AegisPass:GetTimeRemaining(entry)
-    if not entry or not entry.ExpiresAt then return "Unlimited", Color3.fromRGB(0,255,136) end
-    local r = entry.ExpiresAt - os.time()
-    if r <= 0 then return "Expired", Color3.fromRGB(255,50,50) end
-    local d = math.floor(r/86400); r=r%86400
-    local h = math.floor(r/3600); r=r%3600
-    local m = math.floor(r/60)
-    local text = d>0 and string.format("%dd %dh %dm",d,h,m) or h>0 and string.format("%dh %dm",h,m) or string.format("%dm",m)
-    local color = d==0 and h<1 and Color3.fromRGB(255,50,50) or d==0 and Color3.fromRGB(255,150,0) or d<=3 and Color3.fromRGB(255,200,0) or Color3.fromRGB(0,255,136)
-    return text, color
-end
-
-function AegisPass:GetTierInfo(tier)
-    local t = {freemium={Label="Freemium",Color=Color3.fromRGB(150,150,150)},premium={Label="Premium",Color=Color3.fromRGB(255,215,0)},dev={Label="Dev",Color=Color3.fromRGB(0,200,255)},lifetime={Label="Lifetime",Color=Color3.fromRGB(180,100,255)}}
-    return t[tier] or t.freemium
-end
-
-function AegisPass:Validate()
-    local r = {UserId=lp.UserId, Username=lp.Name, PlaceId=PlaceId, GameName="Unknown", IsWhitelisted=false, IsGameAllowed=false, Tier=nil, TimeRemaining=nil, TimeColor=nil, CanRun=false}
-    pcall(function() r.GameName = MarketplaceService:GetProductInfo(PlaceId).Name end)
-    r.IsGameAllowed = self:IsGameAllowed(PlaceId)
-    r.IsWhitelisted, r.Entry = self:IsWhitelisted(lp.UserId)
-    if r.Entry then r.Tier=r.Entry.Tier; r.TimeRemaining, r.TimeColor = self:GetTimeRemaining(r.Entry) end
-    r.CanRun = r.IsWhitelisted and r.IsGameAllowed
-    return r
-end
-
-function AegisPass:ShowUI(results)
-    local ok, Rayfield = pcall(function() return loadstring(game:HttpGet("https://sirius.menu/gen2"))() end)
-    if not ok then warn("[AegisPass] Rayfield failed"); return end
-    local tierInfo = self:GetTierInfo(results.Tier or "freemium")
-    
-    local w = Rayfield:CreateWindow({
-        Name = CONFIG.ScriptName,
-        Subtitle = "v"..CONFIG.Version,
-        LoadingTitle = CONFIG.ScriptName,
-        LoadingSubtitle = "Validating...",
-        Theme = "Default",
-        DisableMovement = false,
-        DisableBuildWarnings = true,
-    })
-
-    -- TAGS go on WINDOW, not tab
-    w:CreateTag({
-        text = results.CanRun and "AUTHORIZED" or "DENIED",
-        color = results.CanRun and Color3.fromRGB(0,255,100) or Color3.fromRGB(255,50,50),
-        order = 1,
-    })
-
-    w:CreateTag({
-        text = tierInfo.Label,
-        color = tierInfo.Color,
-        order = 2,
-    })
-
-    if results.TimeRemaining then
-        w:CreateTag({
-            text = results.TimeRemaining,
-            color = results.TimeColor,
-            order = 3,
-        })
-    end
-
-    -- TAB for details
-    local tab = w:CreateTab({Name = "Access", Icon = "shield"})
-
-    tab:CreateStat({Name = "User", Value = results.Username.." ("..results.UserId..")"})
-    tab:CreateStat({Name = "Game", Value = results.GameName.." ("..results.PlaceId..")"})
-    tab:CreateStat({Name = "User Check", Value = results.IsWhitelisted and "PASS" or "FAIL"})
-    tab:CreateStat({Name = "Game Check", Value = results.IsGameAllowed and "PASS" or "FAIL"})
-    
-    if results.Entry and results.Entry.Note then
-        tab:CreateStat({Name = "Note", Value = results.Entry.Note})
-    end
-
-    if not results.CanRun then
-        tab:CreateButton({
-            Name = "Purchase Access",
-            Callback = function()
-                Rayfield:Notify({Title = "AegisPass", Content = "Contact the script owner.", Duration = 5})
-            end,
-        })
-    end
-
-    return w, Rayfield
-end
-
 function AegisPass:Init()
-    print("[AegisPass] v"..CONFIG.Version)
-    local r = self:Validate()
+    print("[AegisPass] v" .. Config.Config.Version)
+    local r = Core:Validate(Config.Config, Config.WHITELIST, Config.ALLOWED_GAMES)
     print("[AegisPass] User:", r.Username, r.UserId)
     print("[AegisPass] CanRun:", r.CanRun)
     if r.Tier then print("[AegisPass] Tier:", r.Tier) end
     if r.TimeRemaining then print("[AegisPass] Time Left:", r.TimeRemaining) end
-    if CONFIG.ShowUIOnLoad then self:ShowUI(r) end
-    if not r.CanRun then warn(CONFIG.DenyMessage); return false, r end
-    print("[AegisPass] Welcome,", r.Username.."!")
+    if Config.Config.ShowUIOnLoad then UI:Show(r, Icons, Config.Config) end
+    if not r.CanRun then warn(Config.Config.DenyMessage); return false, r end
+    print("[AegisPass] Welcome,", r.Username .. "!")
     return true, r
 end
 
-function AegisPass:AddUser(userId, tier, expiresAt, note) WHITELIST[userId]={Tier=tier or "freemium", ExpiresAt=expiresAt, Note=note} end
-function AegisPass:RemoveUser(userId) WHITELIST[userId]=nil end
-function AegisPass:GetWhitelist() return WHITELIST end
+function AegisPass:AddUser(userId, tier, expiresAt, note)
+    Config.WHITELIST[userId] = {Tier = tier or "freemium", ExpiresAt = expiresAt, Note = note}
+end
+
+function AegisPass:RemoveUser(userId)
+    Config.WHITELIST[userId] = nil
+end
+
+function AegisPass:GetWhitelist()
+    return Config.WHITELIST
+end
 
 return AegisPass
