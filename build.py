@@ -9,15 +9,15 @@ def func(path, name):
     c = read(path).strip()
     return c.replace('return function', f'local function {name}', 1)
 
-settings = read('modules/config/script_settings.lua').strip()
+settings = read('script_settings.lua').strip()
 if settings.startswith('return '):
     settings = settings[7:]
 
-wl   = read('modules/config/whitelist_easy.txt')
-uw   = func('modules/core/user_whitelist.lua', 'UserWhitelist')
-gw   = func('modules/core/game_whitelist.lua', 'GameWhitelist')
-tr   = func('modules/core/time_remaining.lua', 'TimeRemaining')
-ls   = func('modules/ui/loading_screen.lua', 'LoadingScreen')
+wl   = read('whitelist_easy.txt')
+uw   = func('user_whitelist.lua', 'UserWhitelist')
+gw   = func('game_whitelist.lua', 'GameWhitelist')
+tr   = func('time_remaining.lua', 'TimeRemaining')
+ls   = func('loading_screen.lua', 'LoadingScreen')
 
 template = '''-- AegisPass Bundle — Zero external requests
 -- Rebuild: python build.py
