@@ -7,7 +7,7 @@ return function(window, results, icons, tierInfo)
         order = 1,
     })
 
-    -- Tag 2: Tier + Time combined into one
+    -- Tag 2: Tier + Time merged into one
     local tagText = tierInfo.Label
     if results.TimeRemaining and results.TimeRemaining ~= "Unlimited" then
         tagText = tierInfo.Label .. "  •  " .. results.TimeRemaining

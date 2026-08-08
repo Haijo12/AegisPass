@@ -1,11 +1,22 @@
 return function(Rayfield, config)
-    return Rayfield:CreateWindow({
-        Name = config.ScriptName,
-        Subtitle = "v" .. config.Version,
-        LoadingTitle = config.ScriptName,
-        LoadingSubtitle = "Validating...",
-        Theme = "Midnight",
-        DisableMovement = false,
-        DisableBuildWarnings = true,
+    -- Destroy old window if it exists
+    if getgenv().AegisPassWindow then
+        pcall(function() getgenv().AegisPassWindow:Destroy() end)
+        getgenv().AegisPassWindow = nil
+    end
+
+    local window = Rayfield:CreateWindow({
+        name = config.ScriptName,
+        subtitle = "v" .. config.Version,
+        loadingTitle = config.ScriptName,
+        loadingSubtitle = "Validating...",
+        theme = "Midnight",
+        disableMovement = false,
+        disableBuildWarnings = true,
     })
+
+    -- Store reference for anti-duplicate
+    getgenv().AegisPassWindow = window
+
+    return window
 end
