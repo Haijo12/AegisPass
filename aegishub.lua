@@ -11,106 +11,15 @@ local ConfigSettings = {
     ShowUIOnLoad = true,
 }
 
-local whitelist_easy_text = [=[
-Tier = Owner
-User = iswg66qt17u
-UserId = 11369517300
-ExpiryDate:
-Year = -
-Month = -
-Day = -
-Hour = -
+-- ==================== WHITELIST (EDIT HERE) ====================
 
-Tier = Premium
-User = TestUser
-UserId = 123456789
-ExpiryDate:
-Year = 2026
-Month = August
-Day = 15
-Hour = 23
-
-Tier = Freemium
-User = GuestOne
-UserId = 111111111
-ExpiryDate:
-Year = 2026
-Month = August
-Day = 10
-Hour = 12
-]=]
-
-local function getTimezoneOffset()
-    local t = os.time()
-    local utc = os.date("!*t", t)
-    local local_ = os.date("*t", t)
-    utc.isdst = false; local_.isdst = false
-    return os.difftime(os.time(local_), os.time(utc))
-end
-
-local monthNames = {
-    january = 1, february = 2, march = 3, april = 4,
-    may = 5, june = 6, july = 7, august = 8,
-    september = 9, october = 10, november = 11, december = 12,
+local ConfigWhitelist = {
+    [11369517300] = {Tier = "Owner", Note = "iswg66qt17u"},
+    [123456789]   = {Tier = "Premium", Note = "TestUser", ExpiresAt = os.time({year=2026, month=8, day=15, hour=23, min=0, sec=0})},
+    [111111111]   = {Tier = "Freemium", Note = "GuestOne", ExpiresAt = os.time({year=2026, month=8, day=10, hour=12, min=0, sec=0})},
 }
 
-local function toPHTimestamp(year, month, day, hour)
-    if year == "-" or not year then return nil end
-    year = tonumber(year)
-    day = tonumber(day)
-    hour = tonumber(hour) or 0
-    if type(month) == "string" then
-        month = monthNames[month:lower()]
-    else
-        month = tonumber(month)
-    end
-    local localTs = os.time({year=year, month=month, day=day, hour=hour, min=0, sec=0})
-    return localTs + getTimezoneOffset() - (8 * 3600)
-end
-
-local ConfigWhitelist = {}
-local lines = {}
-for line in whitelist_easy_text:gmatch("[^\r\n]+") do table.insert(lines, line) end
-
-local i = 1
-while i <= #lines do
-    local line = lines[i]:match("^%s*(.-)%s*$")
-    if line ~= "" and not line:match("^%-%-") then
-        local tier = line:match("^Tier%s*=%s*(.+)$")
-        if tier then
-            local entry = {Tier = tier, ExpiresAt = nil, Note = ""}
-            i = i + 1
-            while i <= #lines do
-                local sub = lines[i]:match("^%s*(.-)%s*$")
-                if sub == "" then break end
-                if not sub:match("^%-%-") then
-                    local key, val = sub:match("^(%S+)%s*=%s*(.+)$")
-                    if key == "User" then entry.Note = val
-                    elseif key == "UserId" then entry.UserId = tonumber(val)
-                    elseif key == "Year" then entry._year = val
-                    elseif key == "Month" then entry._month = val
-                    elseif key == "Day" then entry._day = val
-                    elseif key == "Hour" then entry._hour = val
-                    end
-                end
-                i = i + 1
-            end
-            entry.ExpiresAt = toPHTimestamp(entry._year, entry._month, entry._day, entry._hour)
-            entry._year, entry._month, entry._day, entry._hour = nil, nil, nil, nil
-            if entry.UserId then ConfigWhitelist[entry.UserId] = entry end
-        else
-            i = i + 1
-        end
-    else
-        i = i + 1
-    end
-end
-
-local Config = {
-    Settings = ConfigSettings,
-    Whitelist = ConfigWhitelist,
-    AllowedGames = {123974602339071},
-}
+local ConfigAllowedGames = {123974602339071}
 
 -- ==================== CORE ====================
 
@@ -166,8 +75,6 @@ local function Validate(cfg, whitelist, allowedGames)
         r.Tier = r.Entry.Tier
         r.TimeRemaining, r.TimeColor = TimeRemaining(r.Entry)
     end
-    -- DEBUG: always print why
-    print("[Aegis Hub] DEBUG UserId:", r.UserId, "| Whitelisted:", r.IsWhitelisted, "| GameAllowed:", r.IsGameAllowed, "| PlaceId:", r.PlaceId)
     r.CanRun = r.IsWhitelisted and r.IsGameAllowed
     return r
 end
@@ -417,12 +324,10 @@ local function LoadingScreen(config)
         update(finalText, 1, finalColor)
         task.wait(success and 0.8 or 1.5)
         
-        -- Fade entire card smoothly
         TweenService:Create(card, TweenInfo.new(0.6, Enum.EasingStyle.Quart), {
             BackgroundTransparency = 1
         }):Play()
         
-        -- Fade all content together
         for _, child in ipairs(card:GetDescendants()) do
             if child:IsA("TextLabel") then
                 TweenService:Create(child, TweenInfo.new(0.4), {TextTransparency = 1}):Play()
@@ -444,28 +349,48 @@ end
 
 local AegisHub = {}
 function AegisHub:Init()
-    local loader = LoadingScreen(Config.Settings)
+    local loader = LoadingScreen(ConfigSettings)
     loader.Update("Initializing...", 0.15)
     loader.Update("Authenticating...", 0.4)
-    local r = Validate(Config.Settings, Config.Whitelist, Config.AllowedGames)
+    
+    local r = Validate(ConfigSettings, ConfigWhitelist, ConfigAllowedGames)
+    
+    -- DEBUG: yellow warn, each on separate line
+    warn("[Aegis Hub] ========== DEBUG ==========")
+    warn("[Aegis Hub] UserId:    " .. tostring(r.UserId))
+    warn("[Aegis Hub] Username:  " .. tostring(r.Username))
+    warn("[Aegis Hub] PlaceId:   " .. tostring(r.PlaceId))
+    warn("[Aegis Hub] GameName:  " .. tostring(r.GameName))
+    warn("[Aegis Hub] Whitelist: " .. tostring(r.IsWhitelisted))
+    warn("[Aegis Hub] Game:      " .. tostring(r.IsGameAllowed))
+    warn("[Aegis Hub] CanRun:    " .. tostring(r.CanRun))
+    warn("[Aegis Hub] ============================")
+    
     loader.Update("Verifying access...", 0.7)
+    
     if not r.CanRun then
         loader.Finish("Access Denied", Color3.fromRGB(255, 80, 80), false)
-        warn(Config.Settings.DenyMessage)
+        warn("[Aegis Hub] Access Denied.")
         return false, r
     end
-    print("[Aegis Hub] User " .. r.Username .. " whitelisted | Game " .. r.GameName .. " allowed")
+    
+    warn("[Aegis Hub] User " .. r.Username .. " whitelisted")
+    warn("[Aegis Hub] Game " .. r.GameName .. " allowed")
     loader.Finish("Welcome, " .. r.Username, Color3.fromRGB(80, 220, 160), true)
     return true, r
 end
+
 function AegisHub:AddUser(userId, tier, expiresAt, note)
-    Config.Whitelist[userId] = {Tier = tier or "freemium", ExpiresAt = expiresAt, Note = note}
+    ConfigWhitelist[userId] = {Tier = tier or "freemium", ExpiresAt = expiresAt, Note = note}
 end
+
 function AegisHub:RemoveUser(userId)
-    Config.Whitelist[userId] = nil
+    ConfigWhitelist[userId] = nil
 end
+
 function AegisHub:GetWhitelist()
-    return Config.Whitelist
+    return ConfigWhitelist
 end
+
 AegisHub:Init()
 return AegisHub
