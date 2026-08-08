@@ -32,4 +32,6 @@ function AegisPass:GetWhitelist()
     return Config.Whitelist
 end
 
+AegisPass:Init()
+
 return AegisPass
