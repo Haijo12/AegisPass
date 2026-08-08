@@ -17,18 +17,57 @@ local function toPHTimestamp(year, month, day, hour)
     return localTs - localOffset + (8 * 3600)
 end
 
+local lines = {}
 for line in raw:gmatch("[^\r\n]+") do
-    line = line:match("^%s*(.-)%s*$")
+    table.insert(lines, line)
+end
+
+local i = 1
+while i <= #lines do
+    local line = lines[i]:match("^%s*(.-)%s*$")
+    
     if line ~= "" and not line:match("^%-%-") then
-        local tier, username, userId, year, month, day, hour = line:match("^(%S+)%s+(%S+)%s+(%S+)%s+(%S+)%s+(%S+)%s+(%S+)%s+(%S+)$")
-        if tier and userId then
-            userId = tonumber(userId)
-            whitelist[userId] = {
-                Tier = tier,
-                ExpiresAt = toPHTimestamp(year, month, day, hour),
-                Note = username,
-            }
+        local tier = line:match("^Tier%s*=%s*(.+)$")
+        if tier then
+            local entry = {Tier = tier, ExpiresAt = nil, Note = ""}
+            i = i + 1
+            
+            while i <= #lines do
+                local sub = lines[i]:match("^%s*(.-)%s*$")
+                if sub == "" then break end
+                if sub:match("^%-%-") then i = i + 1; continue end
+                
+                local key, val = sub:match("^(%S+)%s*=%s*(.+)$")
+                if key == "User" then
+                    entry.Note = val
+                elseif key == "UserId" then
+                    entry.UserId = tonumber(val)
+                elseif key == "ExpiryDate:" then
+                    -- nothing, just a header
+                elseif key == "Year" then
+                    entry._year = val
+                elseif key == "Month" then
+                    entry._month = val
+                elseif key == "Day" then
+                    entry._day = val
+                elseif key == "Hour" then
+                    entry._hour = val
+                end
+                
+                i = i + 1
+            end
+            
+            entry.ExpiresAt = toPHTimestamp(entry._year, entry._month, entry._day, entry._hour)
+            entry._year, entry._month, entry._day, entry._hour = nil, nil, nil, nil
+            
+            if entry.UserId then
+                whitelist[entry.UserId] = entry
+            end
+        else
+            i = i + 1
         end
+    else
+        i = i + 1
     end
 end
 
