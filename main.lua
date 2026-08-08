@@ -2,7 +2,6 @@ local BASE_URL = "https://raw.githubusercontent.com/Haijo12/AegisPass/main/"
 
 local Config = loadstring(game:HttpGet(BASE_URL .. "config.lua"))()
 local Core   = loadstring(game:HttpGet(BASE_URL .. "core.lua"))()
-local Icons  = loadstring(game:HttpGet(BASE_URL .. "icons.lua"))()
 
 local AegisPass = {}
 

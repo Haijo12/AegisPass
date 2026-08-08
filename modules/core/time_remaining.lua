@@ -3,11 +3,7 @@ return function(entry)
         return "Unlimited", Color3.fromRGB(0, 255, 136)
     end
 
-    -- ExpiresAt in whitelist is PH local time. Convert to UTC for comparison.
-    local PH_OFFSET = 8 * 3600
-    local expiresUTC = entry.ExpiresAt - PH_OFFSET
-    local remaining = expiresUTC - os.time()
-
+    local remaining = entry.ExpiresAt - os.time()
     if remaining <= 0 then
         return "Expired", Color3.fromRGB(255, 50, 50)
     end

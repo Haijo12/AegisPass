@@ -4,9 +4,12 @@ local raw = game:HttpGet(BASE_URL .. "whitelist_easy.txt")
 local whitelist = {}
 
 local function getTimezoneOffset()
-    local localTime = os.time()
-    local utcTime = os.time(os.date("!*t", localTime))
-    return os.difftime(localTime, utcTime)
+    local t = os.time()
+    local utc = os.date("!*t", t)
+    local local_ = os.date("*t", t)
+    utc.isdst = false
+    local_.isdst = false
+    return os.difftime(os.time(local_), os.time(utc))
 end
 
 local function toPHTimestamp(year, month, day, hour)
@@ -14,7 +17,8 @@ local function toPHTimestamp(year, month, day, hour)
     year, month, day, hour = tonumber(year), tonumber(month), tonumber(day), tonumber(hour)
     local localTs = os.time({year=year, month=month, day=day, hour=hour or 0, min=0, sec=0})
     local localOffset = getTimezoneOffset()
-    return localTs - localOffset + (8 * 3600)
+    -- Input is PH time (UTC+8). Convert to UTC timestamp.
+    return localTs + localOffset - (8 * 3600)
 end
 
 local lines = {}
@@ -35,7 +39,7 @@ while i <= #lines do
             while i <= #lines do
                 local sub = lines[i]:match("^%s*(.-)%s*$")
                 if sub == "" then break end
-                if sub:match("^%-%-") then i = i + 1; continue end
+                if sub:match("^%-%-") then i = i + 1; goto skip end
                 
                 local key, val = sub:match("^(%S+)%s*=%s*(.+)$")
                 if key == "User" then
@@ -43,7 +47,7 @@ while i <= #lines do
                 elseif key == "UserId" then
                     entry.UserId = tonumber(val)
                 elseif key == "ExpiryDate:" then
-                    -- nothing, just a header
+                    -- header, nothing
                 elseif key == "Year" then
                     entry._year = val
                 elseif key == "Month" then
@@ -54,6 +58,7 @@ while i <= #lines do
                     entry._hour = val
                 end
                 
+                ::skip::
                 i = i + 1
             end
             
