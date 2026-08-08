@@ -7,7 +7,7 @@ return function(Rayfield, config)
     local window = Rayfield:CreateWindow({
         name = config.ScriptName,
         subtitle = "v" .. config.Version,
-        theme = "Midnight",
+        theme = "midnight",        -- lowercase (snippet confirms)
         disableMovement = false,
         disableBuildWarnings = true,
     })

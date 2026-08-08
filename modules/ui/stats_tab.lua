@@ -1,5 +1,5 @@
 return function(window, icons, results)
-    local tab = window:CreateTab({name = "Dashboard", icon = "shield"})
+    local tab = window:CreateTab({name = "Dashboard", icon = icons.shield})
 
     -- Account Group
     local accountGroup = tab:CreateGroup({name = "Account", icon = "user"})
@@ -18,7 +18,7 @@ return function(window, icons, results)
     sessionGroup:CreateLabel({name = "Game", text = results.GameName, icon = "globe"})
     sessionGroup:CreateLabel({name = "Place ID", text = tostring(results.PlaceId), icon = "map-pin"})
 
-    -- Expiration Group (only if limited time)
+    -- Expiration (only if limited)
     if results.TimeRemaining and results.TimeRemaining ~= "Unlimited" then
         tab:CreateDivider()
         local expireGroup = tab:CreateGroup({name = "Expiration", icon = "hourglass"})
