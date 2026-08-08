@@ -1,9 +1,7 @@
---[[ AegisPass.lua - Modular Loader ]]
-local BASE_URL = "https://raw.githubusercontent.com/Haijo12/AegisPass/main/"
-local Config = loadstring(game:HttpGet(BASE_URL .. "Config.lua"))()
-local Icons = loadstring(game:HttpGet(BASE_URL .. "Icons.lua"))()
-local Core = loadstring(game:HttpGet(BASE_URL .. "Core.lua"))()
-local UI = loadstring(game:HttpGet(BASE_URL .. "UI.lua"))()
+local Config = loadstring(game:HttpGet(BASE_URL .. "config_whitelist_settings.lua"))()
+local Icons = loadstring(game:HttpGet(BASE_URL .. "icon_asset_definitions.lua"))()
+local Core = loadstring(game:HttpGet(BASE_URL .. "core_validation_engine.lua"))()
+local UI = loadstring(game:HttpGet(BASE_URL .. "rayfield_ui_renderer.lua"))()
 
 local AegisPass = {}
 
