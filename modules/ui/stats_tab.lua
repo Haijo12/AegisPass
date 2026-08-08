@@ -1,39 +1,42 @@
 return function(window, icons, results)
-    local tab = window:CreateTab({ name = "Dashboard", icon = icons.shield })
+    local tab = window:CreateTab({name = "Dashboard", icon = "shield"})
 
-    -- Account Section — grouped side-by-side to reduce stat clutter
-    tab:CreateSection({ name = "Account", icon = icons.license[results.Tier or "freemium"] })
-
-    local accountRow = tab:CreateGroup({ direction = "row" })
-    accountRow:CreateStat({ name = "User", value = results.Username .. "  |  " .. results.UserId })
-    accountRow:CreateStat({ name = "License", value = (results.Tier or "freemium"):upper() })
+    -- Account Group
+    local accountGroup = tab:CreateGroup({name = "Account", icon = "user"})
+    accountGroup:CreateLabel({name = "Username", text = results.Username, icon = "user"})
+    accountGroup:CreateLabel({name = "User ID", text = tostring(results.UserId), icon = "hash"})
+    accountGroup:CreateLabel({name = "License", text = (results.Tier or "freemium"):upper(), icon = "award"})
 
     if results.Entry and results.Entry.Note then
-        tab:CreateStat({ name = "Note", value = results.Entry.Note })
+        accountGroup:CreateLabel({name = "Note", text = results.Entry.Note, icon = "sticky-note"})
     end
 
     tab:CreateDivider()
 
-    -- Session Section — grouped side-by-side
-    tab:CreateSection({ name = "Session", icon = icons.shield })
+    -- Session Group
+    local sessionGroup = tab:CreateGroup({name = "Session", icon = "gamepad-2"})
+    sessionGroup:CreateLabel({name = "Game", text = results.GameName, icon = "globe"})
+    sessionGroup:CreateLabel({name = "Place ID", text = tostring(results.PlaceId), icon = "map-pin"})
 
-    local sessionRow = tab:CreateGroup({ direction = "row" })
-    sessionRow:CreateStat({ name = "Game", value = results.GameName })
-    sessionRow:CreateStat({ name = "Place ID", value = tostring(results.PlaceId) })
-
-    tab:CreateDivider()
-
-    -- Expiration — only if limited time. Time Left is the ONLY dynamic value → Stat justified
+    -- Expiration Group (only if limited time)
     if results.TimeRemaining and results.TimeRemaining ~= "Unlimited" then
-        tab:CreateSection({ name = "Expiration", icon = icons.time })
-        tab:CreateStat({ name = "Time Left", value = results.TimeRemaining })
         tab:CreateDivider()
+        local expireGroup = tab:CreateGroup({name = "Expiration", icon = "hourglass"})
+        expireGroup:CreateLabel({name = "Time Left", text = results.TimeRemaining, icon = "clock"})
     end
 
-    -- Validation Section — final result
-    local statusIcon = results.CanRun and icons.status.authorized or icons.status.denied
-    tab:CreateSection({ name = "Validation", icon = statusIcon })
-    tab:CreateStat({ name = "Access", value = results.CanRun and "GRANTED" or "REVOKED" })
+    tab:CreateDivider()
+
+    -- Validation Group
+    local valIcon = results.CanRun and "shield-check" or "shield-x"
+    local valColor = results.CanRun and Color3.fromRGB(0, 255, 100) or Color3.fromRGB(255, 50, 50)
+    local valGroup = tab:CreateGroup({name = "Validation", icon = valIcon})
+    valGroup:CreateLabel({
+        name = "Access",
+        text = results.CanRun and "GRANTED" or "REVOKED",
+        color = valColor,
+        icon = results.CanRun and "check-circle" or "x-circle",
+    })
 
     return tab
 end

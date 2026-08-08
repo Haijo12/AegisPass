@@ -7,8 +7,6 @@ return function(Rayfield, config)
     local window = Rayfield:CreateWindow({
         name = config.ScriptName,
         subtitle = "v" .. config.Version,
-        loadingTitle = config.ScriptName,
-        loadingSubtitle = "Validating...",
         theme = "Midnight",
         disableMovement = false,
         disableBuildWarnings = true,
