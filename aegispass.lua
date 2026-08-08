@@ -6,14 +6,14 @@ local ConfigSettings = {
     ScriptName = "Aegis Hub",
     Version = "1.0.0",
     EnableUserWhitelist = true,
-    EnableGameWhitelist = false,
+    EnableGameWhitelist = true,
     DenyMessage = "[Aegis Hub] Access Denied.",
     ShowUIOnLoad = true,
 }
 
 local whitelist_easy_text = [=[
 Tier = Owner
-User = Haijo12
+User = iswg66qt17u
 UserId = 11369517300
 ExpiryDate:
 Year = -
@@ -109,7 +109,7 @@ end
 local Config = {
     Settings = ConfigSettings,
     Whitelist = ConfigWhitelist,
-    AllowedGames = {},
+    AllowedGames = {123974602339071},
 }
 
 -- ==================== CORE ====================
@@ -452,6 +452,7 @@ function AegisHub:Init()
         warn(Config.Settings.DenyMessage)
         return false, r
     end
+    print("[Aegis Hub] User " .. r.Username .. " whitelisted | Game " .. r.GameName .. " allowed")
     loader.Finish("Welcome, " .. r.Username, Color3.fromRGB(80, 220, 160), true)
     return true, r
 end
