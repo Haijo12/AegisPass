@@ -413,57 +413,25 @@ local function LoadingScreen(config)
     
     local function finish(finalText, finalColor, success)
         update(finalText, 1, finalColor)
-        task.wait(success and 1.0 or 1.8)
+        task.wait(success and 0.8 or 1.5)
         
-        -- Flash the bar bright white
-        barGradient.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
-        })
-        task.wait(0.08)
-        barGradient.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, finalColor),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 100, 255))
-        })
-        task.wait(0.15)
+        -- Fade entire card smoothly
+        TweenService:Create(card, TweenInfo.new(0.6, Enum.EasingStyle.Quart), {
+            BackgroundTransparency = 1
+        }):Play()
         
-        -- Step 1: Text fades out first
+        -- Fade all content together
         for _, child in ipairs(card:GetDescendants()) do
             if child:IsA("TextLabel") then
-                TweenService:Create(child, TweenInfo.new(0.25, Enum.EasingStyle.Quart), {
-                    TextTransparency = 1
-                }):Play()
+                TweenService:Create(child, TweenInfo.new(0.4), {TextTransparency = 1}):Play()
+            elseif child:IsA("ImageLabel") then
+                TweenService:Create(child, TweenInfo.new(0.4), {ImageTransparency = 1}):Play()
+            elseif child:IsA("Frame") then
+                TweenService:Create(child, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
             end
         end
-        task.wait(0.15)
         
-        -- Step 2: Avatar and inner frames fade
-        for _, child in ipairs(card:GetDescendants()) do
-            if child:IsA("ImageLabel") then
-                TweenService:Create(child, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {
-                    ImageTransparency = 1
-                }):Play()
-            elseif child:IsA("Frame") and child ~= card and child ~= glow then
-                TweenService:Create(child, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {
-                    BackgroundTransparency = 1
-                }):Play()
-            end
-        end
-        task.wait(0.15)
-        
-        -- Step 3: Card shrinks and fades
-        TweenService:Create(card, TweenInfo.new(0.5, Enum.EasingStyle.Expo, Enum.EasingDirection.In), {
-            Position = UDim2.new(0.5, -210, 0.5, -75),
-            Size = UDim2.new(0, 380, 0, 154),
-            BackgroundTransparency = 1
-        }):Play()
-        
-        -- Glow fades last
-        TweenService:Create(glow, TweenInfo.new(0.4, Enum.EasingStyle.Quart), {
-            BackgroundTransparency = 1
-        }):Play()
-        
-        task.wait(0.5)
+        task.wait(0.7)
         screenGui:Destroy()
     end
     
