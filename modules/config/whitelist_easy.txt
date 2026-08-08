@@ -1,0 +1,2 @@
+-- tier      username      userid        year  month  day  hour
+lifetime    Haijo12       11369517300   -     -      -    -
