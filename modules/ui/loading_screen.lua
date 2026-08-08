@@ -121,7 +121,7 @@ return function(config)
     -- Right side: Avatar
     local avatarFrame = Instance.new("Frame")
     avatarFrame.Size = UDim2.new(0, 70, 0, 70)
-    avatarFrame.Position = UDim2.new(1, -90, 0.5, -35)
+    avatarFrame.Position = UDim2.new(1, -90, 0, 22)
     avatarFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
     avatarFrame.BorderSizePixel = 0
     avatarFrame.Parent = card
