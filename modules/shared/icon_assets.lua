@@ -1,8 +1,16 @@
 return {
-    status = {authorized = 10747372837, denied = 10747372604},
-    license = {freemium = 10747373176, premium = 10747373176, lifetime = 10747373176, dev = 10747373176},
-    time = 10747373053,
-    shield = 10747372837,
-    crown = 10747373176,
-    clock = 10747373053,
+    status = {
+        authorized = 71867984579031,   -- shield-check
+        denied = 75826463279777,        -- shield-x
+    },
+    license = {
+        freemium = 114567720540659,     -- user
+        premium = 125353572203968,      -- gem
+        lifetime = 77975814002740,      -- infinity
+        dev = 75851496262862,           -- code
+    },
+    time = 135654740495171,             -- hourglass
+    shield = 106509993556171,           -- shield
+    crown = 92253403464658,             -- crown
+    clock = 136533241128438,            -- clock
 }
