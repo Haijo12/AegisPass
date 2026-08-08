@@ -441,8 +441,6 @@ end
 
 local AegisHub = {}
 function AegisHub:Init()
-    if getgenv().AegisHubLoaded then return end
-    getgenv().AegisHubLoaded = true
     local loader = LoadingScreen(Config.Settings)
     loader.Update("Initializing...", 0.15)
     loader.Update("Authenticating...", 0.4)
