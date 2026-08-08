@@ -6,13 +6,25 @@ local Core   = loadstring(game:HttpGet(BASE_URL .. "core.lua"))()
 local AegisPass = {}
 
 function AegisPass:Init()
+    -- Create loading screen
+    local LoadingScreen = loadstring(game:HttpGet(BASE_URL .. "modules/ui/loading_screen.lua"))()
+    local loader = LoadingScreen(Config.Settings)
+
+    loader.Update("Loading configuration...", 0.15)
+
+    loader.Update("Checking whitelist...", 0.4)
+
     local r = Core.Validate(Config.Settings, Config.Whitelist, Config.AllowedGames)
 
+    loader.Update("Verifying access...", 0.7)
+
     if not r.CanRun then
+        loader.Finish("Access Denied", Color3.fromRGB(255, 70, 70), false)
         warn(Config.Settings.DenyMessage)
         return false, r
     end
 
+    loader.Finish("Welcome, " .. r.Username, Color3.fromRGB(0, 230, 120), true)
     return true, r
 end
 
