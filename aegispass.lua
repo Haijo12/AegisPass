@@ -166,6 +166,8 @@ local function Validate(cfg, whitelist, allowedGames)
         r.Tier = r.Entry.Tier
         r.TimeRemaining, r.TimeColor = TimeRemaining(r.Entry)
     end
+    -- DEBUG: always print why
+    print("[Aegis Hub] DEBUG UserId:", r.UserId, "| Whitelisted:", r.IsWhitelisted, "| GameAllowed:", r.IsGameAllowed, "| PlaceId:", r.PlaceId)
     r.CanRun = r.IsWhitelisted and r.IsGameAllowed
     return r
 end
@@ -452,7 +454,6 @@ function AegisHub:Init()
         warn(Config.Settings.DenyMessage)
         return false, r
     end
-    print("[Aegis Hub] User " .. r.Username .. " whitelisted | Game " .. r.GameName .. " allowed")
     print("[Aegis Hub] User " .. r.Username .. " whitelisted | Game " .. r.GameName .. " allowed")
     loader.Finish("Welcome, " .. r.Username, Color3.fromRGB(80, 220, 160), true)
     return true, r
