@@ -1,28 +1,38 @@
 return function(entry)
     if not entry or not entry.ExpiresAt then
-        return "Unlimited", nil
+        return "Unlimited", Color3.fromRGB(0, 255, 136)
     end
 
-    local now = os.time()
-    if now > entry.ExpiresAt then
-        return "Expired", nil
-    end
-
-    -- PH Time = UTC+8 (add 28800 seconds)
+    -- ExpiresAt in whitelist is PH local time. Convert to UTC for comparison.
     local PH_OFFSET = 8 * 3600
-    local phTime = os.date("!*t", entry.ExpiresAt + PH_OFFSET)
+    local expiresUTC = entry.ExpiresAt - PH_OFFSET
+    local remaining = expiresUTC - os.time()
 
-    local months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+    if remaining <= 0 then
+        return "Expired", Color3.fromRGB(255, 50, 50)
+    end
 
-    local text = string.format(
-        "%s %d, %d at %02d:%02d PH Time",
-        months[phTime.month],
-        phTime.day,
-        phTime.year,
-        phTime.hour,
-        phTime.min
-    )
+    local days = math.floor(remaining / 86400); remaining = remaining % 86400
+    local hours = math.floor(remaining / 3600); remaining = remaining % 3600
+    local minutes = math.floor(remaining / 60)
 
-    return text, nil
+    local text
+    if days > 0 then
+        text = string.format("%dd %dh %dm", days, hours, minutes)
+    elseif hours > 0 then
+        text = string.format("%dh %dm", hours, minutes)
+    else
+        text = string.format("%dm", minutes)
+    end
+
+    local color = Color3.fromRGB(0, 255, 136)
+    if days == 0 and hours < 1 then
+        color = Color3.fromRGB(255, 50, 50)
+    elseif days == 0 then
+        color = Color3.fromRGB(255, 150, 0)
+    elseif days <= 3 then
+        color = Color3.fromRGB(255, 200, 0)
+    end
+
+    return text, color
 end

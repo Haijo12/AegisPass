@@ -14,7 +14,7 @@ function AegisPass:Init()
     print("[AegisPass] Game:", r.GameName, "(" .. r.PlaceId .. ")")
     print("[AegisPass] CanRun:", r.CanRun)
     if r.Tier then print("[AegisPass] Tier:", r.Tier) end
-    if r.TimeRemaining then print("[AegisPass] Expires On:", r.TimeRemaining) end
+    if r.TimeRemaining then print("[AegisPass] Time Left:", r.TimeRemaining) end
 
     if not r.CanRun then
         warn(Config.Settings.DenyMessage)
