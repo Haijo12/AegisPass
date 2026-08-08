@@ -7,21 +7,13 @@ local Icons  = loadstring(game:HttpGet(BASE_URL .. "icons.lua"))()
 local AegisPass = {}
 
 function AegisPass:Init()
-    print("[AegisPass] v" .. Config.Settings.Version)
     local r = Core.Validate(Config.Settings, Config.Whitelist, Config.AllowedGames)
-
-    print("[AegisPass] User:", r.Username, "(" .. r.UserId .. ")")
-    print("[AegisPass] Game:", r.GameName, "(" .. r.PlaceId .. ")")
-    print("[AegisPass] CanRun:", r.CanRun)
-    if r.Tier then print("[AegisPass] Tier:", r.Tier) end
-    if r.TimeRemaining then print("[AegisPass] Time Left:", r.TimeRemaining) end
 
     if not r.CanRun then
         warn(Config.Settings.DenyMessage)
         return false, r
     end
 
-    print("[AegisPass] Welcome,", r.Username .. "!")
     return true, r
 end
 
