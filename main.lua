@@ -1,17 +1,19 @@
 local BASE_URL = "https://raw.githubusercontent.com/Haijo12/AegisPass/main/"
 
+-- Anti-duplicate: prevent double execution
+if getgenv().AegisPassLoaded then return end
+getgenv().AegisPassLoaded = true
+
 local Config = loadstring(game:HttpGet(BASE_URL .. "config.lua"))()
 local Core   = loadstring(game:HttpGet(BASE_URL .. "core.lua"))()
 
 local AegisPass = {}
 
 function AegisPass:Init()
-    -- Create loading screen
     local LoadingScreen = loadstring(game:HttpGet(BASE_URL .. "modules/ui/loading_screen.lua"))()
     local loader = LoadingScreen(Config.Settings)
 
     loader.Update("Loading configuration...", 0.15)
-
     loader.Update("Checking whitelist...", 0.4)
 
     local r = Core.Validate(Config.Settings, Config.Whitelist, Config.AllowedGames)

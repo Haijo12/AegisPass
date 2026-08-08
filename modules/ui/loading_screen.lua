@@ -1,7 +1,8 @@
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
+local MarketplaceService = game:GetService("MarketplaceService")
 
-return function(config, results)
+return function(config)
     local player = Players.LocalPlayer
     local playerGui = player:WaitForChild("PlayerGui")
 
@@ -17,10 +18,10 @@ return function(config, results)
     screenGui.DisplayOrder = 999999
     screenGui.Parent = playerGui
 
-    -- Center card ONLY — no backdrop, no dark background
+    -- Center card — no backdrop
     local card = Instance.new("Frame")
-    card.Size = UDim2.new(0, 400, 0, 140)
-    card.Position = UDim2.new(0.5, -200, 0.5, -70)
+    card.Size = UDim2.new(0, 400, 0, 160)
+    card.Position = UDim2.new(0.5, -200, 0.5, -80)
     card.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
     card.BorderSizePixel = 0
     card.Parent = screenGui
@@ -41,10 +42,10 @@ return function(config, results)
     leftSide.BackgroundTransparency = 1
     leftSide.Parent = card
 
-    -- Title
+    -- Title: AegisPass
     local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, 0, 0, 28)
-    title.Position = UDim2.new(0, 0, 0, 20)
+    title.Size = UDim2.new(1, 0, 0, 26)
+    title.Position = UDim2.new(0, 0, 0, 16)
     title.BackgroundTransparency = 1
     title.Text = config.ScriptName
     title.TextColor3 = Color3.fromRGB(240, 240, 245)
@@ -53,35 +54,52 @@ return function(config, results)
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.Parent = leftSide
 
-    -- Version
-    local version = Instance.new("TextLabel")
-    version.Size = UDim2.new(1, 0, 0, 16)
-    version.Position = UDim2.new(0, 0, 0, 50)
-    version.BackgroundTransparency = 1
-    version.Text = "v" .. config.Version
-    version.TextColor3 = Color3.fromRGB(140, 140, 150)
-    version.Font = Enum.Font.Gotham
-    version.TextSize = 13
-    version.TextXAlignment = Enum.TextXAlignment.Left
-    version.Parent = leftSide
+    -- Username
+    local usernameLabel = Instance.new("TextLabel")
+    usernameLabel.Size = UDim2.new(1, 0, 0, 16)
+    usernameLabel.Position = UDim2.new(0, 0, 0, 44)
+    usernameLabel.BackgroundTransparency = 1
+    usernameLabel.Text = player.Name
+    usernameLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
+    usernameLabel.Font = Enum.Font.Gotham
+    usernameLabel.TextSize = 13
+    usernameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    usernameLabel.Parent = leftSide
+
+    -- Game name
+    local gameName = "Unknown"
+    pcall(function()
+        gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+    end)
+
+    local gameLabel = Instance.new("TextLabel")
+    gameLabel.Size = UDim2.new(1, 0, 0, 16)
+    gameLabel.Position = UDim2.new(0, 0, 0, 62)
+    gameLabel.BackgroundTransparency = 1
+    gameLabel.Text = gameName
+    gameLabel.TextColor3 = Color3.fromRGB(140, 140, 150)
+    gameLabel.Font = Enum.Font.Gotham
+    gameLabel.TextSize = 12
+    gameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    gameLabel.Parent = leftSide
 
     -- Status
     local status = Instance.new("TextLabel")
     status.Name = "Status"
-    status.Size = UDim2.new(1, 0, 0, 18)
-    status.Position = UDim2.new(0, 0, 0, 82)
+    status.Size = UDim2.new(1, 0, 0, 16)
+    status.Position = UDim2.new(0, 0, 0, 90)
     status.BackgroundTransparency = 1
     status.Text = "Validating..."
-    status.TextColor3 = Color3.fromRGB(180, 180, 190)
+    status.TextColor3 = Color3.fromRGB(160, 160, 170)
     status.Font = Enum.Font.Gotham
-    status.TextSize = 13
+    status.TextSize = 12
     status.TextXAlignment = Enum.TextXAlignment.Left
     status.Parent = leftSide
 
     -- Progress bar
     local barBg = Instance.new("Frame")
     barBg.Size = UDim2.new(1, 0, 0, 3)
-    barBg.Position = UDim2.new(0, 0, 0, 110)
+    barBg.Position = UDim2.new(0, 0, 0, 118)
     barBg.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
     barBg.BorderSizePixel = 0
     barBg.Parent = leftSide
@@ -124,14 +142,11 @@ return function(config, results)
     avatarImg.Image = ""
     avatarImg.Parent = avatarFrame
 
-    -- Load avatar async
     task.spawn(function()
         local success, thumb = pcall(function()
             return Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
         end)
-        if success then
-            avatarImg.Image = thumb
-        end
+        if success then avatarImg.Image = thumb end
     end)
 
     -- Helpers
@@ -154,7 +169,7 @@ return function(config, results)
         task.wait(success and 1.2 or 2)
 
         TweenService:Create(card, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {
-            Position = UDim2.new(0.5, -200, 0.5, -60),
+            Position = UDim2.new(0.5, -200, 0.5, -70),
             BackgroundTransparency = 1
         }):Play()
 
