@@ -453,6 +453,7 @@ function AegisHub:Init()
         return false, r
     end
     print("[Aegis Hub] User " .. r.Username .. " whitelisted | Game " .. r.GameName .. " allowed")
+    print("[Aegis Hub] User " .. r.Username .. " whitelisted | Game " .. r.GameName .. " allowed")
     loader.Finish("Welcome, " .. r.Username, Color3.fromRGB(80, 220, 160), true)
     return true, r
 end
