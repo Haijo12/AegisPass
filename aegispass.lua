@@ -27,7 +27,7 @@ User = TestUser
 UserId = 123456789
 ExpiryDate:
 Year = 2026
-Month = 08
+Month = August
 Day = 15
 Hour = 23
 
@@ -36,7 +36,7 @@ User = GuestOne
 UserId = 111111111
 ExpiryDate:
 Year = 2026
-Month = 08
+Month = August
 Day = 10
 Hour = 12]=]
 
@@ -48,9 +48,22 @@ local function getTimezoneOffset()
     return os.difftime(os.time(local_), os.time(utc))
 end
 
+local monthNames = {
+    january = 1, february = 2, march = 3, april = 4,
+    may = 5, june = 6, july = 7, august = 8,
+    september = 9, october = 10, november = 11, december = 12,
+}
+
 local function toPHTimestamp(year, month, day, hour)
     if year == "-" or not year then return nil end
-    year, month, day, hour = tonumber(year), tonumber(month), tonumber(day), tonumber(hour)
+    year = tonumber(year)
+    day = tonumber(day)
+    hour = tonumber(hour) or 0
+    if type(month) == "string" then
+        month = monthNames[month:lower()]
+    else
+        month = tonumber(month)
+    end
     local localTs = os.time({year=year, month=month, day=day, hour=hour or 0, min=0, sec=0})
     return localTs + getTimezoneOffset() - (8 * 3600)
 end
