@@ -1,5 +1,4 @@
 return function(Rayfield, config)
-    -- Destroy old window if it exists
     if getgenv().AegisPassWindow then
         pcall(function() getgenv().AegisPassWindow:Destroy() end)
         getgenv().AegisPassWindow = nil
@@ -15,8 +14,6 @@ return function(Rayfield, config)
         disableBuildWarnings = true,
     })
 
-    -- Store reference for anti-duplicate
     getgenv().AegisPassWindow = window
-
     return window
 end

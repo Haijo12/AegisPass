@@ -10,9 +10,7 @@ local UI = {}
 
 function UI:Show(results, icons, config)
     local Rayfield = LoadRayfield()
-    if not Rayfield then
-        return nil
-    end
+    if not Rayfield then return nil end
 
     local tierInfo = BuildTierInfo(results.Tier or "freemium")
     local window = CreateWindow(Rayfield, config)
