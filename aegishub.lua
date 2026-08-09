@@ -1,395 +1,492 @@
--- Aegis Hub v1.0.0 — Self-contained, zero external requests
+--!strict
+-- Aegis Hub v1.1.0 — Refactored
+-- Layers: Theme → UI.Factory → UI.LoadingScreen → Auth → AegisHub
+
+-- ==================== THEME ====================
+
+local Theme = {
+    Font = {
+        Bold   = Enum.Font.GothamBold,
+        Normal = Enum.Font.Gotham,
+    },
+    Color = {
+        Background  = Color3.fromRGB(22, 22, 30),
+        Surface     = Color3.fromRGB(35, 35, 55),
+        Deep        = Color3.fromRGB(18, 18, 25),
+        Accent      = Color3.fromRGB(100, 150, 255),
+        AccentSoft  = Color3.fromRGB(80, 120, 255),
+        Text        = Color3.fromRGB(245, 245, 255),
+        TextDim     = Color3.fromRGB(180, 180, 200),
+        TextMuted   = Color3.fromRGB(140, 140, 160),
+        Stroke      = Color3.fromRGB(60, 60, 85),
+        Error       = Color3.fromRGB(255, 80, 80),
+        Success     = Color3.fromRGB(80, 220, 160),
+        BarBg       = Color3.fromRGB(40, 40, 55),
+        BarGradient = {
+            Left  = Color3.fromRGB(80, 200, 255),
+            Right = Color3.fromRGB(140, 100, 255),
+        },
+        Tier = {
+            Unlimited = Color3.fromRGB(0, 255, 136),
+            Urgent    = Color3.fromRGB(255, 50, 50),
+            Short     = Color3.fromRGB(255, 150, 0),
+            Warning   = Color3.fromRGB(255, 200, 0),
+        },
+    },
+    Radius = {
+        Card  = UDim.new(0, 16),
+        Pill  = UDim.new(1, 0),
+        Small = UDim.new(0, 20),
+    },
+    Size = {
+        Card  = Vector2.new(420, 170),
+        Bar   = 4,
+        Ring  = 78,
+        Dot   = 6,
+        Glow  = 20,
+        Pad   = 24,
+    },
+}
+
+-- ==================== SERVICES ====================
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 -- ==================== CONFIG ====================
 
-local ConfigSettings = {
+local Config = {
     ScriptName = "Aegis Hub",
-    Version = "1.0.0",
+    Version = "1.1.0",
     EnableUserWhitelist = true,
     EnableGameWhitelist = true,
     DenyMessage = "[Aegis Hub] Access Denied.",
     ShowUIOnLoad = true,
 }
 
--- ==================== WHITELIST (EDIT HERE) ====================
-
-local ConfigWhitelist = {
+local Whitelist: {[number]: {Tier: string, Note: string?, ExpiresAt: number?}} = {
     [11369517300] = {Tier = "Owner", Note = "iswg66qt17u"},
     [123456789]   = {Tier = "Premium", Note = "TestUser", ExpiresAt = os.time({year=2026, month=8, day=15, hour=23, min=0, sec=0})},
     [111111111]   = {Tier = "Freemium", Note = "GuestOne", ExpiresAt = os.time({year=2026, month=8, day=10, hour=12, min=0, sec=0})},
 }
 
-local ConfigAllowedGames = {123974602339071}
+local AllowedGames: {number} = {123974602339071}
 
--- ==================== CORE ====================
+-- ==================== AUTH ====================
 
-local function UserWhitelist(userId, whitelist, enabled)
+local Auth = {}
+
+function Auth.CheckUser(userId: number, enabled: boolean): (boolean, typeof(Whitelist[number])?)
     if not enabled then return true, {Tier = "freemium"} end
-    local entry = whitelist[userId]
+    local entry = Whitelist[userId]
     if not entry then return false, nil end
     if entry.ExpiresAt and os.time() > entry.ExpiresAt then return false, entry end
     return true, entry
 end
 
-local function GameWhitelist(placeId, allowedGames, enabled)
+function Auth.CheckGame(placeId: number, enabled: boolean): boolean
     if not enabled then return true end
-    if #allowedGames == 0 then return true end
-    for _, id in ipairs(allowedGames) do if id == placeId then return true end end
+    if #AllowedGames == 0 then return true end
+    for _, id in ipairs(AllowedGames) do
+        if id == placeId then return true end
+    end
     return false
 end
 
-local function TimeRemaining(entry)
+function Auth.TimeRemaining(entry: typeof(Whitelist[number])?): (string, Color3)
     if not entry or not entry.ExpiresAt then
-        return "Unlimited", Color3.fromRGB(0, 255, 136)
+        return "Unlimited", Theme.Color.Tier.Unlimited
     end
     local remaining = entry.ExpiresAt - os.time()
-    if remaining <= 0 then return "Expired", Color3.fromRGB(255, 50, 50) end
-    local days = math.floor(remaining / 86400); remaining = remaining % 86400
-    local hours = math.floor(remaining / 3600); remaining = remaining % 3600
-    local minutes = math.floor(remaining / 60)
-    local text
-    if days > 0 then text = string.format("%dd %dh %dm", days, hours, minutes)
-    elseif hours > 0 then text = string.format("%dh %dm", hours, minutes)
-    else text = string.format("%dm", minutes) end
-    local color = Color3.fromRGB(0, 255, 136)
-    if days == 0 and hours < 1 then color = Color3.fromRGB(255, 50, 50)
-    elseif days == 0 then color = Color3.fromRGB(255, 150, 0)
-    elseif days <= 3 then color = Color3.fromRGB(255, 200, 0) end
+    if remaining <= 0 then
+        return "Expired", Theme.Color.Tier.Urgent
+    end
+
+    local days = math.floor(remaining / 86400)
+    local hours = math.floor((remaining % 86400) / 3600)
+    local mins = math.floor((remaining % 3600) / 60)
+
+    local text: string
+    if days > 0 then
+        text = string.format("%dd %dh %dm", days, hours, mins)
+    elseif hours > 0 then
+        text = string.format("%dh %dm", hours, mins)
+    else
+        text = string.format("%dm", mins)
+    end
+
+    local color = Theme.Color.Tier.Unlimited
+    if days == 0 and hours < 1 then
+        color = Theme.Color.Tier.Urgent
+    elseif days == 0 then
+        color = Theme.Color.Tier.Short
+    elseif days <= 3 then
+        color = Theme.Color.Tier.Warning
+    end
+
     return text, color
 end
 
-local Players = game:GetService("Players")
-local MarketplaceService = game:GetService("MarketplaceService")
-
-local function Validate(cfg, whitelist, allowedGames)
+function Auth.Validate(): {
+    UserId: number, Username: string, PlaceId: number, GameName: string,
+    IsWhitelisted: boolean, IsGameAllowed: boolean, Tier: string?,
+    TimeRemaining: string?, TimeColor: Color3?, CanRun: boolean, Entry: typeof(Whitelist[number])?
+}
     local lp = Players.LocalPlayer
-    local r = {
-        UserId = lp.UserId, Username = lp.Name, PlaceId = game.PlaceId,
-        GameName = "Unknown", IsWhitelisted = false, IsGameAllowed = false,
-        Tier = nil, TimeRemaining = nil, TimeColor = nil, CanRun = false,
+    local result = {
+        UserId = lp.UserId,
+        Username = lp.Name,
+        PlaceId = game.PlaceId,
+        GameName = "Unknown",
+        IsWhitelisted = false,
+        IsGameAllowed = false,
+        Tier = nil,
+        TimeRemaining = nil,
+        TimeColor = nil,
+        CanRun = false,
+        Entry = nil,
     }
-    pcall(function() r.GameName = MarketplaceService:GetProductInfo(game.PlaceId).Name end)
-    r.IsGameAllowed = GameWhitelist(game.PlaceId, allowedGames, cfg.EnableGameWhitelist)
-    r.IsWhitelisted, r.Entry = UserWhitelist(lp.UserId, whitelist, cfg.EnableUserWhitelist)
-    if r.Entry then
-        r.Tier = r.Entry.Tier
-        r.TimeRemaining, r.TimeColor = TimeRemaining(r.Entry)
+
+    pcall(function()
+        result.GameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+    end)
+
+    result.IsGameAllowed = Auth.CheckGame(game.PlaceId, Config.EnableGameWhitelist)
+    result.IsWhitelisted, result.Entry = Auth.CheckUser(lp.UserId, Config.EnableUserWhitelist)
+
+    if result.Entry then
+        result.Tier = result.Entry.Tier
+        result.TimeRemaining, result.TimeColor = Auth.TimeRemaining(result.Entry)
     end
-    r.CanRun = r.IsWhitelisted and r.IsGameAllowed
-    return r
+
+    result.CanRun = result.IsWhitelisted and result.IsGameAllowed
+    return result
+end
+
+-- ==================== UI FACTORY ====================
+
+local UI = {}
+
+function UI.New(class: string, props: {[string]: any}): Instance
+    local inst = Instance.new(class)
+    for k, v in pairs(props) do
+        if k == "Parent" then continue end
+        inst[k] = v
+    end
+    if props.Parent then
+        inst.Parent = props.Parent
+    end
+    return inst
+end
+
+function UI.Corner(target: Instance, radius: UDim?)
+    return UI.New("UICorner", {
+        CornerRadius = radius or Theme.Radius.Card,
+        Parent = target,
+    })
+end
+
+function UI.Stroke(target: Instance, color: Color3?, thickness: number?, transparency: number?)
+    return UI.New("UIStroke", {
+        Color = color or Theme.Color.Stroke,
+        Thickness = thickness or 1,
+        Transparency = transparency or 0.5,
+        Parent = target,
+    })
+end
+
+function UI.Gradient(target: Instance, colors: {ColorSequenceKeypoint}, rotation: number?)
+    return UI.New("UIGradient", {
+        Color = ColorSequence.new(colors),
+        Rotation = rotation or 0,
+        Parent = target,
+    })
+end
+
+function UI.Tween<T>(target: Instance, props: T, duration: number, style: Enum.EasingStyle?, dir: Enum.EasingDirection?)
+    TweenService:Create(target, TweenInfo.new(duration, style or Enum.EasingStyle.Quart, dir or Enum.EasingDirection.Out), props):Play()
 end
 
 -- ==================== LOADING SCREEN ====================
 
-local function LoadingScreen(config)
-    local TweenService = game:GetService("TweenService")
-    local Players = game:GetService("Players")
-    local MarketplaceService = game:GetService("MarketplaceService")
+function UI.LoadingScreen()
     local player = Players.LocalPlayer
     local playerGui = player:WaitForChild("PlayerGui")
-    
+
     local old = playerGui:FindFirstChild("AegisHubLoading")
     if old then old:Destroy() end
-    
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "AegisHubLoading"
-    screenGui.ResetOnSpawn = false
-    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    screenGui.DisplayOrder = 999999
-    screenGui.Parent = playerGui
-    
-    local card = Instance.new("Frame")
-    card.Size = UDim2.new(0, 420, 0, 170)
-    card.Position = UDim2.new(0.5, -210, 0.5, -85)
-    card.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
-    card.BorderSizePixel = 0
-    card.Parent = screenGui
-    
-    local cardGradient = Instance.new("UIGradient")
-    cardGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 55)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(18, 18, 25))
+
+    -- Root
+    local screen = UI.New("ScreenGui", {
+        Name = "AegisHubLoading",
+        ResetOnSpawn = false,
+        ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+        DisplayOrder = 999999,
+        Parent = playerGui,
     })
-    cardGradient.Rotation = 135
-    cardGradient.Parent = card
-    
-    local cardCorner = Instance.new("UICorner")
-    cardCorner.CornerRadius = UDim.new(0, 16)
-    cardCorner.Parent = card
-    
-    local cardStroke = Instance.new("UIStroke")
-    cardStroke.Color = Color3.fromRGB(60, 60, 85)
-    cardStroke.Thickness = 1
-    cardStroke.Transparency = 0.5
-    cardStroke.Parent = card
-    
-    local glow = Instance.new("Frame")
-    glow.Size = UDim2.new(1, 20, 1, 20)
-    glow.Position = UDim2.new(0, -10, 0, -10)
-    glow.BackgroundColor3 = Color3.fromRGB(80, 120, 255)
-    glow.BackgroundTransparency = 0.92
-    glow.BorderSizePixel = 0
-    glow.ZIndex = -1
-    glow.Parent = card
-    
-    local glowCorner = Instance.new("UICorner")
-    glowCorner.CornerRadius = UDim.new(0, 20)
-    glowCorner.Parent = glow
-    
-    local leftSide = Instance.new("Frame")
-    leftSide.Size = UDim2.new(1, -130, 1, -40)
-    leftSide.Position = UDim2.new(0, 24, 0, 20)
-    leftSide.BackgroundTransparency = 1
-    leftSide.Parent = card
-    
-    local accentLine = Instance.new("Frame")
-    accentLine.Size = UDim2.new(0, 3, 0, 36)
-    accentLine.Position = UDim2.new(0, 0, 0, 6)
-    accentLine.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-    accentLine.BorderSizePixel = 0
-    accentLine.Parent = leftSide
-    
-    local accentLineCorner = Instance.new("UICorner")
-    accentLineCorner.CornerRadius = UDim.new(1, 0)
-    accentLineCorner.Parent = accentLine
-    
-    local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, -16, 0, 30)
-    title.Position = UDim2.new(0, 12, 0, 4)
-    title.BackgroundTransparency = 1
-    title.Text = config.ScriptName
-    title.TextColor3 = Color3.fromRGB(245, 245, 255)
-    title.Font = Enum.Font.GothamBold
-    title.TextSize = 26
-    title.TextXAlignment = Enum.TextXAlignment.Left
-    title.Parent = leftSide
-    
-    local userRow = Instance.new("Frame")
-    userRow.Size = UDim2.new(1, 0, 0, 18)
-    userRow.Position = UDim2.new(0, 0, 0, 42)
-    userRow.BackgroundTransparency = 1
-    userRow.Parent = leftSide
-    
-    local userDot = Instance.new("Frame")
-    userDot.Size = UDim2.new(0, 6, 0, 6)
-    userDot.Position = UDim2.new(0, 2, 0, 6)
-    userDot.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
-    userDot.BorderSizePixel = 0
-    userDot.Parent = userRow
-    
-    local userDotCorner = Instance.new("UICorner")
-    userDotCorner.CornerRadius = UDim.new(1, 0)
-    userDotCorner.Parent = userDot
-    
-    local usernameLabel = Instance.new("TextLabel")
-    usernameLabel.Size = UDim2.new(1, -14, 1, 0)
-    usernameLabel.Position = UDim2.new(0, 14, 0, 0)
-    usernameLabel.BackgroundTransparency = 1
-    usernameLabel.Text = player.Name
-    usernameLabel.TextColor3 = Color3.fromRGB(180, 180, 200)
-    usernameLabel.Font = Enum.Font.Gotham
-    usernameLabel.TextSize = 14
-    usernameLabel.TextXAlignment = Enum.TextXAlignment.Left
-    usernameLabel.Parent = userRow
-    
+
+    local card = UI.New("Frame", {
+        Size = UDim2.new(0, Theme.Size.Card.X, 0, Theme.Size.Card.Y),
+        Position = UDim2.new(0.5, -Theme.Size.Card.X/2, 0.5, -Theme.Size.Card.Y/2),
+        BackgroundColor3 = Theme.Color.Background,
+        BorderSizePixel = 0,
+        Parent = screen,
+    })
+    UI.Corner(card)
+    UI.Stroke(card)
+    UI.Gradient(card, {
+        ColorSequenceKeypoint.new(0, Theme.Color.Surface),
+        ColorSequenceKeypoint.new(1, Theme.Color.Deep),
+    }, 135)
+
+    -- Glow
+    local glow = UI.New("Frame", {
+        Size = UDim2.new(1, Theme.Size.Glow, 1, Theme.Size.Glow),
+        Position = UDim2.new(0, -Theme.Size.Glow/2, 0, -Theme.Size.Glow/2),
+        BackgroundColor3 = Theme.Color.AccentSoft,
+        BackgroundTransparency = 0.92,
+        BorderSizePixel = 0,
+        ZIndex = -1,
+        Parent = card,
+    })
+    UI.Corner(glow, Theme.Radius.Small)
+
+    -- Left content container
+    local left = UI.New("Frame", {
+        Size = UDim2.new(1, -130, 1, -40),
+        Position = UDim2.new(0, Theme.Size.Pad, 0, 20),
+        BackgroundTransparency = 1,
+        Parent = card,
+    })
+
+    -- Accent line
+    local accent = UI.New("Frame", {
+        Size = UDim2.new(0, 3, 0, 36),
+        Position = UDim2.new(0, 0, 0, 6),
+        BackgroundColor3 = Theme.Color.Accent,
+        BorderSizePixel = 0,
+        Parent = left,
+    })
+    UI.Corner(accent, Theme.Radius.Pill)
+
+    -- Title
+    UI.New("TextLabel", {
+        Size = UDim2.new(1, -16, 0, 30),
+        Position = UDim2.new(0, 12, 0, 4),
+        BackgroundTransparency = 1,
+        Text = Config.ScriptName,
+        TextColor3 = Theme.Color.Text,
+        Font = Theme.Font.Bold,
+        TextSize = 26,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = left,
+    })
+
+    -- Helper for dot+label rows
+    local function dotRow(parent: Instance, y: number, dotColor: Color3, text: string, size: number?)
+        local row = UI.New("Frame", {
+            Size = UDim2.new(1, 0, 0, size or 18),
+            Position = UDim2.new(0, 0, 0, y),
+            BackgroundTransparency = 1,
+            Parent = parent,
+        })
+        local dot = UI.New("Frame", {
+            Size = UDim2.new(0, Theme.Size.Dot, 0, Theme.Size.Dot),
+            Position = UDim2.new(0, 2, 0, (row.AbsoluteSize.Y - Theme.Size.Dot)/2),
+            BackgroundColor3 = dotColor,
+            BorderSizePixel = 0,
+            Parent = row,
+        })
+        UI.Corner(dot, Theme.Radius.Pill)
+        UI.New("TextLabel", {
+            Size = UDim2.new(1, -14, 1, 0),
+            Position = UDim2.new(0, 14, 0, 0),
+            BackgroundTransparency = 1,
+            Text = text,
+            TextColor3 = Theme.Color.TextMuted,
+            Font = Theme.Font.Normal,
+            TextSize = size and 12 or 14,
+            TextXAlignment = Enum.TextXAlignment.Left,
+            Parent = row,
+        })
+        return row
+    end
+
+    dotRow(left, 42, Color3.fromRGB(100, 200, 255), player.Name)
     local gameName = "Unknown"
     pcall(function() gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name end)
-    
-    local gameRow = Instance.new("Frame")
-    gameRow.Size = UDim2.new(1, 0, 0, 16)
-    gameRow.Position = UDim2.new(0, 0, 0, 62)
-    gameRow.BackgroundTransparency = 1
-    gameRow.Parent = leftSide
-    
-    local gameDot = Instance.new("Frame")
-    gameDot.Size = UDim2.new(0, 6, 0, 6)
-    gameDot.Position = UDim2.new(0, 2, 0, 5)
-    gameDot.BackgroundColor3 = Color3.fromRGB(255, 180, 100)
-    gameDot.BorderSizePixel = 0
-    gameDot.Parent = gameRow
-    
-    local gameDotCorner = Instance.new("UICorner")
-    gameDotCorner.CornerRadius = UDim.new(1, 0)
-    gameDotCorner.Parent = gameDot
-    
-    local gameLabel = Instance.new("TextLabel")
-    gameLabel.Size = UDim2.new(1, -14, 1, 0)
-    gameLabel.Position = UDim2.new(0, 14, 0, 0)
-    gameLabel.BackgroundTransparency = 1
-    gameLabel.Text = gameName
-    gameLabel.TextColor3 = Color3.fromRGB(140, 140, 160)
-    gameLabel.Font = Enum.Font.Gotham
-    gameLabel.TextSize = 12
-    gameLabel.TextXAlignment = Enum.TextXAlignment.Left
-    gameLabel.Parent = gameRow
-    
-    local status = Instance.new("TextLabel")
-    status.Name = "Status"
-    status.Size = UDim2.new(1, 0, 0, 16)
-    status.Position = UDim2.new(0, 0, 0, 92)
-    status.BackgroundTransparency = 1
-    status.Text = "Initializing..."
-    status.TextColor3 = Color3.fromRGB(160, 160, 180)
-    status.Font = Enum.Font.Gotham
-    status.TextSize = 12
-    status.TextXAlignment = Enum.TextXAlignment.Left
-    status.Parent = leftSide
-    
-    local barBg = Instance.new("Frame")
-    barBg.Size = UDim2.new(1, 0, 0, 4)
-    barBg.Position = UDim2.new(0, 0, 0, 118)
-    barBg.BackgroundColor3 = Color3.fromRGB(40, 40, 55)
-    barBg.BorderSizePixel = 0
-    barBg.Parent = leftSide
-    
-    local barBgCorner = Instance.new("UICorner")
-    barBgCorner.CornerRadius = UDim.new(1, 0)
-    barBgCorner.Parent = barBg
-    
-    local barFill = Instance.new("Frame")
-    barFill.Size = UDim2.new(0, 0, 1, 0)
-    barFill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    barFill.BorderSizePixel = 0
-    barFill.Parent = barBg
-    
-    local barGradient = Instance.new("UIGradient")
-    barGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(80, 200, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 100, 255))
+    dotRow(left, 62, Color3.fromRGB(255, 180, 100), gameName, 16)
+
+    -- Status
+    local status = UI.New("TextLabel", {
+        Name = "Status",
+        Size = UDim2.new(1, 0, 0, 16),
+        Position = UDim2.new(0, 0, 0, 92),
+        BackgroundTransparency = 1,
+        Text = "Initializing...",
+        TextColor3 = Color3.fromRGB(160, 160, 180),
+        Font = Theme.Font.Normal,
+        TextSize = 12,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Parent = left,
     })
-    barGradient.Parent = barFill
-    
-    local barFillCorner = Instance.new("UICorner")
-    barFillCorner.CornerRadius = UDim.new(1, 0)
-    barFillCorner.Parent = barFill
-    
-    local avatarRing = Instance.new("Frame")
-    avatarRing.Size = UDim2.new(0, 78, 0, 78)
-    avatarRing.Position = UDim2.new(1, -102, 0.5, -39)
-    avatarRing.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-    avatarRing.BorderSizePixel = 0
-    avatarRing.Parent = card
-    
-    local avatarRingCorner = Instance.new("UICorner")
-    avatarRingCorner.CornerRadius = UDim.new(1, 0)
-    avatarRingCorner.Parent = avatarRing
-    
-    local avatarFrame = Instance.new("Frame")
-    avatarFrame.Size = UDim2.new(1, -6, 1, -6)
-    avatarFrame.Position = UDim2.new(0, 3, 0, 3)
-    avatarFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-    avatarFrame.BorderSizePixel = 0
-    avatarFrame.Parent = avatarRing
-    
-    local avatarCorner = Instance.new("UICorner")
-    avatarCorner.CornerRadius = UDim.new(1, 0)
-    avatarCorner.Parent = avatarFrame
-    
-    local avatarImg = Instance.new("ImageLabel")
-    avatarImg.Size = UDim2.new(1, -8, 1, -8)
-    avatarImg.Position = UDim2.new(0, 4, 0, 4)
-    avatarImg.BackgroundTransparency = 1
-    avatarImg.Image = ""
-    avatarImg.Parent = avatarFrame
-    
-    local avatarImgCorner = Instance.new("UICorner")
-    avatarImgCorner.CornerRadius = UDim.new(1, 0)
-    avatarImgCorner.Parent = avatarImg
-    
+
+    -- Progress bar
+    local barBg = UI.New("Frame", {
+        Size = UDim2.new(1, 0, 0, Theme.Size.Bar),
+        Position = UDim2.new(0, 0, 0, 118),
+        BackgroundColor3 = Theme.Color.BarBg,
+        BorderSizePixel = 0,
+        Parent = left,
+    })
+    UI.Corner(barBg, Theme.Radius.Pill)
+
+    local barFill = UI.New("Frame", {
+        Size = UDim2.new(0, 0, 1, 0),
+        BackgroundColor3 = Color3.new(1, 1, 1),
+        BorderSizePixel = 0,
+        Parent = barBg,
+    })
+    UI.Corner(barFill, Theme.Radius.Pill)
+    UI.Gradient(barFill, {
+        ColorSequenceKeypoint.new(0, Theme.Color.BarGradient.Left),
+        ColorSequenceKeypoint.new(1, Theme.Color.BarGradient.Right),
+    })
+
+    -- Avatar
+    local ring = UI.New("Frame", {
+        Size = UDim2.new(0, Theme.Size.Ring, 0, Theme.Size.Ring),
+        Position = UDim2.new(1, -102, 0.5, -Theme.Size.Ring/2),
+        BackgroundColor3 = Theme.Color.Accent,
+        BorderSizePixel = 0,
+        Parent = card,
+    })
+    UI.Corner(ring, Theme.Radius.Pill)
+
+    local avatarFrame = UI.New("Frame", {
+        Size = UDim2.new(1, -6, 1, -6),
+        Position = UDim2.new(0, 3, 0, 3),
+        BackgroundColor3 = Color3.fromRGB(30, 30, 40),
+        BorderSizePixel = 0,
+        Parent = ring,
+    })
+    UI.Corner(avatarFrame, Theme.Radius.Pill)
+
+    local avatarImg = UI.New("ImageLabel", {
+        Size = UDim2.new(1, -8, 1, -8),
+        Position = UDim2.new(0, 4, 0, 4),
+        BackgroundTransparency = 1,
+        Image = "",
+        Parent = avatarFrame,
+    })
+    UI.Corner(avatarImg, Theme.Radius.Pill)
+
     task.spawn(function()
-        local success, thumb = pcall(function()
+        local ok, thumb = pcall(function()
             return Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
         end)
-        if success then avatarImg.Image = thumb end
+        if ok then avatarImg.Image = thumb end
     end)
-    
-    local function update(text, progress, color)
+
+    -- Controller
+    local controller = {}
+
+    function controller.Update(text: string, progress: number?, color: Color3?)
         status.Text = text
         if color then
             status.TextColor3 = color
-            barGradient.Color = ColorSequence.new({
+            UI.Gradient(barFill, {
                 ColorSequenceKeypoint.new(0, color),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 100, 255))
+                ColorSequenceKeypoint.new(1, Theme.Color.BarGradient.Right),
             })
         end
         if progress then
-            TweenService:Create(barFill, TweenInfo.new(0.4, Enum.EasingStyle.Quart), {
-                Size = UDim2.new(progress, 0, 1, 0)
-            }):Play()
+            UI.Tween(barFill, {Size = UDim2.new(progress, 0, 1, 0)}, 0.4)
         end
         task.wait(0.4)
     end
-    
-    local function finish(finalText, finalColor, success)
-        update(finalText, 1, finalColor)
+
+    function controller.Finish(finalText: string, finalColor: Color3, success: boolean)
+        controller.Update(finalText, 1, finalColor)
         task.wait(success and 0.8 or 1.5)
-        
-        TweenService:Create(card, TweenInfo.new(0.6, Enum.EasingStyle.Quart), {
-            BackgroundTransparency = 1
-        }):Play()
-        
+
+        UI.Tween(card, {BackgroundTransparency = 1}, 0.6)
         for _, child in ipairs(card:GetDescendants()) do
             if child:IsA("TextLabel") then
-                TweenService:Create(child, TweenInfo.new(0.4), {TextTransparency = 1}):Play()
+                UI.Tween(child, {TextTransparency = 1}, 0.4)
             elseif child:IsA("ImageLabel") then
-                TweenService:Create(child, TweenInfo.new(0.4), {ImageTransparency = 1}):Play()
+                UI.Tween(child, {ImageTransparency = 1}, 0.4)
             elseif child:IsA("Frame") then
-                TweenService:Create(child, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
+                UI.Tween(child, {BackgroundTransparency = 1}, 0.4)
             end
         end
-        
         task.wait(0.7)
-        screenGui:Destroy()
+        screen:Destroy()
     end
-    
-    return {Update = update, Finish = finish}
+
+    return controller
 end
 
 -- ==================== MAIN ====================
 
 local AegisHub = {}
-function AegisHub:Init()
-    local loader = LoadingScreen(ConfigSettings)
+
+function AegisHub:Init(): (boolean, typeof(Auth.Validate()))
+    local loader = UI.LoadingScreen()
     loader.Update("Initializing...", 0.15)
     loader.Update("Authenticating...", 0.4)
-    
-    local r = Validate(ConfigSettings, ConfigWhitelist, ConfigAllowedGames)
-    
-    -- DEBUG: yellow warn, each on separate line
-    warn("[Aegis Hub] ========== DEBUG ==========")
-    warn("[Aegis Hub] UserId:    " .. tostring(r.UserId))
-    warn("[Aegis Hub] Username:  " .. tostring(r.Username))
-    warn("[Aegis Hub] PlaceId:   " .. tostring(r.PlaceId))
-    warn("[Aegis Hub] GameName:  " .. tostring(r.GameName))
-    warn("[Aegis Hub] Whitelist: " .. tostring(r.IsWhitelisted))
-    warn("[Aegis Hub] Game:      " .. tostring(r.IsGameAllowed))
-    warn("[Aegis Hub] CanRun:    " .. tostring(r.CanRun))
-    warn("[Aegis Hub] ============================")
-    
+
+    local result = Auth.Validate()
+
+    warn(string.format(
+        "[Aegis Hub] ========== DEBUG ==========\n" ..
+        "  UserId:    %s\n" ..
+        "  Username:  %s\n" ..
+        "  PlaceId:   %s\n" ..
+        "  GameName:  %s\n" ..
+        "  Whitelist: %s\n" ..
+        "  Game:      %s\n" ..
+        "  CanRun:    %s\n" ..
+        "====================================",
+        tostring(result.UserId),
+        tostring(result.Username),
+        tostring(result.PlaceId),
+        tostring(result.GameName),
+        tostring(result.IsWhitelisted),
+        tostring(result.IsGameAllowed),
+        tostring(result.CanRun)
+    ))
+
     loader.Update("Verifying access...", 0.7)
-    
-    if not r.CanRun then
-        loader.Finish("Access Denied", Color3.fromRGB(255, 80, 80), false)
+
+    if not result.CanRun then
+        loader.Finish("Access Denied", Theme.Color.Error, false)
         warn("[Aegis Hub] Access Denied.")
-        return false, r
+        return false, result
     end
-    
-    warn("[Aegis Hub] User " .. r.Username .. " whitelisted")
-    warn("[Aegis Hub] Game " .. r.GameName .. " allowed")
-    loader.Finish("Welcome, " .. r.Username, Color3.fromRGB(80, 220, 160), true)
-    return true, r
+
+    warn("[Aegis Hub] User " .. result.Username .. " whitelisted")
+    warn("[Aegis Hub] Game " .. result.GameName .. " allowed")
+    loader.Finish("Welcome, " .. result.Username, Theme.Color.Success, true)
+    return true, result
 end
 
-function AegisHub:AddUser(userId, tier, expiresAt, note)
-    ConfigWhitelist[userId] = {Tier = tier or "freemium", ExpiresAt = expiresAt, Note = note}
+-- Public API
+function AegisHub:AddUser(userId: number, tier: string?, expiresAt: number?, note: string?)
+    Whitelist[userId] = {
+        Tier = tier or "freemium",
+        ExpiresAt = expiresAt,
+        Note = note,
+    }
 end
 
-function AegisHub:RemoveUser(userId)
-    ConfigWhitelist[userId] = nil
+function AegisHub:RemoveUser(userId: number)
+    Whitelist[userId] = nil
 end
 
-function AegisHub:GetWhitelist()
-    return ConfigWhitelist
+function AegisHub:GetWhitelist(): typeof(Whitelist)
+    return table.clone(Whitelist)
 end
 
 AegisHub:Init()
