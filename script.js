@@ -1,3 +1,37 @@
+/* ===== Discord Webhook Configuration ===== */
+const DISCORD_WEBHOOK_URL = '';
+
+/* ===== Discord Webhook ===== */
+async function sendToDiscord(data) {
+  if (!DISCORD_WEBHOOK_URL) return;
+
+  const payload = {
+    content: 'New website suggestion received!',
+    embeds: [
+      {
+        title: 'Website Suggestion',
+        color: 0x4f46e5,
+        fields: [
+          { name: 'Name', value: data.name || 'Anonymous', inline: true },
+          { name: 'Email', value: data.email || 'N/A', inline: true },
+          { name: 'Message', value: data.message || 'No message' }
+        ],
+        timestamp: new Date().toISOString()
+      }
+    ]
+  };
+
+  try {
+    await fetch(DISCORD_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (error) {
+    console.error('Failed to send webhook:', error);
+  }
+}
+
 /* ===== Theme Management ===== */
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
@@ -32,6 +66,7 @@ loadTheme();
 menuToggle?.addEventListener('click', () => {
   nav?.classList.toggle('active');
   menuToggle?.classList.toggle('active');
+  body.classList.toggle('menu-open');
 });
 
 /* ===== Close mobile menu on link click ===== */
@@ -39,6 +74,7 @@ document.querySelectorAll('.nav a').forEach((link) => {
   link.addEventListener('click', () => {
     nav.classList.remove('active');
     menuToggle.classList.remove('active');
+    body.classList.remove('menu-open');
   });
 });
 
@@ -47,28 +83,45 @@ document.querySelectorAll('a[href="#contact"]').forEach((link) => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
     contactModal?.classList.add('active');
+    body.classList.add('modal-open');
   });
 });
 
 closeContact?.addEventListener('click', () => {
   contactModal?.classList.remove('active');
+  body.classList.remove('modal-open');
 });
 
 contactModal?.addEventListener('click', (e) => {
-  if (e.target === contactModal) contactModal.classList.remove('active');
+  if (e.target === contactModal) {
+    contactModal.classList.remove('active');
+    body.classList.remove('modal-open');
+  }
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && contactModal?.classList.contains('active')) {
     contactModal.classList.remove('active');
+    body.classList.remove('modal-open');
   }
 });
 
 /* ===== Contact Form ===== */
-contactForm?.addEventListener('submit', (e) => {
+contactForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  const formData = new FormData(contactForm);
+  const data = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message')
+  };
+
+  await sendToDiscord(data);
+
   contactForm.reset();
   contactModal?.classList.remove('active');
+  body.classList.remove('modal-open');
 });
 
 /* ===== Tilt Effect ===== */

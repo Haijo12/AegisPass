@@ -69,7 +69,7 @@
         <div class="hero-shape hero-shape-1"></div>
         <div class="hero-shape hero-shape-2"></div>
         <img
-                    src="https://picsum.photos/seed/novalabs-hero/500/400"
+          src="https://picsum.photos/seed/novalabs-hero/500/400"
           alt="NovaLabs workspace"
           class="hero-image"
         />
@@ -107,9 +107,10 @@
         <div class="about-visual">
           <div class="profile-frame">
             <img
-                        src="https://picsum.photos/seed/nova-profile/300/300"
+              src="https://picsum.photos/seed/nova-profile/300/300"
               alt="Team portrait"
               class="profile-image"
+              loading="lazy"
             />
           </div>
           <div class="stat-grid">
@@ -259,9 +260,10 @@
       <div class="portfolio-grid">
         <div class="project-card" data-tilt>
           <img
-                      src="https://picsum.photos/seed/lumen-analytics/600/400"
+            src="https://picsum.photos/seed/lumen-analytics/600/400"
             alt="Lumen analytics dashboard"
             class="project-image"
+            loading="lazy"
           />
           <div class="project-body">
             <div class="project-header">
@@ -290,9 +292,10 @@
 
         <div class="project-card" data-tilt>
           <img
-                      src="https://picsum.photos/seed/voyage-travel/600/400"
+            src="https://picsum.photos/seed/voyage-travel/600/400"
             alt="Voyage travel app"
             class="project-image"
+            loading="lazy"
           />
           <div class="project-body">
             <div class="project-header">
@@ -321,9 +324,10 @@
 
         <div class="project-card" data-tilt>
           <img
-                      src="https://picsum.photos/seed/pulse-health/600/400"
+            src="https://picsum.photos/seed/pulse-health/600/400"
             alt="Pulse health dashboard"
             class="project-image"
+            loading="lazy"
           />
           <div class="project-body">
             <div class="project-header">
@@ -373,6 +377,7 @@
               src="https://ui-avatars.com/api/?background=4f46e5,7c3aed&color=fff&name=Sarah+Chen&size=100"
               alt="Sarah Chen"
               class="avatar"
+              loading="lazy"
             />
             <cite>Sarah Chen</cite>
             <span class="author-title">Head of Product, Orbit</span>
@@ -388,6 +393,7 @@
               src="https://ui-avatars.com/api/?background=4f46e5,7c3aed&color=fff&name=Marcus+Rivera&size=100"
               alt="Marcus Rivera"
               class="avatar"
+              loading="lazy"
             />
             <cite>Marcus Rivera</cite>
             <span class="author-title">Co-founder, Lumen</span>
@@ -403,6 +409,7 @@
               src="https://ui-avatars.com/api/?background=4f46e5,7c3aed&color=fff&name=Priya+Kapoor&size=100"
               alt="Priya Kapoor"
               class="avatar"
+              loading="lazy"
             />
             <cite>Priya Kapoor</cite>
             <span class="author-title">CEO, Voyage</span>
@@ -445,6 +452,7 @@
         <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
         <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
       </div>
+      <a href="#contact" class="suggestion-link">Suggest an improvement</a>
       <div class="footer-meta">
         <span class="year" id="year"></span> © NovaLabs. All rights reserved.
       </div>
@@ -459,8 +467,8 @@
       </button>
       <h3>Get in touch</h3>
       <p class="contact-hint">
-        We&rsquo;d love to hear about your project. Send us a message and we&rsquo;ll
-        get back within 24 hours.
+        We&rsquo;d love to hear about your project or any suggestions for this
+        website. Send us a message and we&rsquo;ll get back within 24 hours.
       </p>
       <div class="contact-info">
         <div class="contact-item">
@@ -477,9 +485,9 @@
         </div>
       </div>
       <form class="contact-form" id="contactForm">
-        <input type="text" placeholder="Name" required />
-        <input type="email" placeholder="Email" required />
-        <textarea placeholder="What&rsquo;s your project about?" rows="4" required></textarea>
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <textarea name="message" placeholder="What&rsquo;s your project about?" rows="4" required></textarea>
         <button type="submit" class="btn btn-primary">
           Send message <i data-lucide="send" class="icon-sm"></i>
         </button>

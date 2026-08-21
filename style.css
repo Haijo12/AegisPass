@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
@@ -19,11 +24,23 @@ body {
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 /* ===== Theme Variables ===== */
 .theme-light {
   --bg: #ffffff;
+  --bg-rgb: 255, 255, 255;
   --surface: #f8f9fa;
   --surface-2: #f1f3f5;
   --text: #1a1a1a;
@@ -38,6 +55,7 @@ body {
 
 .theme-dark {
   --bg: #0a0a0e;
+  --bg-rgb: 10, 10, 14;
   --surface: #14141a;
   --surface-2: #1c1c25;
   --text: #f0f0f2;
@@ -363,6 +381,8 @@ body {
 .hero-image {
   width: 100%;
   max-width: 480px;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
@@ -654,15 +674,6 @@ body {
   letter-spacing: 0.04em;
 }
 
-.project-link {
-  color: var(--muted);
-  transition: color 0.2s;
-}
-
-.project-link:hover {
-  color: var(--accent);
-}
-
 .project-card h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
@@ -874,6 +885,23 @@ body {
   color: #fff;
 }
 
+.suggestion-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.suggestion-link:hover {
+  background: var(--gradient);
+  color: #fff;
+  border-color: transparent;
+}
+
 /* ===== Contact Modal ===== */
 .contact-modal {
   position: fixed;
@@ -1040,21 +1068,21 @@ body {
     display: flex;
   }
 
-  .nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 280px;
-    flex-direction: column;
-    background: var(--bg);
-    padding: 96px 32px;
-    gap: 32px;
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    border-left: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-  }
+   .nav {
+     position: fixed;
+     top: 0;
+     right: 0;
+     height: 100vh;
+     width: 280px;
+     flex-direction: column;
+     background: rgba(var(--bg-rgb), 0.95);
+     padding: 96px 32px;
+     gap: 32px;
+     transform: translateX(100%);
+     transition: transform 0.4s ease;
+     border-left: 1px solid var(--border);
+     backdrop-filter: blur(12px);
+   }
 
    .nav.active {
     transform: translateX(0);
