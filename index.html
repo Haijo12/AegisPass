@@ -1,309 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Coffe — slow mornings, good coffee.">
-  <title>Coffe — Slow Mornings, Good Coffee</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisPass | Next-Gen Password Shield</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<header class="nav">
-  <a class="logo" href="#home">coffe<span>.</span></a>
-
-  <button class="menu-btn" aria-label="Open menu">☰</button>
-
-  <nav>
-    <a href="#menu">Menu</a>
-    <a href="#story">Our story</a>
-    <a href="#visit">Visit</a>
-    <a class="nav-cta" href="#order">Order coffee</a>
-  </nav>
-</header>
-
-<main>
-
-<section id="home" class="hero">
-
-  <div class="hero-copy">
-
-    <p class="eyebrow">☕ BREWED WITH INTENTION</p>
-
-    <h1>
-      Good coffee.<br>
-      <em>Better mornings.</em>
-    </h1>
-
-    <p class="lead">
-      Small-batch coffee, warm pastries, and a place
-      to slow down for a while.
-    </p>
-
-    <div class="actions">
-      <a class="button primary" href="#menu">
-        Explore the menu
-      </a>
-
-      <a class="text-link" href="#story">
-        Why Coffe? <span>→</span>
-      </a>
-    </div>
-
-  </div>
-
-
-  <div class="hero-art">
-
-    <div class="sun"></div>
-
-    <div class="cup-shadow"></div>
-
-    <div class="cup">
-
-      <div class="coffee"></div>
-
-      <div class="steam s1"></div>
-      <div class="steam s2"></div>
-      <div class="steam s3"></div>
-
-    </div>
-
-    <div class="saucer"></div>
-
-    <span class="bean bean-a"></span>
-    <span class="bean bean-b"></span>
-
-    <span class="leaf"></span>
-
-  </div>
-
-</section>
-
-
-<section id="menu" class="section menu-section">
-
-  <div class="section-head">
-
-    <div>
-      <p class="eyebrow">THE DAILY RITUAL</p>
-      <h2>Our favorites</h2>
-    </div>
-
-    <p>
-      Simple ingredients. Carefully sourced beans.
-      Nothing unnecessary.
-    </p>
-
-  </div>
-
-
-  <div class="cards">
-
-    <article class="card featured">
-
-      <div class="drink-icon latte"></div>
-
-      <div>
-        <span class="tag">HOUSE FAVORITE</span>
-
-        <h3>Honey Oat Latte</h3>
-
-        <p>
-          Espresso, silky oat milk, local honey,
-          cinnamon.
-        </p>
-      </div>
-
-      <strong>₱170</strong>
-
-    </article>
-
-
-    <article class="card">
-
-      <div class="drink-icon espresso"></div>
-
-      <div>
-        <h3>Espresso</h3>
-
-        <p>
-          Rich, balanced, two shots of our house blend.
-        </p>
-      </div>
-
-      <strong>₱110</strong>
-
-    </article>
-
-
-    <article class="card">
-
-      <div class="drink-icon cold"></div>
-
-      <div>
-        <h3>Cold Brew</h3>
-
-        <p>
-          Slow-steeped for 18 hours,
-          smooth and chocolatey.
-        </p>
-      </div>
-
-      <strong>₱150</strong>
-
-    </article>
-
-
-    <article class="card">
-
-      <div class="drink-icon matcha"></div>
-
-      <div>
-        <h3>Matcha Cloud</h3>
-
-        <p>
-          Japanese matcha, milk, vanilla foam.
-        </p>
-      </div>
-
-      <strong>₱180</strong>
-
-    </article>
-
-  </div>
-
-</section>
-
-
-<section id="story" class="story section">
-
-  <div class="story-image">
-
-    <div class="stamp">
-      EST.<br>
-      2026
-    </div>
-
-    <div class="bag">
-      <span>COFFE</span>
-      <small>HOUSE ROAST</small>
-    </div>
-
-  </div>
-
-
-  <div class="story-copy">
-
-    <p class="eyebrow">OUR LITTLE STORY</p>
-
-    <h2>
-      Made for the moments between.
-    </h2>
-
-    <p>
-      We started Coffe with one simple idea:
-      coffee tastes better when you don't have to
-      rush it.
-    </p>
-
-    <p>
-      Our beans are roasted in small batches,
-      our pastries arrive fresh each morning,
-      and our doors are always open for one more cup.
-    </p>
-
-    <a class="text-link" href="#visit">
-      Come say hello <span>→</span>
-    </a>
-
-  </div>
-
-</section>
-
-
-<section id="order" class="order">
-
-  <div>
-
-    <p class="eyebrow">
-      YOUR COFFEE, YOUR WAY
-    </p>
-
-    <h2>
-      Start the day<br>
-      with Coffe.
-    </h2>
-
-  </div>
-
-  <button class="button light" onclick="showToast()">
-    Order for pickup <span>→</span>
-  </button>
-
-</section>
-
-
-<section id="visit" class="visit section">
-
-  <div>
-
-    <p class="eyebrow">FIND US</p>
-
-    <h2>Drop by anytime.</h2>
-
-    <p>
-      Open daily · 7:00 AM — 8:00 PM
-    </p>
-
-  </div>
-
-
-  <div class="location">
-
-    <span>📍</span>
-
-    <div>
-      <strong>123 Morning Street</strong><br>
-      Somewhere warm, Philippines
-    </div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-  <div class="logo">
-    coffe<span>.</span>
-  </div>
-
-  <p>
-    Slow mornings. Good coffee.
-  </p>
-
-  <p>
-    © 2026 Coffe
-  </p>
-
-</footer>
-
-
-<div id="toast" class="toast">
-  Pickup ordering is coming soon ☕
-</div>
-
-
-<script src="script.js"></script>
-
+    <div class="background-glow"></div>
+    <main class="app-container">
+        <header class="app-header">
+            <span class="badge">AegisPass Security</span>
+            <h1>Cryptographic Key Generator</h1>
+            <p>Generate high-entropy client-side passwords protected by web encryption standards.</p>
+        </header>
+
+        <section class="display-box">
+            <input type="text" id="passwordDisplay" readonly placeholder="Click Generate" aria-label="Generated Password">
+            <button id="copyBtn" class="copy-btn">
+                <span id="copyText">Copy</span>
+            </button>
+        </section>
+
+        <section class="strength-box">
+            <div class="strength-label">
+                <span>Entropy Score</span>
+                <span id="strengthText">Waiting...</span>
+            </div>
+            <div class="strength-bar-track">
+                <div id="strengthBar" class="strength-bar-fill"></div>
+            </div>
+        </section>
+
+        <section class="controls-box">
+            <div class="control-group">
+                <div class="label-row">
+                    <label for="lengthSlider">Character Length</label>
+                    <span id="lengthVal" class="length-val">16</span>
+                </div>
+                <input type="range" id="lengthSlider" min="8" max="64" value="16">
+            </div>
+
+            <div class="options-grid">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="incUppercase" checked>
+                    <span class="checkmark"></span>
+                    Uppercase (A-Z)
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="incLowercase" checked>
+                    <span class="checkmark"></span>
+                    Lowercase (a-z)
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="incNumbers" checked>
+                    <span class="checkmark"></span>
+                    Numbers (0-9)
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="incSymbols" checked>
+                    <span class="checkmark"></span>
+                    Symbols (!@#$)
+                </label>
+            </div>
+
+            <button id="generateBtn" class="generate-btn">Generate Security Key</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
