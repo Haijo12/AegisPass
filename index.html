@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaLabs &mdash; Where Ideas Take Shape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-light">
+  <div class="cursor-dot"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">NovaLabs</div>
+      <nav class="nav" id="nav">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-sun">☀</span>
+        <span class="theme-moon">☾</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1 class="hero-title">
+        <span class="hero-line">Crafting digital</span>
+        <span class="hero-line accent">experiences</span>
+        <span class="hero-line">that matter</span>
+      </h1>
+      <p class="hero-subtitle">
+        We build thoughtful products, beautiful interfaces, and smart code for teams
+        who want to leave a mark.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Let's talk</a>
+        <a href="#features" class="btn btn-ghost">See our work</a>
+      </div>
+      <div class="hero-grid">
+        <div class="grid-item" data-label="Product Design"></div>
+        <div class="grid-item" data-label="Frontend"></div>
+        <div class="grid-item" data-label="Strategy"></div>
+        <div class="grid-item" data-label="Code"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>About NovaLabs</h2>
+        <p class="section-tagline">
+          A small team of builders, thinkers, and makers based in the cloud.
+        </p>
+      </div>
+      <div class="about-grid">
+        <div class="about-bio">
+          <p>
+            Founded on the belief that great things happen when curiosity meets
+            craft, NovaLabs helps companies turn bold ideas into reality. We
+            blend strategy, design, and engineering to ship products people love.
+          </p>
+          <p>
+            When we're not coding, you'll find us chasing sunsets, sipping
+            pour-over coffee, or sketching wireframes on napkins.
+          </p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-num">8+</div>
+            <div class="stat-label">Years experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">120+</div>
+            <div class="stat-label">Projects shipped</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">42+</div>
+            <div class="stat-label">Happy clients</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Ideas daily</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features section" id="features">
+    <div class="container">
+      <div class="section-head">
+        <h2>Featured Work</h2>
+        <p class="section-tagline">
+          A small selection of projects we're proud of.
+        </p>
+      </div>
+      <div class="cards">
+        <div class="card" data-tilt>
+          <div class="card-img">
+            <div class="placeholder">Lumen &mdash; Analytics</div>
+          </div>
+          <div class="card-body">
+            <h3>Real-time analytics dashboard</h3>
+            <p>
+              A blazing-fast analytics platform that processes millions of events
+              per second with live visualizations.
+            </p>
+          </div>
+        </div>
+        <div class="card" data-tilt>
+          <div class="card-img">
+            <div class="placeholder">Voyage &mdash; Travel</div>
+          </div>
+          <div class="card-body">
+            <h3>Travel discovery app</h3>
+            <p>
+              An AI-powered travel companion that curates personalized itineraries
+              for curious explorers.
+            </p>
+          </div>
+        </div>
+        <div class="card" data-tilt>
+          <div class="card-img">
+            <div class="placeholder">Pulse &mdash; Health</div>
+          </div>
+          <div class="card-body">
+            <h3>Health tracking platform</h3>
+            <p>
+              A holistic health dashboard that syncs wearables and visualizes
+              well-being metrics over time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials section">
+    <div class="container">
+      <div class="testimonial-slider" id="testimonials">
+        <div class="testimonial active">
+          <blockquote>
+            "NovaLabs transformed our product vision into a reality. The team's
+            attention to detail is unmatched."
+          </blockquote>
+          <cite>&mdash; Sarah Chen, Head of Product, Orbit</cite>
+        </div>
+        <div class="testimonial">
+          <blockquote>
+            "Working with them felt like having an extension of our own team.
+            Truly collaborative and brilliant."
+          </blockquote>
+          <cite>&mdash; Marcus Rivera, Co-founder, Lumen</cite>
+        </div>
+        <div class="testimonial">
+          <blockquote>
+            "They don't just build — they understand. The results speak for
+            themselves."
+          </blockquote>
+          <cite>&mdash; Priya Kapoor, CEO, Voyage</cite>
+        </div>
+      </div>
+      <div class="dots" id="dots"></div>
+      <button class="nav-btn prev" id="prevBtn" aria-label="Previous">‹</button>
+      <button class="nav-btn next" id="nextBtn" aria-label="Next">›</button>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="container">
+      <h2>Ready to build something amazing?</h2>
+      <a href="#contact" class="btn btn-primary">Start a project</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">NovaLabs</div>
+      <div class="footer-nav">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-meta">
+        <span class="year" id="year"></span> © NovaLabs. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <section class="contact-modal" id="contact">
+    <div class="contact-content" data-tilt>
+      <button class="close-contact" id="closeContact" aria-label="Close">×</button>
+      <h3>Get in touch</h3>
+      <p>Email us at <a href="mailto:hello@novaluabs.com">hello@novalabs.com</a></p>
+      <form class="contact-form" id="contactForm">
+        <input type="text" placeholder="Name" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="What's your project about?" rows="4" required></textarea>
+        <button type="submit" class="btn btn-primary">Send message</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
