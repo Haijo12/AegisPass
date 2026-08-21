@@ -34,6 +34,14 @@ menuToggle?.addEventListener('click', () => {
   menuToggle?.classList.toggle('active');
 });
 
+/* ===== Close mobile menu on link click ===== */
+document.querySelectorAll('.nav a').forEach((link) => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('active');
+    menuToggle.classList.remove('active');
+  });
+});
+
 /* ===== Contact Modal ===== */
 document.querySelectorAll('a[href="#contact"]').forEach((link) => {
   link.addEventListener('click', (e) => {
@@ -99,9 +107,9 @@ function initTilt() {
       const rect = item.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;
-      const rotateX = (y - 0.5) * -12;
-      const rotateY = (x - 0.5) * 12;
-      item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+      const rotateX = (y - 0.5) * -10;
+      const rotateY = (x - 0.5) * 10;
+      item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
     });
 
     item.addEventListener('mouseleave', () => {
@@ -157,11 +165,30 @@ nextBtn?.addEventListener('click', nextTestimonial);
 createDots();
 
 let autoSlide = setInterval(nextTestimonial, 5000);
-
 const testimonialContainer = document.querySelector('.testimonials');
 testimonialContainer?.addEventListener('mouseenter', () => clearInterval(autoSlide));
 testimonialContainer?.addEventListener('mouseleave', () => {
   autoSlide = setInterval(nextTestimonial, 5000);
+});
+
+/* ===== Timeline Animation on Scroll ===== */
+const timeline = document.querySelector('.timeline');
+const timelineItems = document.querySelectorAll('.timeline-item');
+
+const timelineObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        timeline?.classList.add('animated');
+        entry.target.classList.add('active');
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+
+timelineItems.forEach((item) => {
+  timelineObserver.observe(item);
 });
 
 /* ===== Footer Year ===== */
@@ -169,15 +196,17 @@ const yearSpan = document.getElementById('year');
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
 /* ===== Reveal on Scroll ===== */
-const revealElements = document.querySelectorAll('.section, .hero-grid, .about-grid, .cards');
+const revealElements = document.querySelectorAll(
+  '.about-bio, .skills, .about-visual, .services-grid, .portfolio-grid, .cta-strip h2'
+);
 
-const observer = new IntersectionObserver(
+const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
   },
@@ -188,5 +217,10 @@ revealElements.forEach((el) => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(30px)';
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
+  revealObserver.observe(el);
 });
+
+/* ===== Initialize Lucide Icons ===== */
+if (typeof lucide !== 'undefined') {
+  lucide.createIcons();
+}

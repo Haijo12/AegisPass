@@ -10,54 +10,76 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
+  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="theme-light">
   <div class="cursor-dot"></div>
 
+  <!-- ===== Header ===== -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="logo">NovaLabs</div>
       <nav class="nav" id="nav">
         <a href="#hero">Home</a>
         <a href="#about">About</a>
-        <a href="#features">Work</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-sun">☀</span>
-        <span class="theme-moon">☾</span>
+        <i data-lucide="sun" class="theme-icon sun"></i>
+        <i data-lucide="moon" class="theme-icon moon"></i>
       </button>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-        <span></span><span></span><span></span>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <i data-lucide="menu" class="menu-icon"></i>
+        <i data-lucide="x" class="menu-icon-close"></i>
       </button>
     </div>
   </header>
 
+  <!-- ===== Hero ===== -->
   <section class="hero" id="hero">
-    <div class="container">
-      <h1 class="hero-title">
-        <span class="hero-line">Crafting digital</span>
-        <span class="hero-line accent">experiences</span>
-        <span class="hero-line">that matter</span>
-      </h1>
-      <p class="hero-subtitle">
-        We build thoughtful products, beautiful interfaces, and smart code for teams
-        who want to leave a mark.
-      </p>
-      <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary">Let's talk</a>
-        <a href="#features" class="btn btn-ghost">See our work</a>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="hero-line">Crafting digital</span>
+          <span class="hero-line accent">experiences</span>
+          <span class="hero-line">that matter</span>
+        </h1>
+        <p class="hero-subtitle">
+          We build thoughtful products, beautiful interfaces, and smart code for
+          teams who want to leave a mark.
+        </p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Let&rsquo;s talk <i data-lucide="arrow-right" class="icon-sm"></i></a>
+          <a href="#work" class="btn btn-ghost">See our work</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="stat-num">120+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num">4.9</span>
+            <span class="stat-label">Rating</span>
+          </div>
+        </div>
       </div>
-      <div class="hero-grid">
-        <div class="grid-item" data-label="Product Design"></div>
-        <div class="grid-item" data-label="Frontend"></div>
-        <div class="grid-item" data-label="Strategy"></div>
-        <div class="grid-item" data-label="Code"></div>
+      <div class="hero-visual">
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
+        <img
+          src="https://images.picsum.photos/seed/novalabs-hero/500/400"
+          alt="NovaLabs workspace"
+          class="hero-image"
+        />
       </div>
     </div>
   </section>
 
+  <!-- ===== About ===== -->
   <section class="about section" id="about">
     <div class="container">
       <div class="section-head">
@@ -74,127 +96,356 @@
             blend strategy, design, and engineering to ship products people love.
           </p>
           <p>
-            When we're not coding, you'll find us chasing sunsets, sipping
-            pour-over coffee, or sketching wireframes on napkins.
+            When we&rsquo;re not coding, you&rsquo;ll find us chasing sunsets,
+            sipping pour-over coffee, or sketching wireframes on napkins.
           </p>
+          <div class="skills">
+            <span class="skill">Product Design</span>
+            <span class="skill">Frontend Development</span>
+            <span class="skill">Brand Strategy</span>
+            <span class="skill">Mobile Apps</span>
+          </div>
         </div>
-        <div class="stat-grid">
-          <div class="stat">
-            <div class="stat-num">8+</div>
-            <div class="stat-label">Years experience</div>
+        <div class="about-visual">
+          <div class="profile-frame">
+            <img
+              src="https://images.picsum.photos/seed/nova-profile/300/300"
+              alt="Team portrait"
+              class="profile-image"
+            />
           </div>
-          <div class="stat">
-            <div class="stat-num">120+</div>
-            <div class="stat-label">Projects shipped</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">42+</div>
-            <div class="stat-label">Happy clients</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Ideas daily</div>
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="stat-num">8+</div>
+              <div class="stat-label">Years experience</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">120+</div>
+              <div class="stat-label">Projects shipped</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">42+</div>
+              <div class="stat-label">Happy clients</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">&infin;</div>
+              <div class="stat-label">Ideas daily</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="features section" id="features">
+  <!-- ===== Services ===== -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>What We Do</h2>
+        <p class="section-tagline">
+          End-to-end services for ambitious brands and startups.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card" data-tilt>
+          <div class="service-icon">
+            <i data-lucide="palette"></i>
+          </div>
+          <h3>Product Design</h3>
+          <p>
+            User-centered design that balances aesthetics with usability to
+            create intuitive and delightful experiences.
+          </p>
+        </div>
+        <div class="service-card" data-tilt>
+          <div class="service-icon">
+            <i data-lucide="code"></i>
+          </div>
+          <h3>Frontend Development</h3>
+          <p>
+            Clean, performant code built with modern frameworks that scales
+            beautifully across every device and screen.
+          </p>
+        </div>
+        <div class="service-card" data-tilt>
+          <div class="service-icon">
+            <i data-lucide="layout"></i>
+          </div>
+          <h3>Brand Identity</h3>
+          <p>
+            Cohesive visual language and brand systems that communicate your
+            unique value and resonate with your audience.
+          </p>
+        </div>
+        <div class="service-card" data-tilt>
+          <div class="service-icon">
+            <i data-lucide="smartphone"></i>
+          </div>
+          <h3>Mobile Apps</h3>
+          <p>
+            Native and cross-platform mobile experiences designed to engage users
+            and drive meaningful interactions.
+          </p>
+        </div>
+        <div class="service-card" data-tilt>
+          <div class="service-icon">
+            <i data-lucide="zap"></i>
+          </div>
+          <h3>Web Strategy</h3>
+          <p>
+            Data-driven strategy that aligns your digital presence with
+            measurable business goals and growth targets.
+          </p>
+        </div>
+        <div class="service-card" data-tilt>
+          <div class="service-icon">
+            <i data-lucide="server"></i>
+          </div>
+          <h3>Backend Engineering</h3>
+          <p>
+            Scalable server-side architecture and APIs built for performance,
+            security, and reliability from day one.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Process / Timeline ===== -->
+  <section class="process section" id="process">
+    <div class="container">
+      <div class="section-head">
+        <h2>Our Process</h2>
+        <p class="section-tagline">
+          A proven roadmap from concept to launch and beyond.
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-step">01</div>
+          <div class="timeline-icon"><i data-lucide="lightbulb"></i></div>
+          <h3>Discover</h3>
+          <p>We align on goals, audience, and the core problem to solve.</p>
+        </div>
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-step">02</div>
+          <div class="timeline-icon"><i data-lucide="pen-tool"></i></div>
+          <h3>Design</h3>
+          <p>We craft user flows, wireframes, and high-fidelity designs.</p>
+        </div>
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-step">03</div>
+          <div class="timeline-icon"><i data-lucide="code"></i></div>
+          <h3>Build</h3>
+          <p>We develop clean, tested code using modern technologies.</p>
+        </div>
+        <div class="timeline-item" data-tilt>
+          <div class="timeline-step">04</div>
+          <div class="timeline-icon"><i data-lucide="rocket"></i></div>
+          <h3>Launch</h3>
+          <p>We ship to production, monitor performance, and iterate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Work / Portfolio ===== -->
+  <section class="work section" id="work">
     <div class="container">
       <div class="section-head">
         <h2>Featured Work</h2>
         <p class="section-tagline">
-          A small selection of projects we're proud of.
+          A small selection of projects we&rsquo;re proud of.
         </p>
       </div>
-      <div class="cards">
-        <div class="card" data-tilt>
-          <div class="card-img">
-            <div class="placeholder">Lumen &mdash; Analytics</div>
-          </div>
-          <div class="card-body">
-            <h3>Real-time analytics dashboard</h3>
+      <div class="portfolio-grid">
+        <div class="project-card" data-tilt>
+          <img
+            src="https://images.picsum.photos/seed/lumen-analytics/600/400"
+            alt="Lumen analytics dashboard"
+            class="project-image"
+          />
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-tag">Dashboard</span>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener"
+                class="project-link"
+                aria-label="View project"
+                ><i data-lucide="external-link"></i></a
+              >
+            </div>
+            <h3>Lumen &mdash; Analytics</h3>
             <p>
-              A blazing-fast analytics platform that processes millions of events
-              per second with live visualizations.
+              A real-time analytics platform processing millions of events per
+              second with live visualizations.
             </p>
+            <div class="project-tech">
+              <span>React</span>
+              <span>Node.js</span>
+              <span>WebSocket</span>
+            </div>
           </div>
         </div>
-        <div class="card" data-tilt>
-          <div class="card-img">
-            <div class="placeholder">Voyage &mdash; Travel</div>
-          </div>
-          <div class="card-body">
-            <h3>Travel discovery app</h3>
+
+        <div class="project-card" data-tilt>
+          <img
+            src="https://images.picsum.photos/seed/voyage-travel/600/400"
+            alt="Voyage travel app"
+            class="project-image"
+          />
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-tag">Mobile App</span>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener"
+                class="project-link"
+                aria-label="View project"
+                ><i data-lucide="external-link"></i></a
+              >
+            </div>
+            <h3>Voyage &mdash; Travel</h3>
             <p>
-              An AI-powered travel companion that curates personalized itineraries
-              for curious explorers.
+              An AI-powered travel companion that curates personalized
+              itineraries for curious explorers.
             </p>
+            <div class="project-tech">
+              <span>React Native</span>
+              <span>Firebase</span>
+              <span>AI</span>
+            </div>
           </div>
         </div>
-        <div class="card" data-tilt>
-          <div class="card-img">
-            <div class="placeholder">Pulse &mdash; Health</div>
-          </div>
-          <div class="card-body">
-            <h3>Health tracking platform</h3>
+
+        <div class="project-card" data-tilt>
+          <img
+            src="https://images.picsum.photos/seed/pulse-health/600/400"
+            alt="Pulse health dashboard"
+            class="project-image"
+          />
+          <div class="project-body">
+            <div class="project-header">
+              <span class="project-tag">Health</span>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener"
+                class="project-link"
+                aria-label="View project"
+                ><i data-lucide="external-link"></i></a
+              >
+            </div>
+            <h3>Pulse &mdash; Health</h3>
             <p>
               A holistic health dashboard that syncs wearables and visualizes
               well-being metrics over time.
             </p>
+            <div class="project-tech">
+              <span>Vue</span>
+              <span>GraphQL</span>
+              <span>Rust</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="testimonials section">
+  <!-- ===== Testimonials ===== -->
+  <section class="testimonials section" id="testimonials">
     <div class="container">
-      <div class="testimonial-slider" id="testimonials">
+      <div class="section-head">
+        <h2>What Clients Say</h2>
+        <p class="section-tagline">
+          Don&rsquo;t just take our word for it.
+        </p>
+      </div>
+      <div class="testimonial-slider">
         <div class="testimonial active">
           <blockquote>
-            "NovaLabs transformed our product vision into a reality. The team's
-            attention to detail is unmatched."
+            &ldquo;NovaLabs transformed our product vision into a reality.
+            The team&rsquo;s attention to detail is unmatched.&rdquo;
           </blockquote>
-          <cite>&mdash; Sarah Chen, Head of Product, Orbit</cite>
+          <div class="testimonial-author">
+            <img
+              src="https://images.picsum.photos/seed/person1/100/100"
+              alt="Sarah Chen"
+              class="avatar"
+            />
+            <cite>Sarah Chen</cite>
+            <span class="author-title">Head of Product, Orbit</span>
+          </div>
         </div>
         <div class="testimonial">
           <blockquote>
-            "Working with them felt like having an extension of our own team.
-            Truly collaborative and brilliant."
+            &ldquo;Working with them felt like having an extension of our own
+            team. Truly collaborative and brilliant.&rdquo;
           </blockquote>
-          <cite>&mdash; Marcus Rivera, Co-founder, Lumen</cite>
+          <div class="testimonial-author">
+            <img
+              src="https://images.picsum.photos/seed/person2/100/100"
+              alt="Marcus Rivera"
+              class="avatar"
+            />
+            <cite>Marcus Rivera</cite>
+            <span class="author-title">Co-founder, Lumen</span>
+          </div>
         </div>
         <div class="testimonial">
           <blockquote>
-            "They don't just build — they understand. The results speak for
-            themselves."
+            &ldquo;They don&rsquo;t just build &mdash; they understand. The
+            results speak for themselves.&rdquo;
           </blockquote>
-          <cite>&mdash; Priya Kapoor, CEO, Voyage</cite>
+          <div class="testimonial-author">
+            <img
+              src="https://images.picsum.photos/seed/person3/100/100"
+              alt="Priya Kapoor"
+              class="avatar"
+            />
+            <cite>Priya Kapoor</cite>
+            <span class="author-title">CEO, Voyage</span>
+          </div>
         </div>
       </div>
       <div class="dots" id="dots"></div>
-      <button class="nav-btn prev" id="prevBtn" aria-label="Previous">‹</button>
-      <button class="nav-btn next" id="nextBtn" aria-label="Next">›</button>
+      <button class="nav-btn prev" id="prevBtn" aria-label="Previous testimonial">
+        <i data-lucide="chevron-left"></i>
+      </button>
+      <button class="nav-btn next" id="nextBtn" aria-label="Next testimonial">
+        <i data-lucide="chevron-right"></i>
+      </button>
     </div>
   </section>
 
+  <!-- ===== CTA Strip ===== -->
   <section class="cta-strip">
     <div class="container">
       <h2>Ready to build something amazing?</h2>
-      <a href="#contact" class="btn btn-primary">Start a project</a>
+      <p class="cta-sub">Let&rsquo;s collaborate and turn your ideas into reality.</p>
+      <a href="#contact" class="btn btn-primary">Start a project <i data-lucide="arrow-right" class="icon-sm"></i></a>
     </div>
   </section>
 
+  <!-- ===== Footer ===== -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">NovaLabs</div>
       <div class="footer-nav">
         <a href="#hero">Home</a>
         <a href="#about">About</a>
-        <a href="#features">Work</a>
-        <a href="#contact">Contact</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#testimonials">Testimonials</a>
+      </div>
+      <div class="social-links">
+        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+        <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
       </div>
       <div class="footer-meta">
         <span class="year" id="year"></span> © NovaLabs. All rights reserved.
@@ -202,16 +453,38 @@
     </div>
   </footer>
 
+  <!-- ===== Contact Modal ===== -->
   <section class="contact-modal" id="contact">
     <div class="contact-content" data-tilt>
-      <button class="close-contact" id="closeContact" aria-label="Close">×</button>
+      <button class="close-contact" id="closeContact" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
       <h3>Get in touch</h3>
-      <p>Email us at <a href="mailto:hello@novaluabs.com">hello@novalabs.com</a></p>
+      <p class="contact-hint">
+        We&rsquo;d love to hear about your project. Send us a message and we&rsquo;ll
+        get back within 24 hours.
+      </p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <i data-lucide="mail"></i>
+          <a href="mailto:hello@novalabs.com">hello@novalabs.com</a>
+        </div>
+        <div class="contact-item">
+          <i data-lucide="phone"></i>
+          <a href="tel:+1234567890">+1 (234) 567-890</a>
+        </div>
+        <div class="contact-item">
+          <i data-lucide="map-pin"></i>
+          <span>San Francisco, CA</span>
+        </div>
+      </div>
       <form class="contact-form" id="contactForm">
         <input type="text" placeholder="Name" required />
         <input type="email" placeholder="Email" required />
-        <textarea placeholder="What's your project about?" rows="4" required></textarea>
-        <button type="submit" class="btn btn-primary">Send message</button>
+        <textarea placeholder="What&rsquo;s your project about?" rows="4" required></textarea>
+        <button type="submit" class="btn btn-primary">
+          Send message <i data-lucide="send" class="icon-sm"></i>
+        </button>
       </form>
     </div>
   </section>
