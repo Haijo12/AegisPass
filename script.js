@@ -1,5 +1,5 @@
 /* ===== Discord Webhook Configuration ===== */
-const DISCORD_WEBHOOK_URL = '';
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1540454880039411732/g1utFbkSgznzMElGv7y62oUHvxpAWe7gFpYZ9cEZgjJ0GW9ZDjKfJHsxciVFg5Si5Bcx';
 
 /* ===== Discord Webhook ===== */
 async function sendToDiscord(data) {
