@@ -10,11 +10,10 @@ async function sendToDiscord(data) {
     embeds: [
       {
         title: 'Website Suggestion',
+        description: data.title || 'Untitled',
         color: 0x4f46e5,
         fields: [
-          { name: 'Name', value: data.name || 'Anonymous', inline: true },
-          { name: 'Email', value: data.email || 'N/A', inline: true },
-          { name: 'Message', value: data.message || 'No message' }
+          { name: 'Suggestion', value: data.suggestion || 'No suggestion' }
         ],
         timestamp: new Date().toISOString()
       }
@@ -22,11 +21,12 @@ async function sendToDiscord(data) {
   };
 
   try {
-    await fetch(DISCORD_WEBHOOK_URL, {
+    const response = await fetch(DISCORD_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
+    if (!response.ok) throw new Error('Webhook failed');
   } catch (error) {
     console.error('Failed to send webhook:', error);
   }
@@ -111,17 +111,30 @@ contactForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const formData = new FormData(contactForm);
-  const data = {
-    name: formData.get('name'),
-    email: formData.get('email'),
-    message: formData.get('message')
-  };
+  const title = formData.get('title')?.trim();
+  const suggestion = formData.get('suggestion')?.trim();
 
-  await sendToDiscord(data);
+  if (!title || !suggestion) return;
+
+  const confirmed = confirm(`Send suggestion?\n\nTitle: ${title}\n\n${suggestion}`);
+  if (!confirmed) return;
+
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+  }
+
+  await sendToDiscord({ title, suggestion });
 
   contactForm.reset();
   contactModal?.classList.remove('active');
   body.classList.remove('modal-open');
+
+  if (submitBtn) {
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+  }
 });
 
 /* ===== Tilt Effect ===== */
