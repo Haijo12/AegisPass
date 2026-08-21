@@ -71,31 +71,6 @@ contactForm?.addEventListener('submit', (e) => {
   contactModal?.classList.remove('active');
 });
 
-/* ===== Custom Cursor ===== */
-const cursor = document.querySelector('.cursor-dot');
-
-if (cursor) {
-  let mouseX = 0;
-  let mouseY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  const delay = 0.15;
-
-  function animateCursor() {
-    currentX += (mouseX - currentX) * delay;
-    currentY += (mouseY - currentY) * delay;
-    cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
-    requestAnimationFrame(animateCursor);
-  }
-
-  animateCursor();
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-}
-
 /* ===== Tilt Effect ===== */
 function initTilt() {
   const items = document.querySelectorAll('[data-tilt]');

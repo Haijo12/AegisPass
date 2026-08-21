@@ -79,21 +79,6 @@ body {
   margin: 12px auto 0;
 }
 
-/* ===== Cursor ===== */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 12px;
-  background: var(--gradient);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-}
-
 /* ===== Icons ===== */
 .icon-sm {
   width: 18px;
@@ -978,9 +963,8 @@ body {
 
   .about-visual {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 24px;
-    align-items: flex-start;
   }
 
   .timeline {
