@@ -18,7 +18,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="logo">NovaLabs</div>
-      <nav class="nav" id="nav">
+      <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
         <a href="#hero">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
@@ -26,14 +26,16 @@
         <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i data-lucide="sun" class="theme-icon sun"></i>
-        <i data-lucide="moon" class="theme-icon moon"></i>
-      </button>
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-        <i data-lucide="menu" class="menu-icon"></i>
-        <i data-lucide="x" class="menu-icon-close"></i>
-      </button>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i data-lucide="sun" class="theme-icon sun"></i>
+          <i data-lucide="moon" class="theme-icon moon"></i>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <i data-lucide="menu" class="menu-icon"></i>
+          <i data-lucide="x" class="menu-icon-close"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -446,13 +448,15 @@
         <a href="#work">Work</a>
         <a href="#testimonials">Testimonials</a>
       </div>
-      <div class="social-links">
-        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github"></i></a>
-        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
-        <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
+      <div class="footer-actions">
+        <div class="social-links">
+          <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github"></i></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
+        </div>
+        <a href="#contact" class="suggestion-link">Suggest an improvement</a>
       </div>
-      <a href="#contact" class="suggestion-link">Suggest an improvement</a>
       <div class="footer-meta">
         <span class="year" id="year"></span> © NovaLabs. All rights reserved.
       </div>
@@ -460,12 +464,12 @@
   </footer>
 
   <!-- ===== Contact Modal ===== -->
-  <section class="contact-modal" id="contact">
+  <section class="contact-modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
     <div class="contact-content" data-tilt>
       <button class="close-contact" id="closeContact" aria-label="Close">
         <i data-lucide="x"></i>
       </button>
-      <h3>Get in touch</h3>
+      <h3 id="contactTitle">Get in touch</h3>
       <p class="contact-hint">
         We&rsquo;d love to hear about your project or any suggestions for this
         website. Send us a message and we&rsquo;ll get back within 24 hours.
@@ -485,11 +489,10 @@
         </div>
       </div>
       <form class="contact-form" id="contactForm">
-        <input type="text" name="name" placeholder="Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <textarea name="message" placeholder="What&rsquo;s your project about?" rows="4" required></textarea>
+        <input type="text" name="title" placeholder="Suggestion title" required />
+        <textarea name="suggestion" placeholder="Your suggestion..." rows="4" required></textarea>
         <button type="submit" class="btn btn-primary">
-          Send message <i data-lucide="send" class="icon-sm"></i>
+          Send suggestion <i data-lucide="send" class="icon-sm"></i>
         </button>
       </form>
     </div>
