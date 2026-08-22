@@ -1,506 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NovaLabs &mdash; Where Ideas Take Shape</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Explorer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-light">
-  <!-- ===== Header ===== -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="logo">NovaLabs</div>
-      <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-          <i data-lucide="sun" class="theme-icon sun"></i>
-          <i data-lucide="moon" class="theme-icon moon"></i>
-        </button>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-          <i data-lucide="menu" class="menu-icon"></i>
-          <i data-lucide="x" class="menu-icon-close"></i>
-        </button>
-      </div>
-    </div>
-  </header>
+<body>
 
-  <!-- ===== Hero ===== -->
-  <section class="hero" id="hero">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          <span class="hero-line">Crafting digital</span>
-          <span class="hero-line accent">experiences</span>
-          <span class="hero-line">that matter</span>
-        </h1>
-        <p class="hero-subtitle">
-          We build thoughtful products, beautiful interfaces, and smart code for
-          teams who want to leave a mark.
-        </p>
-        <div class="hero-cta">
-          <a href="#contact" class="btn btn-primary">Let&rsquo;s talk <i data-lucide="arrow-right" class="icon-sm"></i></a>
-          <a href="#work" class="btn btn-ghost">See our work</a>
+  <div id="starfield"></div>
+
+  <!-- Bird Mascot -->
+  <div class="mascot" id="mascot">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="44" rx="22" ry="20" fill="#7B2CBF" stroke="#5a1f8a" stroke-width="2"/>
+      <path d="M58 44 C 72 36, 78 48, 68 54" fill="#7B2CBF" stroke="#5a1f8a" stroke-width="2"/>
+      <path d="M20 40 L 12 36 L 20 44 Z" fill="#FF6F61" stroke="#d4523d" stroke-width="1.5"/>
+      <circle cx="46" cy="38" r="6" fill="white"/>
+      <circle cx="47" cy="37" r="2.5" fill="#0d0b1a"/>
+      <path d="M26 34 Q 40 20, 54 34" stroke="#00CED1" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <path d="M28 52 Q 40 58, 52 52" stroke="#00CED1" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="planet-container">
+      <div class="planet-glow"></div>
+      <svg class="planet-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="planetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00CED1"/>
+            <stop offset="50%" stop-color="#7B2CBF"/>
+            <stop offset="100%" stop-color="#FF4081"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="100" cy="120" rx="70" ry="12" fill="rgba(0,0,0,0.3)" />
+        <ellipse cx="100" cy="100" rx="70" ry="70" fill="url(#planetGrad)" />
+        <ellipse cx="100" cy="100" rx="70" ry="70" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+        <ellipse cx="100" cy="100" rx="90" ry="18" fill="none" stroke="#00CED1" stroke-width="3" transform="rotate(-15 100 100)" opacity="0.8"/>
+        <ellipse cx="100" cy="100" rx="90" ry="18" fill="none" stroke="#7B2CBF" stroke-width="2" transform="rotate(15 100 100)" opacity="0.6"/>
+      </svg>
+    </div>
+    <h1 class="hero-title">Cosmic Explorer</h1>
+    <p class="hero-subtitle">Journey through the universe. Discover the mysteries of black holes, stars, nebulae, and distant worlds.</p>
+    <button class="cta-btn" onclick="scrollToTopics()">
+      Start Exploring
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- Topics -->
+  <section class="topics" id="topics">
+    <h2 class="section-title">Explore the Cosmos</h2>
+    <div class="card-grid">
+
+      <div class="card" data-topic="blackhole">
+        <div class="card-orb cyan"></div>
+        <div class="card-icon blackhole">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="10" fill="#0d0b1a" stroke="#00CED1" stroke-width="2"/>
+            <circle cx="16" cy="16" r="6" fill="#000"/>
+            <circle cx="16" cy="16" r="14" fill="none" stroke="#00CED1" stroke-width="1" opacity="0.4"/>
+          </svg>
         </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="stat-num">120+</span>
-            <span class="stat-label">Projects</span>
-          </div>
-          <div class="hero-stat">
-            <span class="stat-num">4.9</span>
-            <span class="stat-label">Rating</span>
-          </div>
+        <h3 class="card-title">Black Holes</h3>
+        <p class="card-desc">Regions of spacetime where gravity is so strong nothing can escape, not even light.</p>
+      </div>
+
+      <div class="card" data-topic="stars">
+        <div class="card-orb pink"></div>
+        <div class="card-icon star">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 4 L19.5 12.5 L28 12.5 L21 18 L24 26 L16 21 L8 26 L11 18 L4 12.5 L12.5 12.5 Z" fill="#FFD700" stroke="#FF6F61" stroke-width="1.5"/>
+          </svg>
         </div>
+        <h3 class="card-title">Stars</h3>
+        <p class="card-desc">Giant balls of glowing gas that forge the elements essential for life in their cores.</p>
       </div>
-      <div class="hero-visual">
-        <div class="hero-shape hero-shape-1"></div>
-        <div class="hero-shape hero-shape-2"></div>
-        <img
-          src="https://picsum.photos/seed/novalabs-hero/500/400"
-          alt="NovaLabs workspace"
-          class="hero-image"
-        />
+
+      <div class="card" data-topic="nebulae">
+        <div class="card-orb violet"></div>
+        <div class="card-icon nebula">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="12" cy="16" r="8" fill="#7B2CBF" opacity="0.6"/>
+            <circle cx="20" cy="16" r="6" fill="#FF4081" opacity="0.5"/>
+            <circle cx="16" cy="12" r="5" fill="#00CED1" opacity="0.4"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Nebulae</h3>
+        <p class="card-desc">Vast clouds of dust and gas where new stars are born across light-years of color.</p>
       </div>
+
+      <div class="card" data-topic="exoplanets">
+        <div class="card-orb coral"></div>
+        <div class="card-icon exoplanet">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="8" fill="#FF6F61" stroke="#FF4081" stroke-width="1.5"/>
+            <ellipse cx="16" cy="16" rx="14" ry="4" fill="none" stroke="#00CED1" stroke-width="1.5" transform="rotate(-20 16 16)"/>
+            <circle cx="24" cy="14" r="1.5" fill="#FFD700"/>
+          </svg>
+        </div>
+        <h3 class="card-title">Exoplanets</h3>
+        <p class="card-desc">Worlds orbiting distant suns, some may hold the secrets to life beyond Earth.</p>
+      </div>
+
     </div>
   </section>
 
-  <!-- ===== About ===== -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="section-head">
-        <h2>About NovaLabs</h2>
-        <p class="section-tagline">
-          A small team of builders, thinkers, and makers based in the cloud.
-        </p>
-      </div>
-      <div class="about-grid">
-        <div class="about-bio">
-          <p>
-            Founded on the belief that great things happen when curiosity meets
-            craft, NovaLabs helps companies turn bold ideas into reality. We
-            blend strategy, design, and engineering to ship products people love.
-          </p>
-          <p>
-            When we&rsquo;re not coding, you&rsquo;ll find us chasing sunsets,
-            sipping pour-over coffee, or sketching wireframes on napkins.
-          </p>
-          <div class="skills">
-            <span class="skill">Product Design</span>
-            <span class="skill">Frontend Development</span>
-            <span class="skill">Brand Strategy</span>
-            <span class="skill">Mobile Apps</span>
-          </div>
+  <!-- Detail Panel -->
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-content">
+      <button class="detail-close" id="detailClose">&times;</button>
+      <h2 class="detail-title" id="detailTitle">Black Holes</h2>
+      <p class="detail-body" id="detailBody">Black holes are regions of spacetime where gravity is so intense that nothing—no particles or even electromagnetic radiation such as light—can escape from inside it.</p>
+      <div class="detail-stats">
+        <div class="stat">
+          <div class="stat-value" id="stat1">∞</div>
+          <div class="stat-label">Density</div>
         </div>
-        <div class="about-visual">
-          <div class="profile-frame">
-            <img
-              src="https://picsum.photos/seed/nova-profile/300/300"
-              alt="Team portrait"
-              class="profile-image"
-              loading="lazy"
-            />
-          </div>
-          <div class="stat-grid">
-            <div class="stat">
-              <div class="stat-num">8+</div>
-              <div class="stat-label">Years experience</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">120+</div>
-              <div class="stat-label">Projects shipped</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">42+</div>
-              <div class="stat-label">Happy clients</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">&infin;</div>
-              <div class="stat-label">Ideas daily</div>
-            </div>
-          </div>
+        <div class="stat">
+          <div class="stat-value" id="stat2">0</div>
+          <div class="stat-label">Light Speed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="stat3">M</div>
+          <div class="stat-label">Type</div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ===== Services ===== -->
-  <section class="services section" id="services">
-    <div class="container">
-      <div class="section-head">
-        <h2>What We Do</h2>
-        <p class="section-tagline">
-          End-to-end services for ambitious brands and startups.
-        </p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card" data-tilt>
-          <div class="service-icon">
-            <i data-lucide="palette"></i>
-          </div>
-          <h3>Product Design</h3>
-          <p>
-            User-centered design that balances aesthetics with usability to
-            create intuitive and delightful experiences.
-          </p>
-        </div>
-        <div class="service-card" data-tilt>
-          <div class="service-icon">
-            <i data-lucide="code"></i>
-          </div>
-          <h3>Frontend Development</h3>
-          <p>
-            Clean, performant code built with modern frameworks that scales
-            beautifully across every device and screen.
-          </p>
-        </div>
-        <div class="service-card" data-tilt>
-          <div class="service-icon">
-            <i data-lucide="layout"></i>
-          </div>
-          <h3>Brand Identity</h3>
-          <p>
-            Cohesive visual language and brand systems that communicate your
-            unique value and resonate with your audience.
-          </p>
-        </div>
-        <div class="service-card" data-tilt>
-          <div class="service-icon">
-            <i data-lucide="smartphone"></i>
-          </div>
-          <h3>Mobile Apps</h3>
-          <p>
-            Native and cross-platform mobile experiences designed to engage users
-            and drive meaningful interactions.
-          </p>
-        </div>
-        <div class="service-card" data-tilt>
-          <div class="service-icon">
-            <i data-lucide="zap"></i>
-          </div>
-          <h3>Web Strategy</h3>
-          <p>
-            Data-driven strategy that aligns your digital presence with
-            measurable business goals and growth targets.
-          </p>
-        </div>
-        <div class="service-card" data-tilt>
-          <div class="service-icon">
-            <i data-lucide="server"></i>
-          </div>
-          <h3>Backend Engineering</h3>
-          <p>
-            Scalable server-side architecture and APIs built for performance,
-            security, and reliability from day one.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Process / Timeline ===== -->
-  <section class="process section" id="process">
-    <div class="container">
-      <div class="section-head">
-        <h2>Our Process</h2>
-        <p class="section-tagline">
-          A proven roadmap from concept to launch and beyond.
-        </p>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item" data-tilt>
-          <div class="timeline-step">01</div>
-          <div class="timeline-icon"><i data-lucide="lightbulb"></i></div>
-          <h3>Discover</h3>
-          <p>We align on goals, audience, and the core problem to solve.</p>
-        </div>
-        <div class="timeline-item" data-tilt>
-          <div class="timeline-step">02</div>
-          <div class="timeline-icon"><i data-lucide="pen-tool"></i></div>
-          <h3>Design</h3>
-          <p>We craft user flows, wireframes, and high-fidelity designs.</p>
-        </div>
-        <div class="timeline-item" data-tilt>
-          <div class="timeline-step">03</div>
-          <div class="timeline-icon"><i data-lucide="code"></i></div>
-          <h3>Build</h3>
-          <p>We develop clean, tested code using modern technologies.</p>
-        </div>
-        <div class="timeline-item" data-tilt>
-          <div class="timeline-step">04</div>
-          <div class="timeline-icon"><i data-lucide="rocket"></i></div>
-          <h3>Launch</h3>
-          <p>We ship to production, monitor performance, and iterate.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Work / Portfolio ===== -->
-  <section class="work section" id="work">
-    <div class="container">
-      <div class="section-head">
-        <h2>Featured Work</h2>
-        <p class="section-tagline">
-          A small selection of projects we&rsquo;re proud of.
-        </p>
-      </div>
-      <div class="portfolio-grid">
-        <div class="project-card" data-tilt>
-          <img
-            src="https://picsum.photos/seed/lumen-analytics/600/400"
-            alt="Lumen analytics dashboard"
-            class="project-image"
-            loading="lazy"
-          />
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-tag">Dashboard</span>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener"
-                class="project-link"
-                aria-label="View project"
-                ><i data-lucide="external-link"></i></a
-              >
-            </div>
-            <h3>Lumen &mdash; Analytics</h3>
-            <p>
-              A real-time analytics platform processing millions of events per
-              second with live visualizations.
-            </p>
-            <div class="project-tech">
-              <span>React</span>
-              <span>Node.js</span>
-              <span>WebSocket</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card" data-tilt>
-          <img
-            src="https://picsum.photos/seed/voyage-travel/600/400"
-            alt="Voyage travel app"
-            class="project-image"
-            loading="lazy"
-          />
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-tag">Mobile App</span>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener"
-                class="project-link"
-                aria-label="View project"
-                ><i data-lucide="external-link"></i></a
-              >
-            </div>
-            <h3>Voyage &mdash; Travel</h3>
-            <p>
-              An AI-powered travel companion that curates personalized
-              itineraries for curious explorers.
-            </p>
-            <div class="project-tech">
-              <span>React Native</span>
-              <span>Firebase</span>
-              <span>AI</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card" data-tilt>
-          <img
-            src="https://picsum.photos/seed/pulse-health/600/400"
-            alt="Pulse health dashboard"
-            class="project-image"
-            loading="lazy"
-          />
-          <div class="project-body">
-            <div class="project-header">
-              <span class="project-tag">Health</span>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener"
-                class="project-link"
-                aria-label="View project"
-                ><i data-lucide="external-link"></i></a
-              >
-            </div>
-            <h3>Pulse &mdash; Health</h3>
-            <p>
-              A holistic health dashboard that syncs wearables and visualizes
-              well-being metrics over time.
-            </p>
-            <div class="project-tech">
-              <span>Vue</span>
-              <span>GraphQL</span>
-              <span>Rust</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Testimonials ===== -->
-  <section class="testimonials section" id="testimonials">
-    <div class="container">
-      <div class="section-head">
-        <h2>What Clients Say</h2>
-        <p class="section-tagline">
-          Don&rsquo;t just take our word for it.
-        </p>
-      </div>
-      <div class="testimonial-slider">
-        <div class="testimonial active">
-          <blockquote>
-            &ldquo;NovaLabs transformed our product vision into a reality.
-            The team&rsquo;s attention to detail is unmatched.&rdquo;
-          </blockquote>
-          <div class="testimonial-author">
-            <img
-              src="https://ui-avatars.com/api/?background=4f46e5,7c3aed&color=fff&name=Sarah+Chen&size=100"
-              alt="Sarah Chen"
-              class="avatar"
-              loading="lazy"
-            />
-            <cite>Sarah Chen</cite>
-            <span class="author-title">Head of Product, Orbit</span>
-          </div>
-        </div>
-        <div class="testimonial">
-          <blockquote>
-            &ldquo;Working with them felt like having an extension of our own
-            team. Truly collaborative and brilliant.&rdquo;
-          </blockquote>
-          <div class="testimonial-author">
-            <img
-              src="https://ui-avatars.com/api/?background=4f46e5,7c3aed&color=fff&name=Marcus+Rivera&size=100"
-              alt="Marcus Rivera"
-              class="avatar"
-              loading="lazy"
-            />
-            <cite>Marcus Rivera</cite>
-            <span class="author-title">Co-founder, Lumen</span>
-          </div>
-        </div>
-        <div class="testimonial">
-          <blockquote>
-            &ldquo;They don&rsquo;t just build &mdash; they understand. The
-            results speak for themselves.&rdquo;
-          </blockquote>
-          <div class="testimonial-author">
-            <img
-              src="https://ui-avatars.com/api/?background=4f46e5,7c3aed&color=fff&name=Priya+Kapoor&size=100"
-              alt="Priya Kapoor"
-              class="avatar"
-              loading="lazy"
-            />
-            <cite>Priya Kapoor</cite>
-            <span class="author-title">CEO, Voyage</span>
-          </div>
-        </div>
-      </div>
-      <div class="dots" id="dots"></div>
-      <button class="nav-btn prev" id="prevBtn" aria-label="Previous testimonial">
-        <i data-lucide="chevron-left"></i>
-      </button>
-      <button class="nav-btn next" id="nextBtn" aria-label="Next testimonial">
-        <i data-lucide="chevron-right"></i>
-      </button>
-    </div>
-  </section>
-
-  <!-- ===== CTA Strip ===== -->
-  <section class="cta-strip">
-    <div class="container">
-      <h2>Ready to build something amazing?</h2>
-      <p class="cta-sub">Let&rsquo;s collaborate and turn your ideas into reality.</p>
-      <a href="#contact" class="btn btn-primary">Start a project <i data-lucide="arrow-right" class="icon-sm"></i></a>
-    </div>
-  </section>
-
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">NovaLabs</div>
-      <div class="footer-nav">
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#testimonials">Testimonials</a>
-      </div>
-      <div class="footer-actions">
-        <div class="social-links">
-          <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github"></i></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
-          <a href="https://dribbble.com" target="_blank" rel="noopener" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
-        </div>
-        <a href="#contact" class="suggestion-link">Suggest an improvement</a>
-      </div>
-      <div class="footer-meta">
-        <span class="year" id="year"></span> © NovaLabs. All rights reserved.
-      </div>
-    </div>
-  </footer>
-
-  <!-- ===== Contact Modal ===== -->
-  <section class="contact-modal" id="contact" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-    <div class="contact-content" data-tilt>
-      <button class="close-contact" id="closeContact" aria-label="Close">
-        <i data-lucide="x"></i>
-      </button>
-      <h3 id="contactTitle">Get in touch</h3>
-      <p class="contact-hint">
-        We&rsquo;d love to hear about your project or any suggestions for this
-        website. Send us a message and we&rsquo;ll get back within 24 hours.
-      </p>
-      <div class="contact-info">
-        <div class="contact-item">
-          <i data-lucide="mail"></i>
-          <a href="mailto:hello@novalabs.com">hello@novalabs.com</a>
-        </div>
-        <div class="contact-item">
-          <i data-lucide="phone"></i>
-          <a href="tel:+1234567890">+1 (234) 567-890</a>
-        </div>
-        <div class="contact-item">
-          <i data-lucide="map-pin"></i>
-          <span>San Francisco, CA</span>
-        </div>
-      </div>
-      <form class="contact-form" id="contactForm">
-        <input type="text" name="title" placeholder="Suggestion title" required />
-        <textarea name="suggestion" placeholder="Your suggestion..." rows="4" required></textarea>
-        <button type="submit" class="btn btn-primary">
-          Send suggestion <i data-lucide="send" class="icon-sm"></i>
-        </button>
-      </form>
-    </div>
-  </section>
-
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
-    <i data-lucide="arrow-up"></i>
-  </button>
+  </div>
 
   <script src="script.js"></script>
 </body>
