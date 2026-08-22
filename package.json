@@ -1,0 +1,21 @@
+{
+  "name": "forgegen2",
+  "version": "1.0.0",
+  "description": "Forge Gen 2 Monitor — The ultimate Grow a Garden script hub for Delta Executor",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'No build step required for static site'",
+    "test": "echo 'No tests configured'"
+  },
+  "keywords": [
+    "roblox",
+    "grow-a-garden",
+    "delta-executor",
+    "script-monitor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.14"
+  }
+}
