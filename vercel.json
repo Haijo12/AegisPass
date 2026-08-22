@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/monitor", "destination": "/" },
+    { "source": "/script", "destination": "/" },
+    { "source": "/tutorials", "destination": "/" }
+  ]
+}

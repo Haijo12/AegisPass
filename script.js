@@ -177,6 +177,65 @@ const revealObserver = new IntersectionObserver(
 
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+/* ===== Router ===== */
+const routeConfig = {
+  '/': { tab: null },
+  '/monitor': { tab: 'monitoring' },
+  '/script': { tab: 'script-hub' },
+  '/tutorials': { tab: null }
+};
+
+function getRouteKey() {
+  const path = window.location.pathname;
+  return path === '/' ? 'home' : path.replace('/', '');
+}
+
+function applyRoute() {
+  const routeKey = getRouteKey();
+  const config = routeConfig[window.location.pathname] || routeConfig['/'];
+
+  document.querySelectorAll('[data-route]').forEach((el) => {
+    const routes = el.dataset.route.split(' ');
+    if (routes.includes('all') || routes.includes(routeKey)) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+
+  if (config.tab) {
+    const targetPanel = document.getElementById(config.tab);
+    if (targetPanel) {
+      tabBtns.forEach((b) => b.classList.remove('active'));
+      tabPanels.forEach((p) => p.classList.remove('active'));
+      const btn = document.querySelector(`[data-tab="${config.tab}"]`);
+      if (btn) btn.classList.add('active');
+      targetPanel.classList.add('active');
+    }
+  }
+
+  document.querySelectorAll('.nav a[data-route]').forEach((link) => {
+    link.classList.toggle('active', link.dataset.route === routeKey);
+  });
+}
+
+window.addEventListener('popstate', applyRoute);
+
+document.addEventListener('DOMContentLoaded', () => {
+  applyRoute();
+  document.querySelectorAll('.nav a[data-route]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      if (history.pushState) {
+        history.pushState(null, '', href);
+        applyRoute();
+        window.scrollTo(0, 0);
+      }
+    });
+  });
+});
+
 /* ===== Footer Year ===== */
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
