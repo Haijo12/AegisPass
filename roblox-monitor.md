@@ -1,152 +1,80 @@
-# Forge Gen 2 — Improvement Summary
+# Forge Gen 2 — v2.1 Bug Fixes & Improvements
 
-## Files Modified
-- `index.html` — Complete rewrite with new sections and accessibility
-- `style.css` — Major expansion with new component styles
-- `script.js` — Full rewrite with new features and better architecture
-- `config.js` — Converted from Node.js module to browser-compatible global
-- `vercel.json` — Added security headers and cache control
+## Bugs Found & Fixed
 
----
+### 1. Hash Navigation Broken — CRITICAL
+**Problem:** Clicking "Testimonials" in the nav called `window.scrollTo(0, 0)` instead of scrolling to `#testimonials`. The router intercepted ALL `href="/..."` links and forced a scroll-to-top, destroying hash navigation.
 
-## 1. Testimonials Section (NEW) — Fixes `#testimonials` hash
-**Problem:** Your URL `/#testimonials` pointed to a section that didn't exist.
+**Fix:** 
+- Added `class="nav-hash"` to hash links (separate from `data-route` links)
+- Hash links now get their own event listener that calls `element.scrollIntoView({ behavior: 'smooth' })`
+- Router only intercepts links WITHOUT hashes
+- `handleHash()` now forces `display: ''` on the target section before scrolling
 
-**Added:**
-- 6 testimonial cards with star ratings, avatars, and roles
-- Community stats bar (12,000 Active Users, 4.9 Rating, 500 Discord Members)
-- Responsive 3-column → 2-column → 1-column grid
-- Hover lift animation with quote decoration
-- Navigation link in both header and footer
+### 2. Counter Decimal Precision Wrong
+**Problem:** `data-count="99.97"` used `toFixed(1)` which rounded to `100.0`. The `isFloat = target % 1 !== 0` check only detected floats, not decimal places.
 
----
+**Fix:** 
+- Detect decimal places from the raw `data-count` string: `(decimalStr.split('.')[1] || '').length`
+- `99.97` → `toFixed(2)` → `99.97%`
+- `4.9` → `toFixed(1)` → `4.9/5`
+- `12000` → `Math.floor` + `toLocaleString()` → `12,000+`
+- Added `data-suffix` attribute for `%`, `min`, `+`, `/5` suffixes
 
-## 2. FAQ Section (NEW)
-**Added:**
-- 6 accordion-style FAQ items with smooth expand/collapse
-- ARIA attributes (`aria-expanded`, `aria-controls`)
-- Only one item open at a time
-- Hover border color transition
+### 3. Counters Animate on Load, Not on Scroll
+**Problem:** `animateCounters()` ran immediately on `DOMContentLoaded`. If user landed at `/#testimonials`, hero counters animated off-screen and testimonial stats never animated.
 
----
+**Fix:** 
+- Replaced immediate call with `IntersectionObserver` (threshold: 0.5)
+- Counters only animate when 50% visible in viewport
+- Each counter tracked with `WeakSet` to prevent double-animation
 
-## 3. Dark/Light Theme Toggle (NEW)
-**Added:**
-- Animated sun/moon toggle button in header
-- `localStorage` persistence
-- Respects `prefers-color-scheme` on first visit
-- Full CSS variable system for both themes
-- Smooth icon rotation animation
+### 4. Game Card Image 404
+**Problem:** `https://tr.rbxcdn.com/180DAY-...` was a fake/placeholder URL. The card image failed to load.
 
----
+**Fix:** 
+- Replaced `<img>` with a CSS gradient `<div>` containing Lucide icon + game name
+- No external image dependency — renders instantly and reliably
+- Still has hover scale effect on the placeholder
 
-## 4. Scroll to Top Button (NEW)
-**Added:**
-- Appears after scrolling 400px
-- Smooth scroll behavior
-- Hover color change with lift effect
+### 5. Hero Flash of Invisible Content (FOUC)
+**Problem:** Hero elements had `class="reveal"` which set `opacity: 0` until IntersectionObserver fired. Users saw blank hero for a split second.
 
----
+**Fix:** 
+- Removed `.reveal` class from all above-fold hero elements
+- Hero content renders immediately on paint
+- `.reveal` kept only for below-fold sections
 
-## 5. Header Scroll Effect (NEW)
-**Added:**
-- Shadow appears when scrolling down
-- Smooth transition
+### 6. Modal Focus Not Trapped
+**Problem:** Pressing Tab inside the modal moved focus to background elements. No focus management on open/close.
 
----
+**Fix:** 
+- Save `document.activeElement` before opening modal
+- Restore focus to saved element on modal close
+- Tab key now cycles within modal focusable elements (first ↔ last)
+- Shift+Tab also trapped correctly
 
-## 6. Accessibility Improvements
-- **Skip link** — "Skip to main content" for keyboard users
-- **ARIA roles** — `role="tablist"`, `role="tab"`, `role="tabpanel"`, `role="dialog"`, `role="navigation"`
-- **ARIA states** — `aria-selected`, `aria-expanded`, `aria-hidden`, `aria-controls`, `aria-labelledby`
-- **Focus management** — Modal traps focus, close button gets focus on open
-- **Escape key** — Closes modal
-- **Semantic HTML** — `<main>`, `<article>`, `<nav>`, `<section>` instead of div soup
-- **Alt text** — All images have descriptive alt text
-- **Reduced motion** — `@media (prefers-reduced-motion: reduce)` disables animations
+### 7. Mobile Menu: No Outside-Click Close
+**Problem:** Clicking the dark area outside the mobile menu did nothing. Users had to click the hamburger again.
 
----
+**Fix:** 
+- Added `.menu-overlay` div behind the menu
+- Clicking overlay closes menu
+- Overlay fades in/out with CSS transition
 
-## 7. SEO & Social Sharing (NEW)
-**Added meta tags:**
-- `description`, `keywords`, `author`, `theme-color`
-- Open Graph (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`, `og:site_name`)
-- Twitter Cards (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`)
+### 8. Theme Toggle Re-Creates Lucide Icons
+**Problem:** `lucide.createIcons()` was called on every theme toggle, potentially duplicating SVGs or causing glitches.
 
----
+**Fix:** 
+- Removed `lucide.createIcons()` from theme toggle handler
+- Icon swap is now pure CSS (`.theme-dark .theme-icon-light` etc.)
+- Theme toggle only toggles the body class + persists to localStorage
 
-## 8. Hash Routing Fix
-**Problem:** Visiting `/#testimonials` did nothing because the hash wasn't handled.
+## Additional Improvements
 
-**Fixed:**
-- `handleHash()` function scrolls to hash target after route apply
-- Works on initial load and browser back/forward
-- Smooth scroll animation
-
----
-
-## 9. Visual Polish
-- **Hero badge** — "v2.0 — Now Live" pill badge with pulsing dot
-- **Hero card float animation** — Subtle up/down floating
-- **Scroll indicator** — Animated mouse wheel at bottom of hero
-- **Section eyebrows** — Colored category labels above every section heading
-- **CTA strip pattern** — Subtle cross-hatch overlay on gradient
-- **Card hover effects** — All cards lift + shadow + border color on hover
-- **Icon background transitions** — Trust/tutorial/executor icons invert colors on hover
-- **Staggered reveals** — Children animate in sequence
-- **Better stat counters** — `toLocaleString()` for large numbers, proper decimal handling
-
----
-
-## 10. Copy Fallback
-**Problem:** `navigator.clipboard` fails in insecure contexts (HTTP, iframes).
-
-**Fixed:**
-- Falls back to `document.execCommand('copy')` with hidden textarea
-- Works in all contexts
-
----
-
-## 11. Image Fallback
-**Problem:** `picsum.photos` placeholder could break or look unprofessional.
-
-**Fixed:**
-- Uses Roblox CDN thumbnail for Grow a Garden
-- `onerror` fallback to branded placeholder
-
----
-
-## 12. Security Headers (vercel.json)
-**Added:**
-- `X-Frame-Options: DENY` — Prevents clickjacking
-- `X-Content-Type-Options: nosniff` — Prevents MIME sniffing
-- `Referrer-Policy: strict-origin-when-cross-origin` — Limits referrer leakage
-- Cache-Control for static assets (1 year)
-
----
-
-## 13. config.js Fix
-**Problem:** `module.exports` doesn't work in browser static sites.
-
-**Fixed:**
-- Converted to `const FORGE_CONFIG = {...}`
-- Exposed as `window.FORGE_CONFIG`
-- Can be imported as a regular script tag
-
----
-
-## 14. Code Quality
-- Consistent `rel="noopener noreferrer"` on external links
-- `defer` on Lucide script for performance
-- `loading="lazy"` on images
-- Preconnect hints for Google Fonts
-- Better CSS organization with comments
-- Mobile menu `aria-expanded` state management
-
----
-
-## How to Deploy
-1. Replace the files in your repo with these improved versions
-2. Commit and push to GitHub
-3. Vercel will auto-deploy
-4. The `#testimonials` hash will now work correctly
+- **Hero stat labels cleaned up:** `data-suffix` handles `%`, `min`, `+`, `/5` — no more hardcoded label text like `% Uptime` + `0` counter
+- **Passive scroll listener:** `{ passive: true }` on scroll event for better performance
+- **Copy fallback improved:** Hidden textarea uses `position: fixed; opacity: 0` instead of default positioning
+- **Permissions-Policy header:** Added `camera=(), microphone=(), geolocation=()` to vercel.json
+- **Game card uses semantic placeholder:** Gradient + icon instead of broken external image
+- **Nav link separation:** `data-route` links for SPA routing, `nav-hash` class for in-page anchors — no overlap
