@@ -1,13 +1,14 @@
 /* ===== Forge Gen 2 Monitor Configuration ===== */
+/* Browser-compatible version — no Node.js module.exports */
 
-module.exports = {
+const FORGE_CONFIG = {
   site: {
     name: 'Forge Gen 2 Monitor',
     tagline: 'Grow a Garden, elevated by Forge',
     description: 'The ultimate Grow a Garden script monitor built for Delta Executor.',
     url: 'https://wishub.cloud',
     discord: 'https://discord.gg/forgegen2',
-    version: '1.0.0'
+    version: '2.0.0'
   },
 
   game: {
@@ -38,13 +39,7 @@ module.exports = {
       free: '1d',
       premium: '30d',
       vip: 'lifetime'
-    },
-    webhookUrl: process.env.DISCORD_WEBHOOK_URL || ''
-  },
-
-  api: {
-    baseUrl: process.env.API_BASE_URL || 'https://wishub.cloud/api/v1',
-    wsUrl: process.env.WS_URL || 'wss://wishub.cloud/ws'
+    }
   },
 
   monitoring: {
@@ -65,3 +60,6 @@ module.exports = {
     }
   }
 };
+
+// Expose globally for browser use
+window.FORGE_CONFIG = FORGE_CONFIG;
