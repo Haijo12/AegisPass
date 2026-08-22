@@ -33,10 +33,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="theme-dark">
-  <!-- ===== Skip Link (Accessibility) ===== -->
+  <!-- Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- ===== Header ===== -->
+  <!-- Header -->
   <header class="site-header" id="siteHeader">
     <div class="container header-inner">
       <a href="/" class="logo" data-route="home" aria-label="Forge Gen 2 Home">
@@ -48,7 +48,7 @@
         <a href="/monitor" data-route="monitor">Monitor</a>
         <a href="/script" data-route="script">Script</a>
         <a href="/tutorials" data-route="tutorials">Tutorials</a>
-        <a href="/#testimonials" data-route="home">Testimonials</a>
+        <a href="/#testimonials" class="nav-hash">Testimonials</a>
         <a href="https://discord.gg/forgegen2" target="_blank" rel="noopener noreferrer">Discord</a>
       </nav>
       <div class="header-actions">
@@ -65,34 +65,37 @@
     </div>
   </header>
 
+  <!-- Mobile Menu Overlay -->
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+
   <main id="main-content">
-    <!-- ===== Hero ===== -->
+    <!-- Hero -->
     <section class="hero" id="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <div class="hero-badge reveal">
+          <div class="hero-badge">
             <span class="badge-dot"></span>
             <span>v2.0 — Now Live</span>
           </div>
-          <h1 class="hero-title reveal">
+          <h1 class="hero-title">
             Grow a Garden,<br />
             <span class="accent">elevated by Forge</span>
           </h1>
-          <p class="hero-subtitle reveal">
+          <p class="hero-subtitle">
             The ultimate Grow a Garden script monitor built for Delta Executor. Real-time tracking, HWID-locked keys, and sub-minute updates — all in one place.
           </p>
-          <div class="hero-cta reveal">
+          <div class="hero-cta">
             <a href="#get-started" class="btn btn-primary">Get Started <i data-lucide="arrow-right" class="icon-sm"></i></a>
             <a href="https://discord.gg/forgegen2" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Discord <i data-lucide="message-circle" class="icon-sm"></i></a>
           </div>
-          <div class="hero-stats reveal">
+          <div class="hero-stats">
             <div class="hero-stat">
-              <span class="stat-num" data-count="99.97">0</span>
-              <span class="stat-label">% Uptime</span>
+              <span class="stat-num" data-count="99.97" data-suffix="%">0</span>
+              <span class="stat-label">Uptime</span>
             </div>
             <div class="hero-stat">
-              <span class="stat-num" data-count="1">0</span>
-              <span class="stat-label">Min Updates</span>
+              <span class="stat-num" data-count="1" data-suffix="min">0</span>
+              <span class="stat-label">Updates</span>
             </div>
             <div class="hero-stat">
               <span class="stat-dot" aria-hidden="true"></span>
@@ -100,7 +103,7 @@
             </div>
           </div>
         </div>
-        <div class="hero-visual reveal">
+        <div class="hero-visual">
           <div class="hero-shape hero-shape-1" aria-hidden="true"></div>
           <div class="hero-shape hero-shape-2" aria-hidden="true"></div>
           <div class="hero-card">
@@ -118,13 +121,11 @@
         </div>
       </div>
       <div class="hero-scroll" aria-hidden="true">
-        <div class="scroll-mouse">
-          <div class="scroll-wheel"></div>
-        </div>
+        <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
       </div>
     </section>
 
-    <!-- ===== Trust Signals ===== -->
+    <!-- Trust -->
     <section class="trust section" id="trust" data-route="all">
       <div class="container">
         <div class="trust-grid">
@@ -152,7 +153,7 @@
       </div>
     </section>
 
-    <!-- ===== Features ===== -->
+    <!-- Features -->
     <section class="features section" id="features" data-route="all">
       <div class="container">
         <div class="section-head reveal">
@@ -208,21 +209,9 @@
                 </div>
                 <div class="tab-panel-visual">
                   <div class="monitor-mock">
-                    <div class="monitor-row">
-                      <span class="monitor-status online" aria-hidden="true"></span>
-                      <span>Delta #1 — GAG</span>
-                      <span class="monitor-time">2m ago</span>
-                    </div>
-                    <div class="monitor-row">
-                      <span class="monitor-status online" aria-hidden="true"></span>
-                      <span>Delta #2 — GAG</span>
-                      <span class="monitor-time">5m ago</span>
-                    </div>
-                    <div class="monitor-row">
-                      <span class="monitor-status offline" aria-hidden="true"></span>
-                      <span>Delta #3 — GAG</span>
-                      <span class="monitor-time">1h ago</span>
-                    </div>
+                    <div class="monitor-row"><span class="monitor-status online" aria-hidden="true"></span><span>Delta #1 — GAG</span><span class="monitor-time">2m ago</span></div>
+                    <div class="monitor-row"><span class="monitor-status online" aria-hidden="true"></span><span>Delta #2 — GAG</span><span class="monitor-time">5m ago</span></div>
+                    <div class="monitor-row"><span class="monitor-status offline" aria-hidden="true"></span><span>Delta #3 — GAG</span><span class="monitor-time">1h ago</span></div>
                   </div>
                 </div>
               </div>
@@ -240,18 +229,9 @@
                 </div>
                 <div class="tab-panel-visual">
                   <div class="stats-mock">
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 99.97%"></div>
-                      <span>99.97%</span>
-                    </div>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 85%"></div>
-                      <span>85%</span>
-                    </div>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 92%"></div>
-                      <span>92%</span>
-                    </div>
+                    <div class="stat-bar"><div class="stat-fill" style="width:99.97%"></div><span>99.97%</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width:85%"></div><span>85%</span></div>
+                    <div class="stat-bar"><div class="stat-fill" style="width:92%"></div><span>92%</span></div>
                   </div>
                 </div>
               </div>
@@ -269,10 +249,7 @@
                 </div>
                 <div class="tab-panel-visual">
                   <div class="key-mock">
-                    <div class="key-box">
-                      <span class="key-label">Your Key</span>
-                      <span class="key-value">FG2-XXXX-XXXX-XXXX</span>
-                    </div>
+                    <div class="key-box"><span class="key-label">Your Key</span><span class="key-value">FG2-XXXX-XXXX-XXXX</span></div>
                     <div class="key-tier free">Free</div>
                     <div class="key-tier premium">Premium</div>
                     <div class="key-tier vip">VIP</div>
@@ -285,7 +262,7 @@
       </div>
     </section>
 
-    <!-- ===== Testimonials (NEW) ===== -->
+    <!-- Testimonials -->
     <section class="testimonials section" id="testimonials" data-route="all">
       <div class="container">
         <div class="section-head reveal">
@@ -293,27 +270,25 @@
           <h2>Trusted by thousands of players</h2>
           <p class="section-tagline">See what the Grow a Garden community says about Forge Gen 2.</p>
         </div>
-        <div class="testimonials-grid" id="testimonialsGrid">
-          <!-- Injected by JS -->
-        </div>
+        <div class="testimonials-grid" id="testimonialsGrid"></div>
         <div class="testimonials-stats reveal">
           <div class="t-stat">
-            <span class="t-stat-num" data-count="12000">0</span>
+            <span class="t-stat-num" data-count="12000" data-suffix="+">0</span>
             <span class="t-stat-label">Active Users</span>
           </div>
           <div class="t-stat">
-            <span class="t-stat-num" data-count="4.9">0</span>
+            <span class="t-stat-num" data-count="4.9" data-suffix="/5">0</span>
             <span class="t-stat-label">Average Rating</span>
           </div>
           <div class="t-stat">
-            <span class="t-stat-num" data-count="500">0</span>
+            <span class="t-stat-num" data-count="500" data-suffix="+">0</span>
             <span class="t-stat-label">Discord Members</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== FAQ (NEW) ===== -->
+    <!-- FAQ -->
     <section class="faq section" id="faq" data-route="all">
       <div class="container">
         <div class="section-head reveal">
@@ -321,13 +296,11 @@
           <h2>Frequently Asked Questions</h2>
           <p class="section-tagline">Everything you need to know before getting started.</p>
         </div>
-        <div class="faq-list" id="faqList">
-          <!-- Injected by JS -->
-        </div>
+        <div class="faq-list" id="faqList"></div>
       </div>
     </section>
 
-    <!-- ===== Delta Executor ===== -->
+    <!-- Executors -->
     <section class="executors section" id="executors" data-route="all">
       <div class="container">
         <div class="section-head reveal">
@@ -337,9 +310,7 @@
         </div>
         <div class="executor-grid reveal">
           <div class="executor-card delta-only">
-            <div class="executor-icon">
-              <i data-lucide="triangle"></i>
-            </div>
+            <div class="executor-icon"><i data-lucide="triangle"></i></div>
             <span class="executor-name">Delta Executor</span>
             <span class="executor-status">Fully Supported</span>
           </div>
@@ -347,7 +318,7 @@
       </div>
     </section>
 
-    <!-- ===== Games ===== -->
+    <!-- Games -->
     <section class="games section" id="scripts" data-route="home script">
       <div class="container">
         <div class="section-head reveal">
@@ -359,7 +330,7 @@
       </div>
     </section>
 
-    <!-- ===== Tutorials ===== -->
+    <!-- Tutorials -->
     <section class="tutorials section" id="tutorials" data-route="home tutorials">
       <div class="container">
         <div class="section-head reveal">
@@ -392,7 +363,7 @@
       </div>
     </section>
 
-    <!-- ===== CTA Strip ===== -->
+    <!-- CTA -->
     <section class="cta-strip" id="get-started" data-route="all">
       <div class="container">
         <h2 class="reveal">Ready to elevate your garden?</h2>
@@ -402,16 +373,14 @@
     </section>
   </main>
 
-  <!-- ===== Script Detail Modal ===== -->
+  <!-- Script Modal -->
   <div class="script-modal" id="scriptModal" role="dialog" aria-modal="true" aria-labelledby="modalGameName" aria-hidden="true">
     <div class="script-modal-content">
       <button class="script-modal-close" id="scriptModalClose" aria-label="Close modal">
         <i data-lucide="x"></i>
       </button>
       <div class="script-modal-header">
-        <div class="script-modal-icon" id="modalGameIcon">
-          <i data-lucide="flower-2"></i>
-        </div>
+        <div class="script-modal-icon" id="modalGameIcon"><i data-lucide="flower-2"></i></div>
         <div>
           <h3 id="modalGameName">Grow a Garden</h3>
           <div class="script-modal-meta">
@@ -441,7 +410,7 @@
     </div>
   </div>
 
-  <!-- ===== Footer ===== -->
+  <!-- Footer -->
   <footer class="site-footer" data-route="all">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -453,7 +422,7 @@
         <a href="/monitor" data-route="monitor">Monitor</a>
         <a href="/script" data-route="script">Script</a>
         <a href="/tutorials" data-route="tutorials">Tutorials</a>
-        <a href="/#testimonials" data-route="home">Testimonials</a>
+        <a href="/#testimonials" class="nav-hash">Testimonials</a>
         <a href="https://discord.gg/forgegen2" target="_blank" rel="noopener noreferrer">Discord</a>
       </nav>
       <div class="footer-meta">
@@ -462,7 +431,6 @@
     </div>
   </footer>
 
-  <!-- ===== Scroll to Top ===== -->
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
     <i data-lucide="chevron-up"></i>
   </button>
