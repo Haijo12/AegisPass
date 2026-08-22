@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/get-started", "destination": "/" },
     { "source": "/monitor", "destination": "/" },
     { "source": "/script", "destination": "/" },
     { "source": "/tutorials", "destination": "/" }
