@@ -1,45 +1,4 @@
-/* ===== Forge Gen 2 Monitor — Improved ===== */
-
-/* ===== Configuration (Browser-compatible) ===== */
-const CONFIG = {
-  site: {
-    name: 'Forge Gen 2 Monitor',
-    tagline: 'Grow a Garden, elevated by Forge',
-    description: 'The ultimate Grow a Garden script monitor built for Delta Executor.',
-    url: 'https://wishub.cloud',
-    discord: 'https://discord.gg/forgegen2',
-    version: '2.0.0'
-  },
-  game: {
-    id: 'gag',
-    name: 'Grow a Garden',
-    robloxUrl: 'https://www.roblox.com/games/126884695634066/Grow-a-Garden',
-    features: [
-      'Auto Farm',
-      'Auto Harvest',
-      'Auto Sell',
-      'Auto Buy Seeds',
-      'Pet Spawner',
-      'Dupe',
-      'Anti-AFK',
-      'ESP'
-    ]
-  },
-  executor: {
-    supported: ['Delta Executor'],
-    primary: 'Delta Executor',
-    downloadUrl: 'https://deltaexecutor.com'
-  },
-  keys: {
-    tiers: ['free', 'premium', 'vip'],
-    durations: { free: '1d', premium: '30d', vip: 'lifetime' }
-  },
-  monitoring: {
-    updateInterval: 5000,
-    maxLogs: 100,
-    uptimeTarget: 99.97
-  }
-};
+/* ===== Forge Gen 2 Monitor — v2.1 Bug-Fixed ===== */
 
 /* ===== Mock Data ===== */
 const GAMES = [
@@ -54,101 +13,50 @@ const GAMES = [
     features: ['Auto Farm', 'Auto Harvest', 'Auto Sell', 'Auto Buy Seeds', 'Pet Spawner', 'Dupe', 'Anti-AFK', 'ESP'],
     loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/gag'))()",
     executors: ['Delta Executor'],
-    updated: '2 minutes ago',
-    image: 'https://tr.rbxcdn.com/180DAY-8f6f6e8e8e8e8e8e8e8e8e8e8e8e8e8e/768/432/Image/Webp/noFilter'
+    updated: '2 minutes ago'
   }
 ];
 
 const TESTIMONIALS = [
-  {
-    name: 'GardenMaster',
-    role: 'VIP Member',
-    avatar: 'GM',
-    rating: 5,
-    text: 'Forge Gen 2 completely changed how I play Grow a Garden. The auto-farm is flawless and updates are literally under a minute. Best investment I\'ve made for Roblox.'
-  },
-  {
-    name: 'BloomKing',
-    role: 'Premium Member',
-    avatar: 'BK',
-    rating: 5,
-    text: 'HWID locking means my key never gets stolen. The Discord support is insane — had my issue fixed in 5 minutes. 10/10 would recommend to anyone serious about GAG.'
-  },
-  {
-    name: 'SeedWhisperer',
-    role: 'Free User',
-    avatar: 'SW',
-    rating: 4,
-    text: 'Even the free tier is better than most paid scripts I\'ve tried. The pet spawner alone saved me hours of grinding. Upgrading to Premium soon!'
-  },
-  {
-    name: 'DeltaPro',
-    role: 'VIP Member',
-    avatar: 'DP',
-    rating: 5,
-    text: 'Been using Forge since Gen 1. Gen 2 is on another level — the real-time monitor lets me track all my alts at once. Uptime is genuinely 99.97% like they claim.'
-  },
-  {
-    name: 'GreenThumb',
-    role: 'Premium Member',
-    avatar: 'GT',
-    rating: 5,
-    text: 'The dupe feature works perfectly and the anti-detection is solid. Haven\'t had a single ban in 3 months of daily use. Forge is the only script I trust now.'
-  },
-  {
-    name: 'FloraFanatic',
-    role: 'Free User',
-    avatar: 'FF',
-    rating: 5,
-    text: 'Setup took literally 30 seconds. Loadstring → Delta → done. The tutorials in Discord are super helpful too. Community is really welcoming for newbies.'
-  }
+  { name: 'GardenMaster', role: 'VIP Member', avatar: 'GM', rating: 5, text: "Forge Gen 2 completely changed how I play Grow a Garden. The auto-farm is flawless and updates are literally under a minute. Best investment I've made for Roblox." },
+  { name: 'BloomKing', role: 'Premium Member', avatar: 'BK', rating: 5, text: "HWID locking means my key never gets stolen. The Discord support is insane — had my issue fixed in 5 minutes. 10/10 would recommend to anyone serious about GAG." },
+  { name: 'SeedWhisperer', role: 'Free User', avatar: 'SW', rating: 4, text: "Even the free tier is better than most paid scripts I've tried. The pet spawner alone saved me hours of grinding. Upgrading to Premium soon!" },
+  { name: 'DeltaPro', role: 'VIP Member', avatar: 'DP', rating: 5, text: "Been using Forge since Gen 1. Gen 2 is on another level — the real-time monitor lets me track all my alts at once. Uptime is genuinely 99.97% like they claim." },
+  { name: 'GreenThumb', role: 'Premium Member', avatar: 'GT', rating: 5, text: "The dupe feature works perfectly and the anti-detection is solid. Haven't had a single ban in 3 months of daily use. Forge is the only script I trust now." },
+  { name: 'FloraFanatic', role: 'Free User', avatar: 'FF', rating: 5, text: "Setup took literally 30 seconds. Loadstring → Delta → done. The tutorials in Discord are super helpful too. Community is really welcoming for newbies." }
 ];
 
 const FAQS = [
-  {
-    question: 'Is Forge Gen 2 safe to use?',
-    answer: 'Forge Gen 2 uses advanced obfuscation and anti-detection techniques to minimize ban risk. However, as with any third-party script, there is always a small risk. We recommend using an alt account and following our safety guidelines in Discord.'
-  },
-  {
-    question: 'How do I get a key?',
-    answer: 'Join our Discord server and use the key generation bot. Free keys last 1 day, Premium keys last 30 days, and VIP keys are lifetime. All keys are HWID-locked to your device for security.'
-  },
-  {
-    question: 'What executor do I need?',
-    answer: 'Forge Gen 2 is built exclusively for Delta Executor. We do not support other executors like Synapse X, Krnl, or Fluxus. Download Delta Executor from their official website for the best experience.'
-  },
-  {
-    question: 'How fast are script updates?',
-    answer: 'Our monitoring system detects Grow a Garden updates within seconds. Scripts are typically patched and live within 1 minute of a game update. You\'ll get a Discord notification when a patch is ready.'
-  },
-  {
-    question: 'Can I share my key with friends?',
-    answer: 'No. All keys are HWID-locked, meaning they are bound to your specific hardware. Attempting to share keys will result in automatic revocation. Each user must generate their own key.'
-  },
-  {
-    question: 'What features are included?',
-    answer: 'Forge Gen 2 includes Auto Farm, Auto Harvest, Auto Sell, Auto Buy Seeds, Pet Spawner, Dupe, Anti-AFK, and ESP. Premium and VIP tiers get priority updates and exclusive features like custom farm routes.'
-  }
+  { question: 'Is Forge Gen 2 safe to use?', answer: 'Forge Gen 2 uses advanced obfuscation and anti-detection techniques to minimize ban risk. However, as with any third-party script, there is always a small risk. We recommend using an alt account and following our safety guidelines in Discord.' },
+  { question: 'How do I get a key?', answer: 'Join our Discord server and use the key generation bot. Free keys last 1 day, Premium keys last 30 days, and VIP keys are lifetime. All keys are HWID-locked to your device for security.' },
+  { question: 'What executor do I need?', answer: 'Forge Gen 2 is built exclusively for Delta Executor. We do not support other executors like Synapse X, Krnl, or Fluxus. Download Delta Executor from their official website for the best experience.' },
+  { question: 'How fast are script updates?', answer: 'Our monitoring system detects Grow a Garden updates within seconds. Scripts are typically patched and live within 1 minute of a game update. You'll get a Discord notification when a patch is ready.' },
+  { question: 'Can I share my key with friends?', answer: 'No. All keys are HWID-locked, meaning they are bound to your specific hardware. Attempting to share keys will result in automatic revocation. Each user must generate their own key.' },
+  { question: 'What features are included?', answer: 'Forge Gen 2 includes Auto Farm, Auto Harvest, Auto Sell, Auto Buy Seeds, Pet Spawner, Dupe, Anti-AFK, and ESP. Premium and VIP tiers get priority updates and exclusive features like custom farm routes.' }
 ];
 
-/* ===== DOM Elements ===== */
-const menuToggle = document.getElementById('menuToggle');
-const nav = document.getElementById('nav');
-const body = document.body;
-const gamesGrid = document.getElementById('gamesGrid');
-const testimonialsGrid = document.getElementById('testimonialsGrid');
-const faqList = document.getElementById('faqList');
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabPanels = document.querySelectorAll('.tab-panel');
-const scriptModal = document.getElementById('scriptModal');
-const scriptModalClose = document.getElementById('scriptModalClose');
-const copyBtn = document.getElementById('copyBtn');
-const yearSpan = document.getElementById('year');
-const themeToggle = document.getElementById('themeToggle');
-const scrollTopBtn = document.getElementById('scrollTop');
-const siteHeader = document.getElementById('siteHeader');
+/* ===== DOM Refs ===== */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
-/* ===== Theme Toggle ===== */
+const menuToggle = $('#menuToggle');
+const menuOverlay = $('#menuOverlay');
+const nav = $('#nav');
+const body = document.body;
+const gamesGrid = $('#gamesGrid');
+const testimonialsGrid = $('#testimonialsGrid');
+const faqList = $('#faqList');
+const tabBtns = $$('.tab-btn');
+const tabPanels = $$('.tab-panel');
+const scriptModal = $('#scriptModal');
+const scriptModalClose = $('#scriptModalClose');
+const copyBtn = $('#copyBtn');
+const yearSpan = $('#year');
+const themeToggle = $('#themeToggle');
+const scrollTopBtn = $('#scrollTop');
+const siteHeader = $('#siteHeader');
+
+/* ===== Theme ===== */
 function initTheme() {
   const saved = localStorage.getItem('forge-theme');
   if (saved) {
@@ -165,31 +73,39 @@ themeToggle?.addEventListener('click', () => {
   body.classList.remove('theme-dark', 'theme-light');
   body.classList.add(isDark ? 'theme-light' : 'theme-dark');
   localStorage.setItem('forge-theme', isDark ? 'theme-light' : 'theme-dark');
-  if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 
 /* ===== Mobile Menu ===== */
+function openMenu() {
+  nav?.classList.add('active');
+  menuToggle?.classList.add('active');
+  menuOverlay?.classList.add('active');
+  body.classList.add('menu-open');
+  menuToggle?.setAttribute('aria-expanded', 'true');
+}
+
+function closeMenu() {
+  nav?.classList.remove('active');
+  menuToggle?.classList.remove('active');
+  menuOverlay?.classList.remove('active');
+  body.classList.remove('menu-open');
+  menuToggle?.setAttribute('aria-expanded', 'false');
+}
+
 menuToggle?.addEventListener('click', () => {
-  const isOpen = nav?.classList.toggle('active');
-  menuToggle?.classList.toggle('active');
-  body.classList.toggle('menu-open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  nav?.classList.contains('active') ? closeMenu() : openMenu();
 });
 
-document.querySelectorAll('.nav a').forEach((link) => {
-  link.addEventListener('click', () => {
-    nav?.classList.remove('active');
-    menuToggle?.classList.remove('active');
-    body.classList.remove('menu-open');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-  });
+menuOverlay?.addEventListener('click', closeMenu);
+
+$$('.nav a').forEach((link) => {
+  link.addEventListener('click', closeMenu);
 });
 
-/* ===== Tabs (with ARIA) ===== */
+/* ===== Tabs ===== */
 tabBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     const target = btn.dataset.tab;
-
     tabBtns.forEach((b) => {
       b.classList.remove('active');
       b.setAttribute('aria-selected', 'false');
@@ -198,7 +114,6 @@ tabBtns.forEach((btn) => {
       p.classList.remove('active');
       p.hidden = true;
     });
-
     btn.classList.add('active');
     btn.setAttribute('aria-selected', 'true');
     const panel = document.getElementById(target);
@@ -212,9 +127,14 @@ tabBtns.forEach((btn) => {
 /* ===== Games ===== */
 function renderGames() {
   if (!gamesGrid) return;
-  gamesGrid.innerHTML = GAMES.map((game) => `
+  const game = GAMES[0];
+  // Use a CSS gradient placeholder instead of broken image URL
+  const placeholder = `linear-gradient(135deg, var(--surface-2) 0%, var(--surface-3) 100%)`;
+  gamesGrid.innerHTML = `
     <article class="game-card reveal" data-game="${game.id}" data-badge="${game.badge}">
-      <img src="${game.image}" alt="${game.name} game thumbnail" class="game-card-image" loading="lazy" onerror="this.src='https://via.placeholder.com/400x250/16161f/8b5cf6?text=Grow+a+Garden'" />
+      <div class="game-card-image" style="background:${placeholder};display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:1.2rem;letter-spacing:-0.02em;">
+        <span style="display:flex;align-items:center;gap:8px;"><i data-lucide="flower-2" style="width:24px;height:24px;"></i> Grow a Garden</span>
+      </div>
       <div class="game-card-body">
         <div class="game-card-header">
           <span class="game-card-title">${game.name}</span>
@@ -229,14 +149,9 @@ function renderGames() {
         </div>
       </div>
     </article>
-  `).join('');
+  `;
 
-  document.querySelectorAll('.game-card').forEach((card) => {
-    card.addEventListener('click', () => {
-      const game = GAMES.find((g) => g.id === card.dataset.game);
-      if (game) openScriptModal(game);
-    });
-  });
+  $('.game-card')?.addEventListener('click', () => openScriptModal(game));
 }
 
 /* ===== Testimonials ===== */
@@ -274,18 +189,14 @@ function renderFAQ() {
     </div>
   `).join('');
 
-  document.querySelectorAll('.faq-question').forEach((btn) => {
+  $$('.faq-question').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
       const isOpen = item.classList.contains('active');
-
-      // Close all
-      document.querySelectorAll('.faq-item').forEach((f) => {
+      $$('.faq-item').forEach((f) => {
         f.classList.remove('active');
-        f.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        f.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
       });
-
-      // Open clicked if it was closed
       if (!isOpen) {
         item.classList.add('active');
         btn.setAttribute('aria-expanded', 'true');
@@ -295,19 +206,18 @@ function renderFAQ() {
 }
 
 /* ===== Script Modal ===== */
+let lastFocusedElement = null;
+
 function openScriptModal(game) {
-  document.getElementById('modalGameName').textContent = game.name;
-  document.getElementById('modalDescription').textContent = game.desc;
-  document.getElementById('modalStatus').textContent = game.statusLabel;
-  document.getElementById('modalStatus').className = `status-badge ${game.status}`;
-  document.getElementById('modalUpdated').textContent = `Updated ${game.updated}`;
-  document.getElementById('modalLoadstring').textContent = game.loadstring;
-
-  const featuresList = document.getElementById('modalFeatures');
-  featuresList.innerHTML = game.features.map((f) => `<li>${f}</li>`).join('');
-
-  const executorsContainer = document.getElementById('modalExecutors');
-  executorsContainer.innerHTML = game.executors.map((e) => `<span class="executor-tag">${e}</span>`).join('');
+  lastFocusedElement = document.activeElement;
+  $('#modalGameName').textContent = game.name;
+  $('#modalDescription').textContent = game.desc;
+  $('#modalStatus').textContent = game.statusLabel;
+  $('#modalStatus').className = `status-badge ${game.status}`;
+  $('#modalUpdated').textContent = `Updated ${game.updated}`;
+  $('#modalLoadstring').textContent = game.loadstring;
+  $('#modalFeatures').innerHTML = game.features.map((f) => `<li>${f}</li>`).join('');
+  $('#modalExecutors').innerHTML = game.executors.map((e) => `<span class="executor-tag">${e}</span>`).join('');
 
   scriptModal?.classList.add('active');
   scriptModal?.setAttribute('aria-hidden', 'false');
@@ -319,67 +229,106 @@ function closeScriptModal() {
   scriptModal?.classList.remove('active');
   scriptModal?.setAttribute('aria-hidden', 'true');
   body.classList.remove('modal-open');
+  if (lastFocusedElement) lastFocusedElement.focus();
 }
 
 scriptModalClose?.addEventListener('click', closeScriptModal);
 scriptModal?.addEventListener('click', (e) => {
   if (e.target === scriptModal) closeScriptModal();
 });
+
+// Focus trap + Escape
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && scriptModal?.classList.contains('active')) {
     closeScriptModal();
+  }
+  if (e.key === 'Tab' && scriptModal?.classList.contains('active')) {
+    const focusable = scriptModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   }
 });
 
 /* ===== Copy Loadstring ===== */
 copyBtn?.addEventListener('click', async () => {
-  const code = document.getElementById('modalLoadstring')?.textContent || '';
-  try {
-    await navigator.clipboard.writeText(code);
+  const code = $('#modalLoadstring')?.textContent || '';
+  const text = copyBtn.querySelector('.copy-text');
+  const doCopy = () => {
     copyBtn.classList.add('copied');
-    const text = copyBtn.querySelector('.copy-text');
     if (text) text.textContent = 'Copied!';
     setTimeout(() => {
       copyBtn.classList.remove('copied');
       if (text) text.textContent = 'Copy';
     }, 2000);
-  } catch (err) {
-    // Fallback
+  };
+  try {
+    await navigator.clipboard.writeText(code);
+    doCopy();
+  } catch {
     const ta = document.createElement('textarea');
     ta.value = code;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    copyBtn.classList.add('copied');
-    const text = copyBtn.querySelector('.copy-text');
-    if (text) text.textContent = 'Copied!';
-    setTimeout(() => {
-      copyBtn.classList.remove('copied');
-      if (text) text.textContent = 'Copy';
-    }, 2000);
+    doCopy();
   }
 });
 
-/* ===== Stats Counter Animation ===== */
-function animateCounters() {
-  document.querySelectorAll('.stat-num[data-count], .t-stat-num[data-count]').forEach((el) => {
-    const target = parseFloat(el.dataset.count);
-    const duration = 2000;
-    const start = performance.now();
-    const isFloat = target % 1 !== 0;
+/* ===== Scroll-Triggered Counter Animation ===== */
+const counted = new WeakSet();
 
-    function update(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = target * eased;
-      el.textContent = isFloat ? current.toFixed(1) : Math.floor(current).toLocaleString();
-      if (progress < 1) requestAnimationFrame(update);
+function animateCounter(el) {
+  if (counted.has(el)) return;
+  counted.add(el);
+  const target = parseFloat(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const start = performance.now();
+  // Detect decimal places from the original data-count string
+  const decimalStr = el.dataset.count;
+  const decimalPlaces = (decimalStr.split('.')[1] || '').length;
+
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = target * eased;
+    let display;
+    if (decimalPlaces > 0) {
+      display = current.toFixed(decimalPlaces);
+    } else {
+      display = Math.floor(current).toLocaleString();
     }
+    el.textContent = display + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
 
-    requestAnimationFrame(update);
-  });
+const counterObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.5 }
+);
+
+function observeCounters() {
+  $$('.stat-num[data-count], .t-stat-num[data-count]').forEach((el) => counterObserver.observe(el));
 }
 
 /* ===== Scroll Reveal ===== */
@@ -396,7 +345,7 @@ const revealObserver = new IntersectionObserver(
 );
 
 function observeReveals() {
-  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  $$('.reveal').forEach((el) => revealObserver.observe(el));
 }
 
 /* ===== Scroll to Top ===== */
@@ -405,8 +354,7 @@ function initScrollTop() {
     const scrolled = window.scrollY > 400;
     scrollTopBtn?.classList.toggle('visible', scrolled);
     siteHeader?.classList.toggle('scrolled', scrolled > 20);
-  });
-
+  }, { passive: true });
   scrollTopBtn?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -429,13 +377,9 @@ function applyRoute() {
   const routeKey = getRouteKey();
   const config = routeConfig[window.location.pathname] || routeConfig['/'];
 
-  document.querySelectorAll('[data-route]').forEach((el) => {
+  $$('[data-route]').forEach((el) => {
     const routes = el.dataset.route.split(' ');
-    if (routes.includes('all') || routes.includes(routeKey)) {
-      el.style.display = '';
-    } else {
-      el.style.display = 'none';
-    }
+    el.style.display = (routes.includes('all') || routes.includes(routeKey)) ? '' : 'none';
   });
 
   if (config.tab) {
@@ -449,7 +393,7 @@ function applyRoute() {
         p.classList.remove('active');
         p.hidden = true;
       });
-      const btn = document.querySelector(`[data-tab="${config.tab}"]`);
+      const btn = $(`[data-tab="${config.tab}"]`);
       if (btn) {
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
@@ -459,22 +403,43 @@ function applyRoute() {
     }
   }
 
-  document.querySelectorAll('.nav a[data-route]').forEach((link) => {
+  $$('.nav a[data-route]').forEach((link) => {
     link.classList.toggle('active', link.dataset.route === routeKey);
   });
 }
 
+/* ===== Hash Navigation ===== */
 function handleHash() {
   const hash = window.location.hash;
-  if (hash) {
-    const el = document.querySelector(hash);
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
+  if (!hash) return;
+  const el = document.querySelector(hash);
+  if (el) {
+    // Ensure the section is visible first
+    el.style.display = '';
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 }
+
+// Hash links smooth scroll (don't intercept — let browser handle the hash)
+$$('a[href^="/#"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    const hash = href.split('#')[1];
+    if (!hash) return;
+    // If already on home page, just smooth scroll
+    if (window.location.pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(hash);
+      if (el) {
+        history.pushState(null, '', href);
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    // If on another page, let the browser navigate normally (hash will be preserved)
+  });
+});
 
 window.addEventListener('popstate', () => {
   applyRoute();
@@ -484,12 +449,11 @@ window.addEventListener('popstate', () => {
 /* ===== Footer Year ===== */
 if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-/* ===== Initialize Lucide Icons ===== */
+/* ===== Lucide Icons ===== */
 function initIcons() {
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   } else {
-    // Retry after a short delay
     setTimeout(initIcons, 500);
   }
 }
@@ -501,22 +465,21 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTestimonials();
   renderFAQ();
   observeReveals();
+  observeCounters();
   initScrollTop();
   applyRoute();
   handleHash();
-  animateCounters();
   initIcons();
 
-  document.querySelectorAll('.nav a[data-route]').forEach((link) => {
+  // Route links (NOT hash links)
+  $$('.nav a[data-route]').forEach((link) => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
-      if (href.startsWith('/')) {
+      if (href.startsWith('/') && !href.includes('#')) {
         e.preventDefault();
-        if (history.pushState) {
-          history.pushState(null, '', href);
-          applyRoute();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        history.pushState(null, '', href);
+        applyRoute();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   });
