@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WisHub — The All-in-One Roblox Script Hub</title>
+  <meta name="description" content="Always-updated scripts, HWID-locked keys, and live stats. The trusted hub for Roblox scripting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-dark">
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <i data-lucide="zap" class="logo-icon"></i>
+        <span>WisHub</span>
+      </div>
+      <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <a href="#scripts">Scripts</a>
+        <a href="#status">Status</a>
+        <a href="#features">Features</a>
+        <a href="https://discord.gg/wishub" target="_blank" rel="noopener">Discord</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#get-started" class="btn btn-primary btn-sm">Get Started</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <i data-lucide="menu" class="menu-icon"></i>
+          <i data-lucide="x" class="menu-icon-close"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          Every wish,<br />
+          <span class="accent">one trusted hub</span>
+        </h1>
+        <p class="hero-subtitle">
+          The all-in-one Roblox script hub with always-updated scripts, HWID-locked keys, and live stats. Supporting 14+ executors with sub-minute update times.
+        </p>
+        <div class="hero-cta">
+          <a href="#get-started" class="btn btn-primary">Get Started <i data-lucide="arrow-right" class="icon-sm"></i></a>
+          <a href="https://discord.gg/wishub" target="_blank" rel="noopener" class="btn btn-ghost">Discord <i data-lucide="message-circle" class="icon-sm"></i></a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="stat-num" data-count="99.97">0</span>
+            <span class="stat-label">% Uptime</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num" data-count="1">0</span>
+            <span class="stat-label">Min Updates</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num" data-count="14">0</span>
+            <span class="stat-label">Executors</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-dot"></span>
+            <span class="stat-label">Online now · Updated moments ago</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-card-dot"></span>
+            <span class="hero-card-title">loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/12345'))()</span>
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-card-line"></div>
+            <div class="hero-card-line short"></div>
+            <div class="hero-card-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Trust Signals ===== -->
+  <section class="trust section" id="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon"><i data-lucide="shield-check"></i></div>
+          <h3>No malware, no popups</h3>
+          <p>No ad mazes, no fake keys, no pastebin traps. Clean scripts only.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i data-lucide="cpu"></i></div>
+          <h3>HWID-locked keys</h3>
+          <p>Access tied to your hardware ID. Non-shareable, non-stealable.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i data-lucide="zap"></i></div>
+          <h3>Updates in under a minute</h3>
+          <p>Scripts auto-patch the moment a game updates. No waiting.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i data-lucide="layers"></i></div>
+          <h3>Runs on many executors</h3>
+          <p>Compatible with Wave, Delta, Krnl, Swift, Velocity, Codex, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="features section" id="features">
+    <div class="container">
+      <div class="section-head">
+        <h2>Not just scripts, a whole toolkit</h2>
+        <p class="section-tagline">Everything you need to stay ahead, in one place.</p>
+      </div>
+      <div class="tabs">
+        <div class="tab-list">
+          <button class="tab-btn active" data-tab="script-hub">Script Hub</button>
+          <button class="tab-btn" data-tab="monitoring">Account Monitoring</button>
+          <button class="tab-btn" data-tab="stats">Live Stats</button>
+          <button class="tab-btn" data-tab="keys">Key System</button>
+        </div>
+        <div class="tab-content">
+          <div class="tab-panel active" id="script-hub">
+            <div class="tab-panel-grid">
+              <div class="tab-panel-text">
+                <h3>Every supported game in one place</h3>
+                <p>Each script patched within a minute of game updates. One-click copy loadstring. No re-downloads.</p>
+                <ul class="tab-features">
+                  <li><i data-lucide="check"></i> Per-game scripts</li>
+                  <li><i data-lucide="check"></i> One-click copy</li>
+                  <li><i data-lucide="check"></i> Patched in &lt;1m</li>
+                </ul>
+              </div>
+              <div class="tab-panel-visual">
+                <div class="code-block">
+                  <div class="code-header">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                    <span class="code-filename">script.lua</span>
+                  </div>
+                  <pre><code>loadstring(game:HttpGet(
+  'https://wishub.cloud/api/v1/scripts/gpo'
+))()</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="monitoring">
+            <div class="tab-panel-grid">
+              <div class="tab-panel-text">
+                <h3>Track script usage & key status</h3>
+                <p>Monitor HWID bindings, expiration dates, and execution history across all your accounts.</p>
+                <ul class="tab-features">
+                  <li><i data-lucide="check"></i> HWID binding tracker</li>
+                  <li><i data-lucide="check"></i> Expiration alerts</li>
+                  <li><i data-lucide="check"></i> Execution logs</li>
+                </ul>
+              </div>
+              <div class="tab-panel-visual">
+                <div class="monitor-mock">
+                  <div class="monitor-row">
+                    <span class="monitor-status online"></span>
+                    <span>Account #1</span>
+                    <span class="monitor-time">2m ago</span>
+                  </div>
+                  <div class="monitor-row">
+                    <span class="monitor-status online"></span>
+                    <span>Account #2</span>
+                    <span class="monitor-time">5m ago</span>
+                  </div>
+                  <div class="monitor-row">
+                    <span class="monitor-status offline"></span>
+                    <span>Account #3</span>
+                    <span class="monitor-time">1h ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="stats">
+            <div class="tab-panel-grid">
+              <div class="tab-panel-text">
+                <h3>Real-time uptime & activity</h3>
+                <p>Live metrics on API status, active users, script execution counts, and game patch status.</p>
+                <ul class="tab-features">
+                  <li><i data-lucide="check"></i> 30-day uptime history</li>
+                  <li><i data-lucide="check"></i> Active user count</li>
+                  <li><i data-lucide="check"></i> Patch status alerts</li>
+                </ul>
+              </div>
+              <div class="tab-panel-visual">
+                <div class="stats-mock">
+                  <div class="stat-bar">
+                    <div class="stat-fill" style="width: 99.97%"></div>
+                    <span>99.97%</span>
+                  </div>
+                  <div class="stat-bar">
+                    <div class="stat-fill" style="width: 85%"></div>
+                    <span>85%</span>
+                  </div>
+                  <div class="stat-bar">
+                    <div class="stat-fill" style="width: 92%"></div>
+                    <span>92%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="keys">
+            <div class="tab-panel-grid">
+              <div class="tab-panel-text">
+                <h3>HWID-locked key management</h3>
+                <p>Generate, redeem, and manage access keys with configurable expiration. Tied to hardware, not accounts.</p>
+                <ul class="tab-features">
+                  <li><i data-lucide="check"></i> 1d / 7d / 30d / Lifetime</li>
+                  <li><i data-lucide="check"></i> Discord bot integration</li>
+                  <li><i data-lucide="check"></i> Bulk key generation</li>
+                </ul>
+              </div>
+              <div class="tab-panel-visual">
+                <div class="key-mock">
+                  <div class="key-box">
+                    <span class="key-label">Your Key</span>
+                    <span class="key-value">WHUB-XXXX-XXXX-XXXX</span>
+                  </div>
+                  <div class="key-tier free">Free</div>
+                  <div class="key-tier premium">Premium</div>
+                  <div class="key-tier vip">VIP</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Executors ===== -->
+  <section class="executors section" id="executors">
+    <div class="container">
+      <div class="section-head">
+        <h2>Supported Executors</h2>
+        <p class="section-tagline">Works with the most popular Roblox executors on the market.</p>
+      </div>
+      <div class="executor-grid">
+        <div class="executor-card" data-executor="Wave"><i data-lucide="activity"></i><span>Wave</span></div>
+        <div class="executor-card" data-executor="Swift"><i data-lucide="zap"></i><span>Swift</span></div>
+        <div class="executor-card" data-executor="Velocity"><i data-lucide="gauge"></i><span>Velocity</span></div>
+        <div class="executor-card" data-executor="Codex"><i data-lucide="code"></i><span>Codex</span></div>
+        <div class="executor-card" data-executor="Delta"><i data-lucide="triangle"></i><span>Delta</span></div>
+        <div class="executor-card" data-executor="Hydrogen"><i data-lucide="droplets"></i><span>Hydrogen</span></div>
+        <div class="executor-card" data-executor="Krnl"><i data-lucide="box"></i><span>Krnl</span></div>
+        <div class="executor-card" data-executor="Fluxus"><i data-lucide="flame"></i><span>Fluxus</span></div>
+        <div class="executor-card" data-executor="Arceus X"><i data-lucide="swords"></i><span>Arceus X</span></div>
+        <div class="executor-card" data-executor="Cryptic"><i data-lucide="eye"></i><span>Cryptic</span></div>
+        <div class="executor-card" data-executor="Seliware"><i data-lucide="scan"></i><span>Seliware</span></div>
+        <div class="executor-card" data-executor="Volcano"><i data-lucide="mountain"></i><span>Volcano</span></div>
+        <div class="executor-card" data-executor="Bunni"><i data-lucide="rabbit"></i><span>Bunni</span></div>
+        <div class="executor-card" data-executor="Ronin"><i data-lucide="slash"></i><span>Ronin</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Games ===== -->
+  <section class="games section" id="scripts">
+    <div class="container">
+      <div class="section-head">
+        <h2>Supported Games</h2>
+        <p class="section-tagline">Always-updated scripts for the most popular Roblox experiences.</p>
+      </div>
+      <div class="games-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="popular">Popular</button>
+        <button class="filter-btn" data-filter="focused">Focused</button>
+        <button class="filter-btn" data-filter="stable">Stable</button>
+      </div>
+      <div class="games-grid" id="gamesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== Script Detail Modal ===== -->
+  <section class="script-modal" id="scriptModal">
+    <div class="script-modal-content">
+      <button class="script-modal-close" id="scriptModalClose" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="script-modal-header">
+        <div class="script-modal-icon" id="modalGameIcon"></div>
+        <div>
+          <h3 id="modalGameName">Game Name</h3>
+          <div class="script-modal-meta">
+            <span class="status-badge" id="modalStatus">Working</span>
+            <span id="modalUpdated">Updated 2m ago</span>
+          </div>
+        </div>
+      </div>
+      <div class="script-modal-body">
+        <p id="modalDescription">Script description goes here.</p>
+        <ul class="script-features" id="modalFeatures"></ul>
+        <div class="loadstring-block">
+          <div class="loadstring-header">
+            <span>Loadstring</span>
+            <button class="copy-btn" id="copyBtn">
+              <i data-lucide="copy" class="copy-icon"></i>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre><code id="modalLoadstring">loadstring()</code></pre>
+        </div>
+        <div class="script-executors">
+          <span class="script-executors-label">Compatible with:</span>
+          <div class="script-executor-tags" id="modalExecutors"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA Strip ===== -->
+  <section class="cta-strip">
+    <div class="container">
+      <h2>Ready to get started?</h2>
+      <p class="cta-sub">Join thousands of players using WisHub for their Roblox scripts.</p>
+      <a href="#get-started" class="btn btn-primary">Get Started <i data-lucide="arrow-right" class="icon-sm"></i></a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <i data-lucide="zap" class="logo-icon"></i>
+        <span>WisHub</span>
+      </div>
+      <div class="footer-nav">
+        <a href="#scripts">Scripts</a>
+        <a href="#status">Status</a>
+        <a href="#features">Features</a>
+        <a href="https://discord.gg/wishub" target="_blank" rel="noopener">Discord</a>
+      </div>
+      <div class="footer-meta">
+        <span id="year"></span> © WisHub. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

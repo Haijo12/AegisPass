@@ -1,231 +1,277 @@
-# Roblox Account Monitor Panel
+# WisHub — Roblox Script Hub Platform
 
-A web-based dashboard for tracking and monitoring Roblox accounts in real-time. Designed for premium users who need full visibility and control over multiple accounts from a single interface.
+A modern, responsive web platform that serves as a centralized hub for Roblox Lua scripts. The platform provides script distribution, user key management, real-time status monitoring, and multi-executor compatibility — all wrapped in a sleek, dark-themed UI with purple/blue accent colors.
 
-## Overview
+**Core Value Proposition:** "Every wish, one trusted hub" — an all-in-one script distribution platform with instant updates, HWID-locked access, and zero-friction user experience.
 
-The monitor panel allows you to:
-- Track multiple Roblox accounts simultaneously
-- View real-time activity and data pushes
-- Manage tracking codes across all accounts
-- Regenerate codes if compromised
-- Access charts, analytics, and remote controls
+---
 
-## How It Works
+## Table of Contents
 
-### Architecture
+1. [Project Overview](#1-project-overview)
+2. [Core Features & Modules](#2-core-features--modules)
+3. [Key System (Backend Critical)](#3-key-system-backend-critical)
+4. [Real-Time Systems](#4-real-time-systems)
+5. [Admin Panel](#5-admin-panel)
+6. [Technical Architecture](#6-technical-architecture)
+7. [Security Requirements](#7-security-requirements)
+8. [UI/UX Design Specifications](#8-uiux-design-specifications)
+9. [SEO & Meta](#9-seo--meta)
+10. [Deliverables](#10-deliverables)
 
-```
-┌─────────────────┐     HTTPS/WebSocket      ┌──────────────────┐
-│   Roblox Client  │ ───────────────────────▶ │   Monitor Server  │
-│   (Executor)     │ ◀─────────────────────── │   (Dashboard)     │
-└─────────────────┘      JSON Payloads        └──────────────────┘
-```
+---
 
-1. **User generates a tracking code** from the web dashboard
-2. **Code is injected** into Roblox via an executor script
-3. **Roblox client pushes data** to the monitor server using the code
-4. **Dashboard displays** real-time stats, logs, and account status
-5. **User can regenerate** the code if it leaks or is compromised
+## 1. Project Overview
 
-### Data Flow
+Build a modern, responsive web platform that serves as a centralized hub for Roblox Lua scripts. The platform should provide script distribution, user key management, real-time status monitoring, and multi-executor compatibility — all wrapped in a sleek, dark-themed UI with purple/blue accent colors.
 
-1. **Code Generation**: User clicks "Track Code" → Server generates unique code → Code is linked to user's account
-2. **Script Injection**: User clicks "Get Script" → Script is copied → Pasted into executor
-3. **Data Push**: Roblox client sends heartbeat + telemetry to server every X seconds
-4. **Dashboard Update**: Server processes data → Updates charts, account list, activity logs
-5. **Code Regeneration**: User clicks "Regenerate" → Old code invalidated → New code issued
+### Core Value Proposition
+"Every wish, one trusted hub" — an all-in-one script distribution platform with instant updates, HWID-locked access, and zero-friction user experience.
 
-## Features
+---
 
-### Core Features
-- **Unified Tracking Code**: One code covers all Roblox accounts
-- **Real-time Dashboard**: Live charts, active accounts, data throughput
-- **Account Management**: View which accounts are currently pushing data
-- **Code Regeneration**: Instantly invalidate and replace leaked codes
-- **Remote Controller**: Execute commands or toggle features remotely
+## 2. Core Features & Modules
 
-### Dashboard Panels
-- **Account Status**: Online/offline state, last seen, account IDs
-- **Activity Charts**: Data volume over time, request frequency
-- **Telemetry Logs**: Detailed event stream from each account
-- **Settings**: Code management, notification preferences, privacy controls
+### A. Landing Page (Hero Section)
 
-## Requirements
+- **Headline:** "Every wish, one trusted hub" (with italic emphasis on "one trusted hub")
+- **Subheadline:** Describe the platform as an all-in-one Roblox script hub with always-updated scripts and supporting tools
+- **CTA Buttons:** "Get Started" (primary) and "Discord" (secondary, links to Discord server)
+- **Live Stats Bar:** Display real-time metrics:
+  - Uptime percentage (e.g., "99.97% uptime")
+  - Update speed (e.g., "<1m updates")
+  - Supported executors count (e.g., "8+ executors")
+  - Online status indicator ("Online now · Updated moments ago")
 
-### User Requirements
-- Premium/buyer access to the monitor service
-- A Roblox executor (compatible with the provided script)
-- Active internet connection for dashboard access
-- Modern web browser (Chrome, Firefox, Edge)
+### B. Trust Signals Section
 
-### Technical Requirements
-- **Server**: Node.js/Python backend with WebSocket support
-- **Database**: Redis or PostgreSQL for code storage and session management
-- **Frontend**: React/Vue dashboard with real-time updates
-- **Hosting**: Cloud deployment (VPS, AWS, Cloudflare Workers)
-- **SSL**: HTTPS required for secure WebSocket connections
+Four feature cards with icons:
 
-### Script Requirements
-- Roblox executor compatibility (Synapse X, Krnl, Delta, etc.)
-- `HttpService` enabled in Roblox
-- WebSocket or `request` library support
-- Proper error handling and reconnection logic
+1. **"No malware, no popups"** — No ad mazes, no fake keys, no pastebin traps
+2. **"HWID-locked keys"** — Access tied to user's hardware ID, non-shareable, non-stealable
+3. **"Updates in under a minute"** — Scripts auto-patch the moment a game updates
+4. **"Runs on many executors"** — Compatible with Wave, Delta, Krnl, Swift, Velocity, Codex, Hydrogen, Fluxus, Arceus X, Cryptic, Seliware, Volcano, Bunni, Ronin
 
-## Setup Guide
+### C. Feature Showcase ("Not just scripts, a whole toolkit")
 
-### For Users
+Interactive tabbed section where users can toggle between features:
 
-1. **Get Your Code**
-   - Visit the monitor dashboard
-   - Click "Track Code"
-   - Copy your unique tracking code
+| Tab | Content |
+|------|---------|
+| **Script Hub** | Every supported game in one place. Each script patched within a minute of game updates. One-click copy loadstring. No re-downloads. Features: Per-game scripts, One-click copy, Patched in <1m |
+| **Account Monitoring** | Track script usage, key status, HWID bindings, and expiration dates |
+| **Live Stats** | Real-time uptime, active users, script execution counts, game patch status |
+| **Key System** | Generate, redeem, and manage HWID-locked access keys with expiration |
 
-2. **Get the Script**
-   - Click "Get Script"
-   - Copy the Lua script to clipboard
+### D. Executor Compatibility Grid
 
-3. **Inject and Run**
-   - Open your executor
-   - Paste the script
-   - Replace `YOUR_CODE_HERE` with your tracking code
-   - Execute
+A visually appealing grid/logos section showing all supported executors:
+- Wave, Swift, Velocity, Codex, Delta, Hydrogen, Krnl, Fluxus, Arceus X, Cryptic, Seliware, Volcano, Bunni, Ronin
+- Each with logo/icon and name
+- Hover effects showing compatibility status
 
-4. **Monitor**
-   - Go to "My Accounts" to see connected accounts
-   - View real-time data on the dashboard
+### E. Supported Games Directory
 
-### For Developers
+A filterable grid of supported Roblox games:
+- Game cards with icon/thumbnail, name, script status
+- Status badges: "Popular" (most used), "Focused" (actively being built/improved), "Stable", "Patched"
+- Clicking a game reveals: script description, features list, loadstring code block with copy button, last updated timestamp, executor compatibility
+- Games should include: GPO (Grand Piece Online), Fruit Seas, Fisch, Sol's RNG, Blox Fruits, Slap Battles, 99 Nights, etc.
 
-#### Project Structure
+### F. Script Detail View
 
-```
-monitor-panel/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── AccountList.jsx
-│   │   │   ├── Charts.jsx
-│   │   │   └── CodeManager.jsx
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   └── Monitor.jsx
-│   │   └── App.jsx
-│   └── package.json
-├── backend/
-│   ├── src/
-│   │   ├── routes/
-│   │   │   ├── auth.js
-│   │   │   ├── codes.js
-│   │   │   └── websocket.js
-│   │   ├── models/
-│   │   │   ├── User.js
-│   │   │   └── TrackingCode.js
-│   │   └── index.js
-│   └── package.json
-├── script/
-│   └── monitor.lua
-└── README.md
+For each game script:
+- **Loadstring display:** Syntax-highlighted Lua code block with one-click copy
+- **Features list:** Bullet points of what the script does
+- **Last updated:** Human-readable timestamp ("2 minutes ago")
+- **Status indicator:** Green (working), Yellow (updating), Red (patched)
+- **Executor tags:** Which executors support this script
+- **Version history:** Changelog of recent updates
+
+---
+
+## 3. Key System (Backend Critical)
+
+### HWID-Locked Key Management
+
+- **Key Generation:** Admin panel generates unique keys with configurable expiration (1 day, 7 days, 30 days, lifetime)
+- **Key Redemption:** Users enter key on the website, which binds to their HWID (hardware ID from their executor)
+- **HWID Validation:** Each key can only be used on one device. If HWID mismatch, key is rejected
+- **Key Tiers:** Free (limited scripts), Premium (all scripts), VIP (priority updates + exclusive scripts)
+- **Discord Bot Integration:** Keys can be generated, checked, and redeemed via Discord commands
+
+### API Endpoints for Executors
+
+```http
+POST /api/v1/auth/validate
+Body: { key: string, hwid: string, executor: string, game_id: string }
+Response: { valid: bool, expires_at: timestamp, scripts: [...] }
+
+GET /api/v1/scripts/{game_id}
+Headers: { Authorization: Bearer <key> }
+Response: { loadstring: string, version: string, features: [...] }
+
+POST /api/v1/scripts/execute-log
+Body: { key: string, hwid: string, game_id: string, script_version: string }
 ```
 
-#### Backend Setup
+---
 
-```javascript
-// WebSocket handler for real-time data
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8080 });
+## 4. Real-Time Systems
 
-wss.on('connection', (ws, req) => {
-  const code = new URL(req.url, 'http://localhost').searchParams.get('code');
+### Status Page
 
-  if (!isValidCode(code)) {
-    ws.close(1008, 'Invalid code');
-    return;
-  }
+- System health dashboard showing:
+  - API status (operational/degraded/down)
+  - Script update pipeline status
+  - Individual game script statuses
+  - Uptime history (last 30 days)
+  - Incident history
 
-  ws.on('message', (data) => {
-    const payload = JSON.parse(data);
-    handleTelemetry(code, payload);
-  });
+### Live Update Pipeline
 
-  ws.on('close', () => {
-    markAccountOffline(code);
-  });
-});
+- When a Roblox game updates, the system detects it automatically
+- Scripts are flagged as "Patched" immediately
+- Developers are notified via webhook
+- Updated scripts are deployed and status changes to "Working" within <1 minute
+- Users see real-time status changes without refreshing
+
+---
+
+## 5. Admin Panel
+
+### Dashboard
+
+- Active keys count, revenue (if paid), active users, execution logs
+- Recent activity feed
+
+### Script Management
+
+- CRUD operations for game scripts
+- Upload/edit loadstrings
+- Set game IDs, supported executors, features, status
+- Version control with changelog
+
+### Key Management
+
+- Generate bulk keys
+- Search keys by HWID, status, tier
+- Revoke/blacklist keys
+- View key usage analytics
+
+### User Management
+
+- View user profiles (HWID, keys, execution history)
+- Ban/unban HWIDs
+- View abuse reports
+
+---
+
+## 6. Technical Architecture
+
+### Frontend
+
+- **Framework:** React / Next.js 14 with App Router
+- **Styling:** Tailwind CSS with custom dark theme
+- **Colors:** Deep navy/black background (#0a0a0f), purple accents (#8b5cf6), blue highlights (#3b82f6), green status (#22c55e)
+- **Animations:** Framer Motion for smooth transitions, scroll reveals, tab switches
+- **Icons:** Lucide React icons
+- **Syntax Highlighting:** PrismJS or Shiki for Lua code blocks
+
+### Backend
+
+- **API:** Node.js with Express or Next.js API routes
+- **Database:** PostgreSQL for relational data (users, keys, scripts), Redis for caching and rate limiting
+- **Authentication:** JWT tokens + HWID binding
+- **Real-time:** Server-Sent Events (SSE) or WebSockets for live status updates
+- **Rate Limiting:** Strict limits on API endpoints to prevent abuse
+
+### Infrastructure
+
+- **Hosting:** Vercel (frontend) + Railway/Render (backend) or self-hosted
+- **CDN:** Cloudflare for DDoS protection and global caching
+- **Monitoring:** UptimeRobot or Better Uptime for status page
+- **Discord Integration:** Discord.js bot for key management and notifications
+
+---
+
+## 7. Security Requirements
+
+- All API endpoints require valid key + HWID combination
+- Rate limiting: 100 requests/minute per key, 10 requests/minute per IP
+- HWID spoofing detection — flag suspicious patterns
+- Encrypted key storage (bcrypt/Argon2)
+- No plaintext script storage — obfuscate or serve dynamically
+- Anti-bot protection on key redemption (Cloudflare Turnstile or hCaptcha)
+- Audit logging for all key validations and script executions
+
+---
+
+## 8. UI/UX Design Specifications
+
+### Typography
+
+- **Headlines:** Inter or Geist, bold, large sizes
+- **Body:** Inter, regular, readable line height
+- **Code:** JetBrains Mono or Fira Code
+
+### Layout
+
+- Single-page application feel with smooth scroll sections
+- Sticky navigation with logo, links (Scripts, Status, Discord, Get Started), and user profile
+- Mobile-responsive hamburger menu
+- Dark mode only (no light mode needed)
+
+### Animations
+
+- Hero text fade-in on load
+- Stats counter animation (counting up)
+- Feature cards slide-in on scroll
+- Tab content crossfade transition
+- Copy button feedback (checkmark animation)
+
+---
+
+## 9. SEO & Meta
+
+- **Title:** "WisHub — The All-in-One Roblox Script Hub"
+- **Meta description:** "Always-updated scripts, HWID-locked keys, and live stats. The trusted hub for Roblox scripting."
+- **Open Graph image with branding**
+- **Favicon:** Custom logo icon
+
+---
+
+## 10. Deliverables
+
+1. Fully responsive landing page with all sections above
+2. User authentication & key system (register, login, redeem key, view profile)
+3. Script browser with search, filter, and detail views
+4. Admin dashboard with full CRUD capabilities
+5. REST API documented with OpenAPI/Swagger
+6. Discord bot for key management and notifications
+7. Status page with real-time health checks
+8. Database schema and migration files
+
+---
+
+## Implementation Notes
+
+This specification serves as a complete blueprint for building a WisHub-style Roblox script hub platform. The document can be handed to a developer, used with an AI code generator, or used as a project specification.
+
+### Quick Start Commands
+
+```bash
+# Clone and setup
+git clone <repo-url>
+cd wishub-monitor
+npm install
+
+# Start development
+npm run dev
+
+# Build for production
+npm run build
 ```
-
-#### Frontend Dashboard
-
-```jsx
-function Dashboard() {
-  const [accounts, setAccounts] = useState([]);
-  const [charts, setCharts] = useState({});
-
-  useEffect(() => {
-    const ws = new WebSocket('wss://monitor.example.com/ws');
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      updateAccounts(data.accounts);
-      updateCharts(data.metrics);
-    };
-    return () => ws.close();
-  }, []);
-
-  return (
-    <div className="dashboard">
-      <AccountList accounts={accounts} />
-      <Charts data={charts} />
-      <CodeManager />
-    </div>
-  );
-}
-```
-
-#### Lua Script (Roblox Side)
-
-```lua
--- Monitor Panel Script
-local CONFIG = {
-  CODE = "YOUR_CODE_HERE",
-  SERVER = "wss://monitor.example.com/ws",
-  INTERVAL = 5 -- seconds
-}
-
-local HttpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
-
-local ws = WebSocket.connect(CONFIG.SERVER .. "?code=" .. CONFIG_CODE)
-
-local function sendTelemetry()
-  local data = {
-    userId = game.Players.LocalPlayer.UserId,
-    username = game.Players.LocalPlayer.Name,
-    timestamp = os.time(),
-    placeId = game.PlaceId,
-    jobId = game.JobId,
-    fps = math.floor(1 / RunService:GetDeltaTime())
-  }
-  ws:Send(HttpService:JSONEncode(data))
-end
-
--- Send heartbeat every X seconds
-while true do
-  sendTelemetry()
-  wait(CONFIG.INTERVAL)
-end
-```
-
-## Security Considerations
-
-- **Code Security**: Tracking codes should be cryptographically secure (UUID v4)
-- **Rate Limiting**: Implement rate limits on WebSocket connections and API endpoints
-- **Data Privacy**: Only collect necessary telemetry; avoid sensitive data
-- **Authentication**: Require user authentication for dashboard access
-- **Code Expiry**: Optional auto-expiry after inactivity period
-- **IP Binding**: Optional IP restriction on code usage
-
-## Deployment
 
 ### Environment Variables
 
@@ -235,6 +281,7 @@ JWT_SECRET=your_jwt_secret_key
 WEBHOOK_SECRET=optional_webhook_verification
 PORT=3000
 WS_PORT=8080
+DISCORD_BOT_TOKEN=your_discord_bot_token
 ```
 
 ### Docker Setup
@@ -281,14 +328,7 @@ volumes:
   postgres_data:
 ```
 
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| Script not connecting | Check WebSocket URL and code validity |
-| Dashboard not updating | Verify WebSocket connection in browser dev tools |
-| Accounts not showing | Ensure code matches and accounts are online in-game |
-| High latency | Reduce telemetry interval or optimize payload size |
+---
 
 ## License
 
