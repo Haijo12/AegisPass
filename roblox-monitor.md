@@ -1,8 +1,8 @@
-# WisHub — Roblox Script Hub Platform
+# Forge Gen 2 Monitor — Grow a Garden Script Hub
 
-A modern, responsive web platform that serves as a centralized hub for Roblox Lua scripts. The platform provides script distribution, user key management, real-time status monitoring, and multi-executor compatibility — all wrapped in a sleek, dark-themed UI with purple/blue accent colors.
+A modern, responsive web platform built exclusively for **Grow a Garden** on **Delta Executor**. The platform provides script distribution, real-time monitoring, HWID-locked key management, and a sleek dark-themed UI inspired by Rayfield Gen 2.
 
-**Core Value Proposition:** "Every wish, one trusted hub" — an all-in-one script distribution platform with instant updates, HWID-locked access, and zero-friction user experience.
+**Core Value Proposition:** "Grow a Garden, elevated by Forge" — an all-in-one script monitor with instant updates, HWID-locked access, and zero-friction user experience.
 
 ---
 
@@ -23,10 +23,15 @@ A modern, responsive web platform that serves as a centralized hub for Roblox Lu
 
 ## 1. Project Overview
 
-Build a modern, responsive web platform that serves as a centralized hub for Roblox Lua scripts. The platform should provide script distribution, user key management, real-time status monitoring, and multi-executor compatibility — all wrapped in a sleek, dark-themed UI with purple/blue accent colors.
+Build a modern, responsive web platform that serves as a centralized hub for **Grow a Garden** scripts, built exclusively for **Delta Executor**. The platform should provide script distribution, user key management, real-time status monitoring, and multi-executor compatibility — all wrapped in a sleek, dark-themed UI with purple/blue accent colors inspired by Rayfield Gen 2.
 
 ### Core Value Proposition
-"Every wish, one trusted hub" — an all-in-one script distribution platform with instant updates, HWID-locked access, and zero-friction user experience.
+"Grow a Garden, elevated by Forge" — an all-in-one script distribution platform with instant updates, HWID-locked access, and zero-friction user experience.
+
+### Target Audience
+- Grow a Garden players on Roblox
+- Delta Executor users (PC/Android)
+- Players seeking automation: auto-farm, auto-harvest, auto-sell, pet spawner, dupe
 
 ---
 
@@ -34,58 +39,58 @@ Build a modern, responsive web platform that serves as a centralized hub for Rob
 
 ### A. Landing Page (Hero Section)
 
-- **Headline:** "Every wish, one trusted hub" (with italic emphasis on "one trusted hub")
-- **Subheadline:** Describe the platform as an all-in-one Roblox script hub with always-updated scripts and supporting tools
+- **Headline:** "Grow a Garden, elevated by Forge"
+- **Subheadline:** The ultimate Grow a Garden script monitor built for Delta Executor. Real-time tracking, HWID-locked keys, and sub-minute updates — all in one place.
 - **CTA Buttons:** "Get Started" (primary) and "Discord" (secondary, links to Discord server)
 - **Live Stats Bar:** Display real-time metrics:
   - Uptime percentage (e.g., "99.97% uptime")
   - Update speed (e.g., "<1m updates")
-  - Supported executors count (e.g., "8+ executors")
-  - Online status indicator ("Online now · Updated moments ago")
+  - Online status indicator ("Online now")
 
 ### B. Trust Signals Section
 
 Four feature cards with icons:
 
-1. **"No malware, no popups"** — No ad mazes, no fake keys, no pastebin traps
-2. **"HWID-locked keys"** — Access tied to user's hardware ID, non-shareable, non-stealable
-3. **"Updates in under a minute"** — Scripts auto-patch the moment a game updates
-4. **"Runs on many executors"** — Compatible with Wave, Delta, Krnl, Swift, Velocity, Codex, Hydrogen, Fluxus, Arceus X, Cryptic, Seliware, Volcano, Bunni, Ronin
+1. **"Delta-only, no key maze"** — Built exclusively for Delta Executor. No fake keys, no ad mazes, no pastebin traps.
+2. **"HWID-locked keys"** — Access tied to user's hardware ID, non-shareable, non-stealable.
+3. **"Updates in under a minute"** — Scripts auto-patch the moment Grow a Garden updates.
+4. **"Real-time monitor"** — Track execution status, key health, and patch status live from the dashboard.
 
-### C. Feature Showcase ("Not just scripts, a whole toolkit")
+### C. Feature Showcase ("Not just a script — a full toolkit")
 
 Interactive tabbed section where users can toggle between features:
 
 | Tab | Content |
 |------|---------|
-| **Script Hub** | Every supported game in one place. Each script patched within a minute of game updates. One-click copy loadstring. No re-downloads. Features: Per-game scripts, One-click copy, Patched in <1m |
+| **Script Hub** | One-click loadstring for Grow a Garden. Auto-farm, auto-harvest, auto-sell, pet spawner, dupe, and more. Patched within a minute of game updates. |
 | **Account Monitoring** | Track script usage, key status, HWID bindings, and expiration dates |
-| **Live Stats** | Real-time uptime, active users, script execution counts, game patch status |
+| **Live Stats** | Real-time uptime, active keys, script execution counts, game patch status |
 | **Key System** | Generate, redeem, and manage HWID-locked access keys with expiration |
 
-### D. Executor Compatibility Grid
+### D. Supported Executor
 
-A visually appealing grid/logos section showing all supported executors:
-- Wave, Swift, Velocity, Codex, Delta, Hydrogen, Krnl, Fluxus, Arceus X, Cryptic, Seliware, Volcano, Bunni, Ronin
-- Each with logo/icon and name
-- Hover effects showing compatibility status
+Delta Executor only:
+- **Delta Executor** — Fully supported, optimized for stability and performance
+- Works on PC and Android
+- No key required for execution
 
-### E. Supported Games Directory
+### E. Supported Game
 
-A filterable grid of supported Roblox games:
-- Game cards with icon/thumbnail, name, script status
-- Status badges: "Popular" (most used), "Focused" (actively being built/improved), "Stable", "Patched"
-- Clicking a game reveals: script description, features list, loadstring code block with copy button, last updated timestamp, executor compatibility
-- Games should include: GPO (Grand Piece Online), Fruit Seas, Fisch, Sol's RNG, Blox Fruits, Slap Battles, 99 Nights, etc.
+Grow a Garden only:
+- **Grow a Garden** — The ultimate farming simulator on Roblox
+- Features: Auto Farm, Auto Harvest, Auto Sell, Auto Buy Seeds, Pet Spawner, Dupe, Anti-AFK, ESP
+- Status: Working / Updating / Patched
+- Last updated timestamp
+- One-click copy loadstring
 
 ### F. Script Detail View
 
-For each game script:
+For Grow a Garden script:
 - **Loadstring display:** Syntax-highlighted Lua code block with one-click copy
 - **Features list:** Bullet points of what the script does
 - **Last updated:** Human-readable timestamp ("2 minutes ago")
 - **Status indicator:** Green (working), Yellow (updating), Red (patched)
-- **Executor tags:** Which executors support this script
+- **Executor tags:** Delta Executor
 - **Version history:** Changelog of recent updates
 
 ---
@@ -95,24 +100,24 @@ For each game script:
 ### HWID-Locked Key Management
 
 - **Key Generation:** Admin panel generates unique keys with configurable expiration (1 day, 7 days, 30 days, lifetime)
-- **Key Redemption:** Users enter key on the website, which binds to their HWID (hardware ID from their executor)
+- **Key Redemption:** Users enter key on the website, which binds to their HWID (hardware ID from their Delta Executor)
 - **HWID Validation:** Each key can only be used on one device. If HWID mismatch, key is rejected
-- **Key Tiers:** Free (limited scripts), Premium (all scripts), VIP (priority updates + exclusive scripts)
+- **Key Tiers:** Free (limited features), Premium (all features), VIP (priority updates + exclusive features)
 - **Discord Bot Integration:** Keys can be generated, checked, and redeemed via Discord commands
 
-### API Endpoints for Executors
+### API Endpoints for Delta Executor
 
 ```http
 POST /api/v1/auth/validate
-Body: { key: string, hwid: string, executor: string, game_id: string }
+Body: { key: string, hwid: string, executor: "Delta", game_id: "gag" }
 Response: { valid: bool, expires_at: timestamp, scripts: [...] }
 
-GET /api/v1/scripts/{game_id}
+GET /api/v1/scripts/gag
 Headers: { Authorization: Bearer <key> }
 Response: { loadstring: string, version: string, features: [...] }
 
 POST /api/v1/scripts/execute-log
-Body: { key: string, hwid: string, game_id: string, script_version: string }
+Body: { key: string, hwid: string, game_id: "gag", script_version: string }
 ```
 
 ---
@@ -124,16 +129,16 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 - System health dashboard showing:
   - API status (operational/degraded/down)
   - Script update pipeline status
-  - Individual game script statuses
+  - Grow a Garden script status
   - Uptime history (last 30 days)
   - Incident history
 
 ### Live Update Pipeline
 
-- When a Roblox game updates, the system detects it automatically
-- Scripts are flagged as "Patched" immediately
+- When Grow a Garden updates, the system detects it automatically
+- Script is flagged as "Patched" immediately
 - Developers are notified via webhook
-- Updated scripts are deployed and status changes to "Working" within <1 minute
+- Updated script is deployed and status changes to "Working" within <1 minute
 - Users see real-time status changes without refreshing
 
 ---
@@ -147,10 +152,10 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 
 ### Script Management
 
-- CRUD operations for game scripts
-- Upload/edit loadstrings
-- Set game IDs, supported executors, features, status
-- Version control with changelog
+- CRUD operations for Grow a Garden script
+- Upload/edit loadstring
+- Set features, status, version
+- Version control with changang
 
 ### Key Management
 
@@ -172,8 +177,8 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 ### Frontend
 
 - **Framework:** React / Next.js 14 with App Router
-- **Styling:** Tailwind CSS with custom dark theme
-- **Colors:** Deep navy/black background (#0a0a0f), purple accents (#8b5cf6), blue highlights (#3b82f6), green status (#22c55e)
+- **Styling:** Tailwind CSS with custom dark theme inspired by Rayfield Gen 2
+- **Colors:** Deep navy/black background (#0a0a0f), purple accents (#8b5cf6), blue highlights (#6366f1), green status (#22c55e)
 - **Animations:** Framer Motion for smooth transitions, scroll reveals, tab switches
 - **Icons:** Lucide React icons
 - **Syntax Highlighting:** PrismJS or Shiki for Lua code blocks
@@ -211,16 +216,16 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 
 ### Typography
 
-- **Headlines:** Inter or Geist, bold, large sizes
+- **Headlines:** Inter, bold, large sizes
 - **Body:** Inter, regular, readable line height
 - **Code:** JetBrains Mono or Fira Code
 
 ### Layout
 
 - Single-page application feel with smooth scroll sections
-- Sticky navigation with logo, links (Scripts, Status, Discord, Get Started), and user profile
+- Sticky navigation with logo, links (Features, Script, Status, Discord, Get Started)
 - Mobile-responsive hamburger menu
-- Dark mode only (no light mode needed)
+- Dark mode only (Rayfield Gen 2 inspired)
 
 ### Animations
 
@@ -234,10 +239,10 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 
 ## 9. SEO & Meta
 
-- **Title:** "WisHub — The All-in-One Roblox Script Hub"
-- **Meta description:** "Always-updated scripts, HWID-locked keys, and live stats. The trusted hub for Roblox scripting."
+- **Title:** "Forge Gen 2 Monitor — Grow a Garden | Delta Executor"
+- **Meta description:** "The ultimate Grow a Garden script monitor built for Delta Executor. Real-time monitoring, HWID-locked keys, and instant updates."
 - **Open Graph image with branding**
-- **Favicon:** Custom logo icon
+- **Favicon:** Custom logo icon (flower/forge icon)
 
 ---
 
@@ -245,7 +250,7 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 
 1. Fully responsive landing page with all sections above
 2. User authentication & key system (register, login, redeem key, view profile)
-3. Script browser with search, filter, and detail views
+3. Script browser with one-click loadstring copy
 4. Admin dashboard with full CRUD capabilities
 5. REST API documented with OpenAPI/Swagger
 6. Discord bot for key management and notifications
@@ -256,14 +261,14 @@ Body: { key: string, hwid: string, game_id: string, script_version: string }
 
 ## Implementation Notes
 
-This specification serves as a complete blueprint for building a WisHub-style Roblox script hub platform. The document can be handed to a developer, used with an AI code generator, or used as a project specification.
+This specification serves as a complete blueprint for building a Forge Gen 2 Monitor-style Grow a Garden script hub platform. The document can be handed to a developer, used with an AI code generator, or used as a project specification.
 
 ### Quick Start Commands
 
 ```bash
 # Clone and setup
 git clone <repo-url>
-cd wishub-monitor
+cd forge-gen2-monitor
 npm install
 
 # Start development
@@ -282,6 +287,8 @@ WEBHOOK_SECRET=optional_webhook_verification
 PORT=3000
 WS_PORT=8080
 DISCORD_BOT_TOKEN=your_discord_bot_token
+GAME_ID=gag
+EXECUTOR=Delta
 ```
 
 ### Docker Setup

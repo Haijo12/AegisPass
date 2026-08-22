@@ -1,116 +1,18 @@
 /* ===== Mock Data ===== */
 const GAMES = [
   {
-    id: 'gpo',
-    name: 'Grand Piece Online',
+    id: 'gag',
+    name: 'Grow a Garden',
     status: 'working',
     statusLabel: 'Working',
     badge: 'popular',
     badgeLabel: 'Popular',
-    desc: 'Auto-farm, auto-quest, auto-haki, and more for Grand Piece Online.',
-    features: ['Auto Farm', 'Auto Quest', 'Auto Haki', 'Auto Race V2', 'ESP'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/gpo'))()",
-    executors: ['Wave', 'Delta', 'Krnl', 'Fluxus', 'Hydrogen'],
+    desc: 'The ultimate Grow a Garden script for Delta Executor. Auto-farm, auto-harvest, auto-sell, pet spawner, dupe, and more.',
+    features: ['Auto Farm', 'Auto Harvest', 'Auto Sell', 'Auto Buy Seeds', 'Pet Spawner', 'Dupe', 'Anti-AFK', 'ESP'],
+    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/gag'))()",
+    executors: ['Delta Executor'],
     updated: '2 minutes ago',
-    image: 'https://picsum.photos/seed/gpo-roblox/400/250'
-  },
-  {
-    id: 'fruit-seas',
-    name: 'Fruit Seas',
-    status: 'working',
-    statusLabel: 'Working',
-    badge: 'focused',
-    badgeLabel: 'Focused',
-    desc: 'Auto-farm fruits, islands, and bosses in Fruit Seas.',
-    features: ['Auto Farm', 'Auto Island', 'Auto Boss', 'Fruit ESP', 'Teleport'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/fruit-seas'))()",
-    executors: ['Swift', 'Velocity', 'Codex', 'Krnl', 'Fluxus'],
-    updated: '5 minutes ago',
-    image: 'https://picsum.photos/seed/fruit-seas/400/250'
-  },
-  {
-    id: 'fisch',
-    name: 'Fisch',
-    status: 'working',
-    statusLabel: 'Working',
-    badge: 'stable',
-    badgeLabel: 'Stable',
-    desc: 'Auto-fish, auto-crate, and auto-enchant for Fisch.',
-    features: ['Auto Fish', 'Auto Crate', 'Auto Enchant', 'ESP', 'Teleport'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/fisch'))()",
-    executors: ['Wave', 'Delta', 'Krnl', 'Fluxus', 'Hydrogen', 'Swift'],
-    updated: '12 minutes ago',
-    image: 'https://picsum.photos/seed/fisch-roblox/400/250'
-  },
-  {
-    id: 'sols-rng',
-    name: "Sol's RNG",
-    status: 'working',
-    statusLabel: 'Working',
-    badge: 'popular',
-    badgeLabel: 'Popular',
-    desc: 'Auto-roll, auto-aura, and luck boost for Sol\'s RNG.',
-    features: ['Auto Roll', 'Auto Aura', 'Luck Boost', 'ESP', 'Auto Collect'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/sols-rng'))()",
-    executors: ['Velocity', 'Codex', 'Krnl', 'Fluxus'],
-    updated: '1 minute ago',
-    image: 'https://picsum.photos/seed/sols-rng/400/250'
-  },
-  {
-    id: 'blox-fruits',
-    name: 'Blox Fruits',
-    status: 'updating',
-    statusLabel: 'Updating',
-    badge: 'popular',
-    badgeLabel: 'Popular',
-    desc: 'Auto-farm, auto-quest, and fruit notification for Blox Fruits.',
-    features: ['Auto Farm', 'Auto Quest', 'Fruit ESP', 'Auto Sea Events', 'Teleport'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/blox-fruits'))()",
-    executors: ['Wave', 'Delta', 'Krnl', 'Fluxus', 'Hydrogen', 'Swift', 'Velocity'],
-    updated: 'Updating...',
-    image: 'https://picsum.photos/seed/blox-fruits/400/250'
-  },
-  {
-    id: 'slap-battles',
-    name: 'Slap Battles',
-    status: 'patched',
-    statusLabel: 'Patched',
-    badge: 'stable',
-    badgeLabel: 'Stable',
-    desc: 'Auto-slap, auto-glove, and anti-cheat bypass for Slap Battles.',
-    features: ['Auto Slap', 'Auto Glove', 'Anti-Cheat Bypass', 'ESP'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/slap-battles'))()",
-    executors: ['Krnl', 'Fluxus', 'Hydrogen'],
-    updated: 'Patched',
-    image: 'https://picsum.photos/seed/slap-battles/400/250'
-  },
-  {
-    id: '99-nights',
-    name: '99 Nights in the Forest',
-    status: 'working',
-    statusLabel: 'Working',
-    badge: 'focused',
-    badgeLabel: 'Focused',
-    desc: 'Auto-farm, auto-craft, and night survival for 99 Nights.',
-    features: ['Auto Farm', 'Auto Craft', 'Night Vision', 'ESP', 'Speed'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/99-nights'))()",
-    executors: ['Swift', 'Codex', 'Krnl', 'Fluxus'],
-    updated: '8 minutes ago',
-    image: 'https://picsum.photos/seed/99-nights/400/250'
-  },
-  {
-    id: 'pet-sim-99',
-    name: 'Pet Simulator 99',
-    status: 'working',
-    statusLabel: 'Working',
-    badge: 'stable',
-    badgeLabel: 'Stable',
-    desc: 'Auto-farm coins, auto-hatch, and auto-enchant for Pet Sim 99.',
-    features: ['Auto Farm', 'Auto Hatch', 'Auto Enchant', 'Auto Trade'],
-    loadstring: "loadstring(game:HttpGet('https://wishub.cloud/api/v1/scripts/pet-sim-99'))()",
-    executors: ['Wave', 'Delta', 'Krnl', 'Hydrogen'],
-    updated: '15 minutes ago',
-    image: 'https://picsum.photos/seed/pet-sim-99/400/250'
+    image: 'https://picsum.photos/seed/grow-a-garden/400/250'
   }
 ];
 
@@ -153,11 +55,10 @@ tabBtns.forEach((btn) => {
   });
 });
 
-/* ===== Games Filter ===== */
-function renderGames(filter = 'all') {
+/* ===== Games ===== */
+function renderGames() {
   if (!gamesGrid) return;
-  const filtered = filter === 'all' ? GAMES : GAMES.filter((g) => g.badge === filter);
-  gamesGrid.innerHTML = filtered.map((game) => `
+  gamesGrid.innerHTML = GAMES.map((game) => `
     <div class="game-card reveal" data-game="${game.id}" data-badge="${game.badge}">
       <img src="${game.image}" alt="${game.name}" class="game-card-image" loading="lazy" />
       <div class="game-card-body">
@@ -187,14 +88,6 @@ function renderGames(filter = 'all') {
     document.querySelectorAll('.game-card.reveal').forEach((el) => el.classList.add('visible'));
   });
 }
-
-filterBtns.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderGames(btn.dataset.filter);
-  });
-});
 
 renderGames();
 
